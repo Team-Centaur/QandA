@@ -16,5 +16,16 @@
   "bugs": {
     "url": "https://github.com/rfp-2305-uranus/fec-uranus/issues"
   },
-  "homepage": "https://github.com/rfp-2305-uranus/fec-uranus#readme"
+  "homepage": "https://github.com/rfp-2305-uranus/fec-uranus#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.22.5",
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "webpack": "^5.88.0"
+  }
 }
