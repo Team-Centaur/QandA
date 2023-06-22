@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/rfp-2305-uranus/fec-uranus#readme",
   "dependencies": {
+    "axios": "^1.4.0",
     "dotenv": "^16.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -29,6 +30,7 @@
     "@babel/preset-env": "^7.22.5",
     "@babel/preset-react": "^7.22.5",
     "babel-loader": "^9.1.2",
+    "dotenv-webpack": "^8.0.1",
     "html-webpack-plugin": "^5.5.3",
     "webpack": "^5.88.0",
     "webpack-cli": "^5.1.4",
