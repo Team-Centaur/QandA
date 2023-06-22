@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/rfp-2305-uranus/fec-uranus#readme",
   "dependencies": {
+    "axios": "^1.4.0",
     "dotenv": "^16.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
