@@ -16,6 +16,5 @@ const QuesAnswer = (props) => {
       <button className='askQuestionButton'>ASK A QUESTION +</button>
     </section>
   )
-
 }
 export default QuesAnswer;
