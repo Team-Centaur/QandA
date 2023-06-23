@@ -33,7 +33,7 @@ const AskQuestion = ({ isAskQuestion, product }) => {
       body: questionBody,
       name: questionName,
       email: questionEmail,
-      product_id: product.id
+      product_id: product.id,
     };
 
     axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions', data, options)
