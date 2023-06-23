@@ -21,7 +21,7 @@ const App = () => {
       <Overview />
       <ItemsComponent />
       <QuesAnswer />
-      <RatingReview />
+      <RatingReview currItem={currItem}/>
     </div>
   );
 };
