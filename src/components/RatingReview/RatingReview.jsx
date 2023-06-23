@@ -1,10 +1,11 @@
 import React from 'react';
-// test
+import ReviewsList from './ReviewsListModule/ReviewsList.jsx'
+
 const RatingReview = (props) => {
 
   return <section>
-
+    <ReviewsList />
   </section>;
 };
 
-export default RatingReview
+export default RatingReview;
