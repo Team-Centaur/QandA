@@ -13,7 +13,26 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
+    'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    'react/prop-types': 'off',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'always',
+        jsx: 'always',
+      },
+    ],
+    'react/function-component-definition': [
+      'error',
+      {
+        namedComponents: [
+          'function-declaration',
+          'function-expression',
+          'arrow-function',
+        ],
+        unnamedComponents: ['function-expression', 'arrow-function'],
+      },
+    ],
   },
 };
