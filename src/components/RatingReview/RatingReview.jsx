@@ -37,7 +37,7 @@ const RatingReview = ({ currItem }) => {
     getReviewData();
   }, [])
 
-  return <section>
+  return <section className='ratingReview'>
     <ReviewsList reviews={reviews} page={page}/>
     <RatingBreakdown />
     <ProductBreakdown />
