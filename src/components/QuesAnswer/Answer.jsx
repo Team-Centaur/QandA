@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Answer = ({ answer }) => {
-  console.log(answer);
 
   return (
     <div>
