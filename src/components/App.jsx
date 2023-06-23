@@ -26,7 +26,7 @@ const App = () => {
       <h1>Hello worlds!</h1>
       <Overview />
       <ItemsComponent currItem={currItem} />
-      <QuesAnswer />
+      <QuesAnswer product={currItem}/>
       <RatingReview />
     </div>
   );
