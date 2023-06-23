@@ -15,7 +15,7 @@ const RatingReview = ({ currItem }) => {
 
   // make request to API for review data
   useEffect(() => {
-    getReviewMetadata();
+    getReviewMetadata(currItem.id);
   }, [])
 
   return <section>
