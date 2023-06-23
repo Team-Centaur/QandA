@@ -1,4 +1,5 @@
 import axios from 'axios';
+import getRandomNumber from './getRandomNumber.js';
 
 const apiKey = process.env.REACT_APP_API_KEY;
 
@@ -9,7 +10,7 @@ const getRandomProd = async () => {
       url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/?count=100',
       headers: { Authorization: apiKey },
     });
-    return response.data[Math.floor(Math.random() * (99 - 0) + 0)];
+    return response.data[getRandomNumber(0, 99)];
   } catch (err) {
     return err;
   }

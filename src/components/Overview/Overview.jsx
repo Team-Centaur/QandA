@@ -7,7 +7,7 @@ const Overview = (props) => {
     <div className = "product-container">
       Image Gallery and Product Overview Container
       <div className = "image-gallery-container">Image Gallery</div>
-      <div clasName = "product-details-container">Product Overview</div>
+      <div className = "product-details-container">Product Overview</div>
     </div>
     <div className = "description-container">
       Description container
