@@ -1,10 +1,18 @@
 import React from 'react';
+import axios from 'axios';
 import { useState } from 'react';
 import { Search } from './Search.jsx';
+import { AskQuestion } from './AskQuestion.jsx';
 
-const QuesAnswer = (props) => {
+
+const QuesAnswer = ({product}) => {
 
   const [questions, setQuestions] = useState([]);
+  const [isAskQuestion, setIsAskQuestion] = useState(true);
+
+  const addQuestionHandler = (event) => {
+    setIsAskQuestion(false);
+  };
 
   return(
     <section>
@@ -13,9 +21,12 @@ const QuesAnswer = (props) => {
       {questions.map(question => <question question={question} key={question.id}/>)}
       <h5>LOAD MORE ANSWERS</h5>
       <button className='loadQuestionButton'>MORE ANSWERED QUESTIONS</button>
-      <button className='askQuestionButton'>ASK A QUESTION +</button>
+      <button className='askQuestionButton' onClick={(event) => {
+        addQuestionHandler(event)
+      }}>ASK A QUESTION</button>
+      <AskQuestion isAskQuestion={isAskQuestion} product={product}/>
     </section>
   )
-
 }
+
 export default QuesAnswer;
