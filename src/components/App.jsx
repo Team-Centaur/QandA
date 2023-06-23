@@ -6,20 +6,26 @@ import ItemsComponent from "./ItemsComponent/ItemsComponent.jsx";
 import QuesAnswer from "./QuesAnswer/QuesAnswer.jsx";
 import RatingReview from "./RatingReview/RatingReview.jsx";
 
+import "./App.css";
+
 const App = () => {
   const apiKey = process.env.REACT_APP_API_KEY;
-  const [currItem, setCurrItem] = useState({});
+  const [currItem, setCurrItem] = useState(null);
   useEffect(() => {
     getRandomProd().then((data) => {
       setCurrItem(data);
     });
   }, []);
 
+  if (!currItem) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div>
+    <div className="app-container">
       <h1>Hello worlds!</h1>
-      <Overview currItem = {currItem}/>
-      <ItemsComponent />
+      <Overview currItem = {currItem} />
+      <ItemsComponent currItem = {currItem} />
       <QuesAnswer />
       <RatingReview />
     </div>
