@@ -6,6 +6,8 @@ import ItemsComponent from "./ItemsComponent/ItemsComponent.jsx";
 import QuesAnswer from "./QuesAnswer/QuesAnswer.jsx";
 import RatingReview from "./RatingReview/RatingReview.jsx";
 
+import "./App.css";
+
 const App = () => {
   const apiKey = process.env.REACT_APP_API_KEY;
   const [currItem, setCurrItem] = useState(null);
@@ -15,22 +17,18 @@ const App = () => {
     });
   }, []);
 
-
   if (!currItem) {
     return <div>Loading...</div>;
   }
-  
+
   return (
-    <>
-      <div>
-        
-        <h1>Hello worlds!</h1>
-        <Overview />
-        <ItemsComponent currItem={currItem} />
-        <QuesAnswer />
-        <RatingReview />
-      </div>
-    </>
+    <div className="app-container">
+      <h1>Hello worlds!</h1>
+      <Overview />
+      <ItemsComponent currItem={currItem} />
+      <QuesAnswer />
+      <RatingReview />
+    </div>
   );
 };
 
