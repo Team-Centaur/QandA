@@ -8,7 +8,7 @@ import RatingReview from './RatingReview/RatingReview.jsx';
 
 import './App.css';
 
-const App = () => {
+function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
   const [currItem, setCurrItem] = useState(null);
   useEffect(() => {
@@ -24,12 +24,12 @@ const App = () => {
   return (
     <div className="app-container">
       <h1>Hello worlds!</h1>
-      <Overview />
+      <Overview currItem={currItem} />
       <ItemsComponent currItem={currItem} />
       <QuesAnswer product={currItem}/>
       <RatingReview currItem={currItem}/>
     </div>
   );
-};
+}
 
 export default App;

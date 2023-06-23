@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios from 'axios';
+
 const apiKey = process.env.REACT_APP_API_KEY;
 
 // Async function, use .then((data) => ....)
@@ -7,7 +8,7 @@ const apiKey = process.env.REACT_APP_API_KEY;
 const getStylesById = async (id) => {
   try {
     const response = await axios({
-      method: "get",
+      method: 'get',
       url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${id}/styles`,
       headers: { Authorization: apiKey },
     });
