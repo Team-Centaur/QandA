@@ -1,7 +1,20 @@
 import React from 'react';
+import ReviewsList from './ReviewsListModule/ReviewsList.jsx'
+import RatingBreakdown from './RatingBreakdownModule/RatingBreakdown.jsx'
+import ProductBreakdown from './ProductBreakdownModule/ProductBreakdown.jsx'
+import WriteReview from './WriteReviewModule/WriteReview.jsx'
 
-const RatingReview = (props) => {
-  return (<section></section>);
+const RatingReview = ({ currItem }) => {
+  console.log(currItem);
+  // THIS IS A TEST
+  // make request to API for review data
+
+  return <section>
+    <ReviewsList />
+    <RatingBreakdown />
+    <ProductBreakdown />
+    <WriteReview />
+  </section>;
 };
- 
-export default RatingReview
+
+export default RatingReview;
