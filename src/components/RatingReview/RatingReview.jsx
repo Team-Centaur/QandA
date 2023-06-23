@@ -20,13 +20,16 @@ const RatingReview = ({ currItem }) => {
   useEffect(() => {
     async function getReviewData() {
       try {
-        const metadata = await getReviewMetadata(currItem.id);
+        const metadataRes = await getReviewMetadata(currItem.id);
         // get reviews sorted by relevance, start at page 1, only 2 reviews per page
-        const reviews = await getReviews(currItem.id, 'relevant', 1, 2);
-        setReviews(reviews);
-        console.log(reviews);
-        console.log(metadata);
-        // SET STATES
+        const reviewsRes = await getReviews(currItem.id, 'relevant', 1, 2);
+        setReviews(reviewsRes.results);
+        setPage(reviewsRes.page)
+        setCharacteristics(metadataRes.characteristics);
+        setRatings(metadataRes.ratings);
+        setRecommended(metadataRes.recommended);
+        // console.log(reviewsRes);
+        // console.log(metadataRes);
       } catch (error) {
         console.log(error);
       }
@@ -35,7 +38,7 @@ const RatingReview = ({ currItem }) => {
   }, [])
 
   return <section>
-    <ReviewsList />
+    <ReviewsList reviews={reviews} page={page}/>
     <RatingBreakdown />
     <ProductBreakdown />
     <WriteReview />
