@@ -15,17 +15,16 @@ const RatingReview = ({ currItem }) => {
 
   // make request to API for reviews, metadata
   useEffect(() => {
-    async function fetchData() {
+    async function getReviewData() {
       try {
         const metadata = await getReviewMetadata(currItem.id);
         const reviews = await getReviews(currItem.id);
-        console.log(metadata)
-        console.log(reviews)
+        // SET STATES
       } catch (error) {
         console.log(error);
       }
     }
-    fetchData();
+    getReviewData();
   }, [])
 
   return <section>
