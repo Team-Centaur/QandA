@@ -18,7 +18,7 @@ const App = () => {
   return (
     <div>
       <h1>Hello worlds!</h1>
-      <Overview />
+      <Overview currItem = {currItem}/>
       <ItemsComponent />
       <QuesAnswer />
       <RatingReview />
