@@ -6,6 +6,7 @@ import WriteReview from './WriteReviewModule/WriteReview.jsx'
 
 const RatingReview = ({ currItem }) => {
   console.log(currItem);
+  // THIS IS A TEST
   // make request to API for review data
 
   return <section>
