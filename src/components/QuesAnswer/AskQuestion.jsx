@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+// import PropTypes from 'prop-types';
 import axios from 'axios';
-import { useState } from 'react';
 
-const AskQuestion = ({isAskQuestion, product}) => {
-
+const AskQuestion = ({ isAskQuestion, product }) => {
   const [questionBody, setQuestionBody] = useState('');
   const [questionName, setQuestionName] = useState('');
   const [questionEmail, setQuestionEmail] = useState('');
@@ -26,8 +25,8 @@ const AskQuestion = ({isAskQuestion, product}) => {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': process.env.REACT_APP_API_KEY
-      }
+        Authorization: process.env.REACT_APP_API_KEY,
+      },
     };
 
     const data = {
@@ -38,19 +37,23 @@ const AskQuestion = ({isAskQuestion, product}) => {
     };
 
     axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions', data, options)
-          .then(response => console.log(response))
-          .catch(err => console.log(err));
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
   };
 
-
   return (
-    <form className='askQuestionContainer' hidden={isAskQuestion}>
-      <input className='askQuestionNameInput' maxLength='60' placeholder='Name' onChange={questionNameOnChangeHandler}></input>
-      <input className='askQuestionEmailInput' maxLength='60' placeholder='Email' onChange={questionEmailOnChangeHandler}></input>
-      <textarea  type='text' rows='5' cols='50' maxLength='1000' placeholder='question' onChange={questionBodyOnChangeHandler}></textarea>
-      <button type='submit' className='submitAskQuestionButton' onClick={createQuestionHandler}>Submit</button>
+    <form className="askQuestionContainer" hidden={isAskQuestion}>
+      <input className="askQuestionNameInput" maxLength="60" placeholder="Name" onChange={questionNameOnChangeHandler} />
+      <input className="askQuestionEmailInput" maxLength="60" placeholder="Email" onChange={questionEmailOnChangeHandler} />
+      <textarea type="text" rows="5" cols="50" maxLength="1000" placeholder="question" onChange={questionBodyOnChangeHandler} />
+      <button type="submit" className="submitAskQuestionButton" onClick={createQuestionHandler}>Submit</button>
     </form>
   );
 };
 
 export default AskQuestion;
+
+// AskQuestion.propTypes = {
+//   isAskQuestion: PropTypes.boolean.isRequired,
+//   product: PropTypes.Object.isRequired,
+// };
