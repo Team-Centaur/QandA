@@ -19,11 +19,14 @@
   },
   "homepage": "https://github.com/rfp-2305-uranus/fec-uranus#readme",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "dotenv": "^16.3.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.10.1",
+    "react-redux": "^8.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.22.5",
