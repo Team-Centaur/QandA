@@ -7,15 +7,25 @@ import ProductBreakdown from './ProductBreakdownModule/ProductBreakdown.jsx'
 import WriteReview from './WriteReviewModule/WriteReview.jsx'
 
 import getReviewMetadata from '../../helperFunctions/getReviewMetadata.js'
+import getReviews from '../../helperFunctions/getReviews.js'
 
 const RatingReview = ({ currItem }) => {
   console.log(currItem);
-  // currItem properties:
-  // category, default_price, description, id, name, slogan, created_at, updated_at
+  // currItem properties: category, default_price, description, id, name, slogan, created_at, updated_at
 
-  // make request to API for review data
+  // make request to API for reviews, metadata
   useEffect(() => {
-    getReviewMetadata(currItem.id);
+    async function fetchData() {
+      try {
+        const metadata = await getReviewMetadata(currItem.id);
+        const reviews = await getReviews(currItem.id);
+        console.log(metadata)
+        console.log(reviews)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
   }, [])
 
   return <section>
