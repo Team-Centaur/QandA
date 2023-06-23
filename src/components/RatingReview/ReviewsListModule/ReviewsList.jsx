@@ -1,13 +1,12 @@
 import React from 'react';
+import ReviewTile from './ReviewTile.jsx'
 
 const ReviewsList = ({reviews, page}) => {
-  console.log(reviews)
-  console.log(page)
 
   return <section>
   <h1>Reviews List! </h1>
   {reviews.map((review) =>
-    <div>{review.summary}</div>
+    <ReviewTile review={review} key={review.review_id}/>
     )
   }
   </section>
