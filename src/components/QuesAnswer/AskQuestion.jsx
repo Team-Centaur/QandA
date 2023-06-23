@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 
-export const AskQuestion = ({isAskQuestion, product}) => {
+const AskQuestion = ({isAskQuestion, product}) => {
 
   const [questionBody, setQuestionBody] = useState('');
   const [questionName, setQuestionName] = useState('');
@@ -52,3 +52,5 @@ export const AskQuestion = ({isAskQuestion, product}) => {
     </form>
   );
 };
+
+export default AskQuestion;

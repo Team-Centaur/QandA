@@ -1,14 +1,15 @@
-import React from 'react';
-import axios from 'axios';
-import { useState } from 'react';
-import { Search } from './Search.jsx';
-import { AskQuestion } from './AskQuestion.jsx';
-
+import React, { useState, useEffect } from 'react';
+import Search from './Search.jsx';
+import AskQuestion from './AskQuestion.jsx';
 
 const QuesAnswer = ({product}) => {
 
   const [questions, setQuestions] = useState([]);
   const [isAskQuestion, setIsAskQuestion] = useState(true);
+
+  useEffect(() => {
+
+  }, []);
 
   const addQuestionHandler = (event) => {
     setIsAskQuestion(false);
@@ -26,7 +27,7 @@ const QuesAnswer = ({product}) => {
       }}>ASK A QUESTION</button>
       <AskQuestion isAskQuestion={isAskQuestion} product={product}/>
     </section>
-  )
-}
+  );
+};
 
 export default QuesAnswer;
