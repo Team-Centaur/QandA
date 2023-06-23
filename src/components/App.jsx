@@ -26,8 +26,8 @@ function App() {
       <h1>Hello worlds!</h1>
       <Overview currItem={currItem} />
       <ItemsComponent currItem={currItem} />
-      <QuesAnswer />
-      <RatingReview />
+      <QuesAnswer product={currItem}/>
+      <RatingReview currItem={currItem}/>
     </div>
   );
 }
