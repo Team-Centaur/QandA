@@ -45,7 +45,7 @@ function Card({ productID, setCurrItem, type }) {
   };
 
   return (
-    <div className="items-comp--card" onClick={clickHandler} role="product">
+    <li className="items-comp--card" onClick={clickHandler}>
       {/* If there is no photo url, display gray background with text */}
       {!imageUrl && (
         <div className="items-comp--card_img">
@@ -103,7 +103,7 @@ function Card({ productID, setCurrItem, type }) {
           <StarRating rating={3} />
         </p>
       </div>
-    </div>
+    </li>
   );
 }
 
