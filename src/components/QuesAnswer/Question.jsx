@@ -13,6 +13,7 @@ const Question = ({ question }) => {
     }
   }, []);
 
+  // expand answers section when more answers button is clicked
   const moreAnswersButtonClickHandler = () => {
     const NUMBER_OF_ANSWERS_LEFT = 3;
     const NUMBER_OF_ANSWERS_TO_LOAD = 2;

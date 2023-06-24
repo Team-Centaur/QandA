@@ -19,6 +19,7 @@ const AskQuestion = ({ isAskQuestion, product }) => {
     setQuestionEmail(event.target.value);
   };
 
+  // send form data to api when submit button clicked
   const createQuestionHandler = (event) => {
     event.preventDefault();
 
@@ -42,9 +43,9 @@ const AskQuestion = ({ isAskQuestion, product }) => {
   };
 
   return (
-    <form className="askQuestionContainer" hidden={isAskQuestion}>
-      <input className="askQuestionNameInput" maxLength="60" placeholder="Name" onChange={questionNameOnChangeHandler} />
-      <input className="askQuestionEmailInput" maxLength="60" placeholder="Email" onChange={questionEmailOnChangeHandler} />
+    <form className="askQuestionContainer" value={questionBody} hidden={isAskQuestion}>
+      <input className="askQuestionNameInput" maxLength="60" placeholder="Name" onChange={questionNameOnChangeHandler} value={questionName} />
+      <input className="askQuestionEmailInput" maxLength="60" placeholder="Email" onChange={questionEmailOnChangeHandler} value={questionEmail} />
       <textarea type="text" rows="5" cols="50" maxLength="1000" placeholder="question" onChange={questionBodyOnChangeHandler} />
       <button type="submit" className="submitAskQuestionButton" onClick={createQuestionHandler}>Submit</button>
     </form>

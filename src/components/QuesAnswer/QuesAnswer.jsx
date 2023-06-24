@@ -24,6 +24,7 @@ const QuesAnswer = ({ product }) => {
     },
   };
 
+  // get data and store questions
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions?product_id=${product.id}&page=${1}&count=${10}`, options)
       .then((response) => {
@@ -33,6 +34,7 @@ const QuesAnswer = ({ product }) => {
       .catch((err) => console.log(err));
   }, []);
 
+  // expand more questions on button click
   const moreQuestionsButtonClickHandler = () => {
     const NUMBER_OF_QUESTIONS_LEFT = 3;
     const NUMBER_OF_QUESTIONS_TO_LOAD = 2;
@@ -46,6 +48,7 @@ const QuesAnswer = ({ product }) => {
     }
   };
 
+  // make ask a question form appear when ask a question button is clicked
   const addQuestionHandler = () => {
     setIsAskQuestion(false);
   };
