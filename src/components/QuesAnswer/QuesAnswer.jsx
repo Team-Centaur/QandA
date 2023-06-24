@@ -38,7 +38,7 @@ const QuesAnswer = ({ product }) => {
       <Search />
       <Display questions={questions} />
       <h5>LOAD MORE ANSWERS</h5>
-      <button type="submit" className="loadQuestionButton">MORE ANSWERED QUESTIONS</button>
+      <button type="submit" className="moreQuestionsButton">MORE QUESTIONS</button>
       <button
         type="submit"
         className="askQuestionButton"
@@ -46,7 +46,7 @@ const QuesAnswer = ({ product }) => {
       >
         ASK A QUESTION
       </button>
-      <AskQuestion isAskQuestion={isAskQuestion} product={product}/>
+      <AskQuestion isAskQuestion={isAskQuestion} product={product} />
     </section>
   );
 };
