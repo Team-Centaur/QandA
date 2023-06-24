@@ -10,11 +10,6 @@ const Question = ({ question }) => {
     if (Object.values(question.answers).length > 0) {
       setAnswers(Object.values(question.answers));
       setDisplayAnswers([Object.values(question.answers)[0]]);
-      if (answers.length === displayAnswers) {
-        setIsNoMoreAnswers(true);
-      } else {
-        setIsNoMoreAnswers(false);
-      }
     }
   }, []);
 
