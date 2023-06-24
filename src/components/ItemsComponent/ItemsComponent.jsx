@@ -1,13 +1,10 @@
-import React from "react";
-import Card from "./Card/Card.jsx";
+import React from 'react';
+import RecommendedItems from './RecommendedItems/RecommendedItems.jsx';
 
-const ItemsComponent = ({ currItem }) => {
-  console.log(currItem);
-  return (
-    <section>
-      <Card product={currItem}/>
-    </section>
-  );
-};
+const ItemsComponent = ({ currItem, setCurrItem }) => (
+  <section>
+    <RecommendedItems currItem={currItem} setCurrItem={setCurrItem} />
+  </section>
+);
 
 export default ItemsComponent;
