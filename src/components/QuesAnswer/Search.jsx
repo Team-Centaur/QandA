@@ -1,7 +1,6 @@
 import React from 'react';
 
-
-export const Search = (props) => {
+const Search = (props) => {
   return (
     <>
       <input type='search' placeholder='Search for a question'></input>
@@ -9,3 +8,5 @@ export const Search = (props) => {
     </>
   )
 };
+
+export default Search;
