@@ -40,7 +40,7 @@
 .items-comp--reco-list_btn {
   background: transparent;
   border: none;
-  filter: drop-shadow(1px 0px 0px #000);
+  filter: drop-shadow(0.0625rem 0rem 0rem #000);
 }
 
 .items-comp--reco-list_btn.right {

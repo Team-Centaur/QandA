@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import ActionBtnStar from './ActionBtn/ActionBtnStar.jsx';
-import StarRating from '../../Utilities/StarRating.jsx';
+// import ActionBtnStar from './ActionBtn/ActionBtnStar.jsx';
+import { FaRegStar } from 'react-icons/fa6';
 
+import StarRating from '../../Utilities/StarRating.jsx';
 import './Card.css';
 
 import getProductById from '../../../helperFunctions/App/getProductById.js';
 import getStylesById from '../../../helperFunctions/App/getStylesById.js';
 // import getRandomNumber from '../../../helperFunctions/App/getRandomNumber.js';
 
-function Card({ productID, setCurrItem, type }) {
+function Card({ productID, setCurrItem }) {
   const [productObj, setProductObj] = useState(null);
   const [styles, setStyles] = useState(null);
 
@@ -28,6 +29,7 @@ function Card({ productID, setCurrItem, type }) {
       });
   }, []);
 
+  /// /////////// CONDITIONAL RENDERING & LOADING STATE //////////////
   if (!styles) {
     return <div className="items-comp--card">Loading...</div>;
   }
@@ -37,13 +39,27 @@ function Card({ productID, setCurrItem, type }) {
   const imageUrl = randomStyle.photos[0].thumbnail_url;
 
   if (!productObj) {
-    return;
+    return null;
   }
 
+  /// /////////// EVENT HANDLERS //////////////
   const clickHandler = () => {
     setCurrItem(productObj);
   };
 
+  /// /////////// STYLES //////////////
+  const starStyle = {
+    color: '#000',
+    fontSize: '1.5rem',
+    zIndex: '2000',
+    position: 'absolute',
+    top: '5%',
+    right: '5%',
+    // filter: 'drop-shadow(rgba(255, 255, 255, 0.4) 0rem 0rem .3125rem)',
+    filter: 'drop-shadow(rgba(255, 255, 255, 0.5) 0rem 0rem 0.1125rem )',
+  };
+
+  /// /////////// JSX //////////////
   return (
     <li className="items-comp--card" onClick={clickHandler}>
       {/* If there is no photo url, display gray background with text */}
@@ -63,7 +79,8 @@ function Card({ productID, setCurrItem, type }) {
           >
             No Photo Available
           </div>
-          <ActionBtnStar />
+          <FaRegStar color="black" />
+          {/* <ActionBtnStar /> */}
         </div>
       )}
       {/* If there is a photo url, display photo */}
@@ -78,7 +95,8 @@ function Card({ productID, setCurrItem, type }) {
               backgroundPosition: 'center',
             }}
           />
-          <ActionBtnStar />
+          <FaRegStar style={starStyle} />
+          {/* <ActionBtnStar /> */}
         </div>
       )}
       <div className="items-comp--card_text">
