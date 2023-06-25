@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
 import StarRating from '../../Utilities/StarRating.jsx';
+import ImageThumbnail from './ImageThumbnail.jsx';
 
 const ReviewTile = ({ review }) => {
-  const { body, date, helpfulness, photos, rating, recommend, response, review_id, reviewer_name, summary } = review;
+  const {
+    body, date, helpfulness, photos, rating, recommend, response, review_id, reviewer_name, summary
+  } = review;
   console.log(review);
 
   // if review body is longer than char limit, show button and limit chars displayed
   const charLimit = 50; // **should be 250 for final product
   const [showButton, setShowButton] = useState(
-    (body.length > charLimit) ? true : false
-    );
+    (body.length > charLimit)
+  );
   const [reviewDisplay, setReviewDisplay] = useState(
     (body.length > charLimit) ? body.slice(0, charLimit) : body
-    );
+  );
 
   // render images if provided
-  const [images, setImages] = useState(
-    (photos.length) ? true : false
-  );
+  const [images, setImages] = useState(!!(photos.length));
 
   // TODO: check if user email is associated with sale in system
   const [isVerified, setIsVerified] = useState(false);
@@ -33,29 +34,53 @@ const ReviewTile = ({ review }) => {
 
       <div className='reviewDate'>{date}</div>
 
-      <div className='reviewSummary'>{summary}</div>
+      <div className='reviewSummary'>
+        <h4>{summary}</h4>
+      </div>
 
       <div className='reviewBody'>{reviewDisplay}</div>
       {/* button only shows if body is longer than 250 */}
-      {showButton && <button onClick={() => {
-        setShowButton(false)
-        setReviewDisplay(body)
-        }}>Show more</button>}
+      {showButton && (
+      <button
+        type='button'
+        onClick={() => {
+          setShowButton(false);
+          setReviewDisplay(body);
+        }}
+      >
+        Show more
+      </button>
+      )}
 
-      <div className='reviewImages'>images</div>
+      {images && (
+      <div className='reviewImages'>
+        {photos.map((photo) => (
+          <img src={photo.url} key={photo.url}
+            alt='review thumbnail'/>
+        ))}
+      </div>
+      )}
 
       <div className='reviewerName'>
-        {reviewer_name}
+        <h4>{reviewer_name}</h4>
         {isVerified && <span> Verified Purchaser</span>}
       </div>
 
-      {recommend && <div>I recommend this product</div>}
-      {response && <div>
-        <h5>Response from Seller</h5>
-        {response}
-      </div>}
+      {recommend && (
+        <div>
+          I recommend this product
+        </div>
+      )}
+
+      {response && (
+        <div className='sellerResponse'>
+          <h4>Response from Seller</h4>
+          {response}
+        </div>
+      )}
+
       <div className='reviewHelpfulness'>
-        yes/no buttons
+        Was this review helpful? yes/no buttons
       </div>
       --------------------------------
     </div>
