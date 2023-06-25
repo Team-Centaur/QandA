@@ -17,20 +17,15 @@ const ReviewTile = ({ review }) => {
     (body.length > charLimit) ? body.slice(0, charLimit) : body
   );
 
-  // render images if provided
-  const [images, setImages] = useState(!!(photos.length));
-
   // TODO: check if user email is associated with sale in system
   const [isVerified, setIsVerified] = useState(false);
 
   // was this review helpful - yes/no radio buttions
 
-  // render thumbnails if images
-
   return (
     <div className='reviewTile'>
       --------------------------------
-      <h3>{StarRating({rating})}</h3>
+      <h3>{StarRating({ rating })}</h3>
 
       <div className='reviewDate'>{date}</div>
 
@@ -52,13 +47,8 @@ const ReviewTile = ({ review }) => {
       </button>
       )}
 
-      {images && (
-      <div className='reviewImages'>
-        {photos.map((photo) => (
-          <img src={photo.url} key={photo.url}
-            alt='review thumbnail'/>
-        ))}
-      </div>
+      {!!(photos.length) && (
+        photos.map((photo) => <ImageThumbnail key={photo.id} photo={photo} />)
       )}
 
       <div className='reviewerName'>

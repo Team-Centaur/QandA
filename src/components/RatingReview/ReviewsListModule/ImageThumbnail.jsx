@@ -1,10 +1,11 @@
 import React from 'react';
 
-const ImageThumbnail = () => {
+const ImageThumbnail = ({ photo }) => (
 
-  return <div>
-    (thumbnail)
+  <div>
+    <img src={photo.url} alt='review thumbnail' />
+    {/* RESIZE THIS IMAGE */}
   </div>
-};
+);
 
 export default ImageThumbnail;
