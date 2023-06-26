@@ -57,3 +57,6 @@ const Overview = ({ currItem }) => {
 };
 
 export default Overview;
+
+
+// Gonna try implementing the scroll feature.
