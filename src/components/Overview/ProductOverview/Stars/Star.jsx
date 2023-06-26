@@ -19,7 +19,7 @@ const Star = ({ starAmount }) => {
       );
     } if (starAmount >= 0.75 && starAmount < 0.9) {
       return (
-        <span className="quarter-star" key={starAmount}>
+        <span className="quarter-star">
           <svg width="25" height="25" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="SVGRepo_bgCarrier" strokeWidth="0" />
             <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" />
@@ -33,7 +33,7 @@ const Star = ({ starAmount }) => {
       );
     } if (starAmount >= 0.5 && starAmount < 0.75) {
       return (
-        <span className="quarter-star" key={starAmount}>
+        <span className="quarter-star">
           <svg width="25" height="25" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="SVGRepo_bgCarrier" strokeWidth="0" />
             <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" />
@@ -47,7 +47,7 @@ const Star = ({ starAmount }) => {
       );
     }
     return (
-      <span className="quarter-star" key={starAmount}>
+      <span className="quarter-star">
         <svg width="25" height="25" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g id="SVGRepo_bgCarrier" strokeWidth="0" />
           <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" />

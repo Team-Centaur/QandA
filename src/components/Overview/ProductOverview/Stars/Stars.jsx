@@ -12,22 +12,24 @@ const Stars = ({ avgRating }) => {
     for (let i = 0; i < floorRating; i += 1) {
       stars.push(
         <span className="star" key={i}>
-          <Star24Filled />
+          <Star24Filled key={i} />
         </span>,
       );
     }
-    stars.push(<Star starAmount={remainingStar} />);
+    stars.push(<Star starAmount={remainingStar} key={remainingStar} />);
     while (stars.length < 5) {
-      stars.push(<Star24Regular />);
+      stars.push(<Star24Regular key={stars.length} />);
+      console.log(stars.length);
     }
     return stars;
   };
 
   if (avgRating) {
     return (
-      <>
+      <div className="stars-container">
         {renderStar(avgRating)}
-      </>
+      </div>
+
     );
   }
   return null;

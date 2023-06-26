@@ -18,7 +18,7 @@ const ProductOverview = ({ dataObj }) => {
   if (dataObj) {
     return (
       <div className="product-overview-container">
-        <Stars avgRating={avgRating(dataObj.ratings)} key={dataObj.id} />
+        <Stars avgRating={avgRating(dataObj.ratings)} />
         <div className="product-category">
           { dataObj.category }
         </div>
