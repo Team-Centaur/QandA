@@ -9,7 +9,6 @@ import {
 } from '@fluentui/react-icons';
 
 const Star = ({ starAmount }) => {
-  console.log(starAmount);
   if (starAmount) {
     if (starAmount >= 0.9) {
       return (

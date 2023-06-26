@@ -8,7 +8,6 @@ const Stars = ({ avgRating }) => {
     const floorRating = Math.floor(rating);
     const remainingStar = rating % 1;
     const stars = [];
-    console.log(floorRating);
     for (let i = 0; i < floorRating; i += 1) {
       stars.push(
         <span className="star" key={i}>
@@ -19,7 +18,6 @@ const Stars = ({ avgRating }) => {
     stars.push(<Star starAmount={remainingStar} key={remainingStar} />);
     while (stars.length < 5) {
       stars.push(<Star24Regular key={stars.length} />);
-      console.log(stars.length);
     }
     return stars;
   };
