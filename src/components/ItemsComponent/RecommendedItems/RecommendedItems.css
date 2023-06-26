@@ -1,7 +1,52 @@
-.items-comp--reco_container {
+.items-comp--reco-container {
+  /* width: 90%; */
+  max-width: 100% !important;
+  overflow: hidden;
+  position: relative; /* Add this */
+}
+
+.items-comp--reco-container.fade::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 30%; /* Increase this value to spread the fade effect further */
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  pointer-events: none;
+}
+
+.items-comp--reco-list {
   display: flex;
   flex-wrap: nowrap;
-  width: 200%;
+  /* width: 100%; */
   overflow: hidden;
   gap: 2rem;
+}
+
+.items-comp--reco-list li:first-child {
+  margin-left: 2rem;
+  /* margin-left: 10%; */
+}
+
+.items-comp--reco-list li:last-child {
+  margin-right: 2rem;
+}
+
+.items-comp--reco-list_btn {
+  background: transparent;
+  border: none;
+  filter: drop-shadow(0.0625rem 0rem 0rem #000);
+}
+
+.items-comp--reco-list_btn.right {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  z-index: 1000;
+  transform: translateY(-50%);
 }
