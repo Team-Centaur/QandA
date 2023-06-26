@@ -14,7 +14,7 @@ const ReviewTile = ({ review }) => {
     (body.length > charLimit)
   );
   const [reviewDisplay, setReviewDisplay] = useState(
-    (body.length > charLimit) ? body.slice(0, charLimit) : body
+    (body.length > charLimit) ? (body.slice(0, charLimit) + '...') : body
   );
 
   // TODO: check if user email is associated with sale in system
