@@ -9,7 +9,7 @@ const ReviewTile = ({ review }) => {
   // console.log(review);
 
   // if review body is longer than char limit, show button and limit chars displayed
-  const charLimit = 50; // **should be 250 for final product
+  const charLimit = 250; // **should be 250 for final product
   const [showButton, setShowButton] = useState(
     (body.length > charLimit)
   );
