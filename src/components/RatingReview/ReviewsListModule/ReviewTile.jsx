@@ -1,33 +1,30 @@
 import React, { useState } from 'react';
 import StarRating from '../../Utilities/StarRating.jsx';
 import ImageThumbnail from './ImageThumbnail.jsx';
+import makeDatePretty from '../../../helperFunctions/makeDatePretty';
 
 const ReviewTile = ({ review }) => {
   const {
     body, date, helpfulness, photos, rating, recommend, response, review_id, reviewer_name, summary
   } = review;
-  // console.log(review);
 
   // if review body is longer than char limit, show button and limit chars displayed
-  const charLimit = 250; // **should be 250 for final product
+  const charLimit = 250;
   const [showButton, setShowButton] = useState(
     (body.length > charLimit)
   );
   const [reviewDisplay, setReviewDisplay] = useState(
     (body.length > charLimit) ? (body.slice(0, charLimit) + '...') : body
   );
-
   // TODO: check if user email is associated with sale in system
   const [isVerified, setIsVerified] = useState(false);
-
-  // was this review helpful - yes/no radio buttions
 
   return (
     <div className='reviewTile'>
       --------------------------------
       <h3>{StarRating({ rating })}</h3>
 
-      <div className='reviewDate'>{date}</div>
+      <div className='reviewDate'>{makeDatePretty(date)}</div>
 
       <div className='reviewSummary'>
         <h4>{summary}</h4>
@@ -59,7 +56,7 @@ const ReviewTile = ({ review }) => {
       </div>
 
       {recommend && (
-        <div>
+        <div className='reviewRecommend'>
           I recommend this product
         </div>
       )}
