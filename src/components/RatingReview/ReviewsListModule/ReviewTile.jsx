@@ -6,7 +6,7 @@ const ReviewTile = ({ review }) => {
   const {
     body, date, helpfulness, photos, rating, recommend, response, review_id, reviewer_name, summary
   } = review;
-  console.log(review);
+  // console.log(review);
 
   // if review body is longer than char limit, show button and limit chars displayed
   const charLimit = 50; // **should be 250 for final product
@@ -47,9 +47,11 @@ const ReviewTile = ({ review }) => {
       </button>
       )}
 
-      {!!(photos.length) && (
-        photos.map((photo) => <ImageThumbnail key={photo.id} photo={photo} />)
-      )}
+      <div className='reviewImages'>
+        {!!(photos.length) && (
+          photos.map((photo) => <ImageThumbnail key={photo.id} photo={photo} />)
+        )}
+      </div>
 
       <div className='reviewerName'>
         <h4>{reviewer_name}</h4>
@@ -70,7 +72,7 @@ const ReviewTile = ({ review }) => {
       )}
 
       <div className='reviewHelpfulness'>
-        Was this review helpful? yes/no buttons
+        Was this review helpful? yes ({ helpfulness }) / no (0) buttons
       </div>
       --------------------------------
     </div>

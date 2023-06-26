@@ -15,6 +15,8 @@ const RatingReview = ({ currItem }) => {
   const [characteristics, setCharacteristics] = useState({});
   const [ratings, setRatings] = useState({});
   const [recommended, setRecommended] = useState({});
+  const [sortOrder, setSortOrder] = useState('relevant');
+  const [allReviewsLoaded, setAllReviewsLoaded] = useState(false);
 
   // make request to API for reviews, metadata
   useEffect(() => {
@@ -22,14 +24,11 @@ const RatingReview = ({ currItem }) => {
       try {
         const metadataRes = await getReviewMetadata(currItem.id);
         // get reviews sorted by relevance, start at page 1, only 2 reviews per page
-        const reviewsRes = await getReviews(currItem.id, 'relevant', 1, 2);
+        const reviewsRes = await getReviews(currItem.id, sortOrder, page, 2);
         setReviews(reviewsRes.results);
-        setPage(reviewsRes.page);
         setCharacteristics(metadataRes.characteristics);
         setRatings(metadataRes.ratings);
         setRecommended(metadataRes.recommended);
-        // console.log(reviewsRes);
-        // console.log(metadataRes);
       } catch (error) {
         console.log(error);
       }
@@ -37,9 +36,26 @@ const RatingReview = ({ currItem }) => {
     getReviewData();
   }, []);
 
+  const loadMoreReviews = () => {
+    getReviews(currItem.id, 'relevant', (page + 1), 2).then((reviewsRes) => {
+      if (reviewsRes.results.length < 2) {
+        // if API returns less than 2 reviews, all reviews have been loaded
+        setAllReviewsLoaded(true);
+      } else {
+        setReviews([...reviews, ...reviewsRes.results]);
+        setPage(page + 1);
+      }
+    });
+  };
+
   return (
     <section className='ratingReview'>
-      <ReviewsList reviews={reviews} page={page} />
+      <ReviewsList
+        reviews={reviews}
+        page={page}
+        loadMoreReviews={loadMoreReviews}
+        allReviewsLoaded={allReviewsLoaded}
+      />
       <RatingBreakdown />
       <ProductBreakdown />
       <WriteReview />

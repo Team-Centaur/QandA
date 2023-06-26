@@ -1,11 +1,8 @@
 import React from 'react';
+import './ImageThumbnail.css';
 
 const ImageThumbnail = ({ photo }) => (
-
-  <div>
-    <img src={photo.url} alt='review thumbnail' />
-    {/* RESIZE THIS IMAGE */}
-  </div>
+  <img src={photo.url} alt='review thumbnail' width='100'/>
 );
 
 export default ImageThumbnail;
