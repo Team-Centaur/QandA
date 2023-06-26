@@ -10,7 +10,7 @@ import ProductOverview from './ProductOverview/ProductOverview.jsx';
 const apiKey = process.env.REACT_APP_API_KEY;
 
 const Overview = ({ currItem }) => {
-  const [dataObj, setDataObj] = useState({});
+  const [dataObj, setDataObj] = useState(null);
   useEffect(() => {
     let obj = {};
     getStylesById(currItem.id)
