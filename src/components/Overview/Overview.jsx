@@ -1,15 +1,16 @@
+/* eslint-disable react/self-closing-comp */
 /* eslint-disable camelcase */
-/* eslint-disable react/function-component-definition */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import getStylesById from '../../helperFunctions/App/getStylesById.js';
 import getProductById from '../../helperFunctions/App/getProductById.js';
+import ProductOverview from './ProductOverview/ProductOverview.jsx';
 
 const apiKey = process.env.REACT_APP_API_KEY;
 
 const Overview = ({ currItem }) => {
-  const mainObj = useRef({});
+  const [dataObj, setDataObj] = useState({});
   useEffect(() => {
     let obj = {};
     getStylesById(currItem.id)
@@ -34,7 +35,7 @@ const Overview = ({ currItem }) => {
       ))
       .then(({ data }) => {
         obj.ratings = data.ratings;
-        mainObj.current = obj;
+        setDataObj(obj);
       })
       .catch((err) => {
         throw err;
@@ -43,14 +44,13 @@ const Overview = ({ currItem }) => {
 
   return (
     <section className="overview-section">
-      <div className="promotion-container">Current Promotion Container</div>
+      <div className="promotion-container"></div>
       <div className="product-container">
-        Image Gallery and Product Overview Container
-        <div className="image-gallery-container">Image Gallery</div>
-        <div className="product-details-container">Product Overview</div>
+        <div className="image-gallery-container"></div>
+        <ProductOverview dataObj={dataObj} />
       </div>
       <div className="description-container">
-        Description container
+
       </div>
     </section>
   );
