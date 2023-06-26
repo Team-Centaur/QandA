@@ -72,7 +72,9 @@ const ReviewTile = ({ review }) => {
       )}
 
       <div className='reviewHelpfulness'>
-        Was this review helpful? yes ({ helpfulness }) / no (0) buttons
+        Was this review helpful?
+        <button>Yes ({helpfulness})</button>
+        <button>No (0)</button>
       </div>
       --------------------------------
     </div>
