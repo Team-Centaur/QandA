@@ -28,8 +28,11 @@ const QuesAnswer = ({ product }) => {
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions?product_id=${product.id}&page=${1}&count=${10}`, options)
       .then((response) => {
-        setQuestions(response.data.results);
-        setDisplayQuestions([response.data.results[0]]);
+        console.log(response.data.results[0]);
+        if (response.data.results.length > 0) {
+          setQuestions(response.data.results);
+          setDisplayQuestions([response.data.results[0]]);
+        }
       })
       .catch((err) => console.log(err));
   }, []);
@@ -58,7 +61,6 @@ const QuesAnswer = ({ product }) => {
       <h2>QUESTIONS & ANSWERS</h2>
       <Search />
       <Display questions={displayQuestions} />
-      <h5>LOAD MORE ANSWERS</h5>
       <button type="submit" className="moreQuestionsButton" onClick={moreQuestionsButtonClickHandler} hidden={isNoMoreQuestions}>
         MORE QUESTIONS
         {` (${questions.length - displayQuestions.length})`}
