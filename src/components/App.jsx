@@ -20,14 +20,14 @@ function App() {
   if (!currItem) {
     return <div>Loading...</div>;
   }
-
+  console.log(currItem);
   return (
     <div className="app-container">
       <h1>Hello worlds!</h1>
       <Overview currItem={currItem} />
-      <ItemsComponent currItem={currItem} />
-      <QuesAnswer product={currItem}/>
-      <RatingReview currItem={currItem}/>
+      <ItemsComponent currItem={currItem} setCurrItem={setCurrItem} />
+      <QuesAnswer product={currItem} />
+      <RatingReview currItem={currItem} />
     </div>
   );
 }
