@@ -17,7 +17,7 @@ const ImageThumbnail = ({ photo }) => {
   return (
     <>
       <div style={thumbnailStyle} onClick={() => setOpenModal(true)}/>
-      {openModal && <ReviewImageModal onClose={() => setOpenModal(false)} />}
+      {openModal && <ReviewImageModal onClose={() => setOpenModal(false)} photo={photo.url} />}
     </>
   );
 };
