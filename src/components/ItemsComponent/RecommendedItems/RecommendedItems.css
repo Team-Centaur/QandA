@@ -5,6 +5,21 @@
   position: relative; /* Add this */
 }
 
+.items-comp--reco-container.fade::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 50%; /* Increase this value to spread the fade effect further */
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  pointer-events: none;
+}
+
 .items-comp--reco-container.fade::after {
   content: '';
   position: absolute;
@@ -47,6 +62,14 @@
   position: absolute;
   top: 50%;
   right: 5%;
+  z-index: 1000;
+  transform: translateY(-50%);
+}
+
+.items-comp--reco-list_btn.left {
+  position: absolute;
+  top: 50%;
+  left: 5%;
   z-index: 1000;
   transform: translateY(-50%);
 }
