@@ -1,8 +1,9 @@
 import React from 'react';
+import CharacteristicInput from './CharacteristicInput.jsx';
 
 const ReviewFormStyles = {
   position: 'fixed',
-  top: '25%',
+  top: '0%',
   left: '50%',
   transform: 'translate(-50%, 50%)',
   backgroundColor: '#FFF',
@@ -21,6 +22,8 @@ const FormOverlayStyles = {
 };
 
 const NewReviewForm = ({ onClose, characteristics }) => {
+  let charaList = Object.entries(characteristics);
+
   return (
     <div style={FormOverlayStyles}>
       <form style={ReviewFormStyles}>
@@ -32,14 +35,13 @@ const NewReviewForm = ({ onClose, characteristics }) => {
         </div>
         <div className='recommendInput'>
           Do you recommend this product?
-          <input type='radio' id='recYes' value='yes' name='recommended' />
-          <label for='recYes'>Yes</label>
+          <input type='radio' id='recYes' value='yes' name='recommended' defaultChecked={true} onChange={(e) => console.log(e.target.value)}/>
+          <label htmlFor='recYes'> Yes </label>
           <input type='radio' id='recNo' value='no' name='recommended' />
-          <label for='recNo'>No</label>
+          <label htmlFor='recNo'> No </label>
         </div>
         <div className='characteristicsInput'>
-          render tile for each product characteristc w/ radio buttons
-          {/* DO THIS NEXT */}
+          {charaList.map((chara) => <CharacteristicInput chara={chara} key={chara} />)}
         </div>
         <div className='summaryInput'>
           Review Summary

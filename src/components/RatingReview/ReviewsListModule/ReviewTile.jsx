@@ -36,6 +36,7 @@ const ReviewTile = ({ review }) => {
           },
         },
       );
+      console.log(response);
       setReviewHelpfulness(reviewHelpfulness + 1);
       setVotedHelpful(true);
       }
