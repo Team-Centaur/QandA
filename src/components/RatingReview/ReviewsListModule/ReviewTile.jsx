@@ -22,19 +22,23 @@ const ReviewTile = ({ review }) => {
   );
   const [isVerified, setIsVerified] = useState(false);  // TODO: check if user email is associated with sale in system
   const [reviewHelpfulness, setReviewHelpfulness] = useState(helpfulness);
+  const [votedHelpful, setVotedHelpful] = useState(false);
 
   const updateHelpfulness = async () => {
     // send axios PUT request to increment helpfulness
     try {
-      const response = await axios.put(
-        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${review_id}/helpful`,
-        {
-          headers: {
+      if (!votedHelpful) {
+        const response = await axios({
+        method: 'put',
+        url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${review_id}/helpful`,
+        headers: {
             Authorization: apiKey,
           },
         },
       );
-      console.log(`response: ${response}`);
+      setReviewHelpfulness(reviewHelpfulness + 1);
+      setVotedHelpful(true);
+      }
     } catch (err) {
       console.log(err);
     }
