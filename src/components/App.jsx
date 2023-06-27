@@ -24,6 +24,7 @@ function App() {
   useEffect(() => {
     getProductById(currId)
       .then((data) => {
+        console.log('DATA:', data);
         setCurrItem(data);
       })
       .then(() => {
