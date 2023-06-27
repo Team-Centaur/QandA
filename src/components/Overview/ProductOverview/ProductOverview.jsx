@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import Stars from './Stars/Stars.jsx';
+import SocialShare from './SocialShare/SocialShare.jsx';
 
 const ProductOverview = ({ dataObj, reviewId }) => {
   const [totalReviews, setTotalReviews] = useState(0);
@@ -29,16 +30,19 @@ const ProductOverview = ({ dataObj, reviewId }) => {
           totalReviews= {totalReviews}
           reviewId={reviewId}
         />
-        <div className="product-category">
-          { dataObj.category }
+        <div className="product-details-container">
+          <div className="product-category">
+            { dataObj.category }
+          </div>
+          <h2 className="product-name">
+            { dataObj.name}
+          </h2>
+          <div className="product-price">
+            { dataObj.defaultPrice }
+          </div>
+          <div className="product-sale-price"></div>
         </div>
-        <h2 className="product-name">
-          { dataObj.name}
-        </h2>
-        <div className="product-price">
-          { dataObj.defaultPrice }
-        </div>
-        <div className="product-sale-price"></div>
+        <SocialShare />
       </div>
 
     );
