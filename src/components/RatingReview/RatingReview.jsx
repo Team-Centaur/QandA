@@ -5,6 +5,7 @@ import ReviewsList from './ReviewsListModule/ReviewsList.jsx';
 import RatingBreakdown from './RatingBreakdownModule/RatingBreakdown.jsx';
 import ProductBreakdown from './ProductBreakdownModule/ProductBreakdown.jsx';
 import WriteReview from './WriteReviewModule/WriteReview.jsx';
+import ReviewTile from './ReviewsListModule/ReviewTile.jsx';
 
 import getReviewMetadata from '../../helperFunctions/getReviewMetadata.js';
 import getReviews from '../../helperFunctions/getReviews.js';

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReviewTile from './ReviewTile.jsx';
+import './ReviewsList.css';
 
 const ReviewsList = ({ reviews, page, loadMoreReviews, allReviewsLoaded }) => (
   <div className='reviewsList'>
