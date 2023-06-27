@@ -20,15 +20,27 @@ const FormOverlayStyles = {
   zIndex: 1
 };
 
-const NewReviewForm = ({ onClose }) => {
+const NewReviewForm = ({ onClose, characteristics }) => {
   return (
     <div style={FormOverlayStyles}>
       <form style={ReviewFormStyles}>
         <button onClick={onClose}>X</button>
         <h3>Write a new review</h3>
-        <div>overall rating (stars)</div>
-        <div>DO you recomend this product - radio buttons</div>
-        <div> render tile for each product characteristc w/ radio buttons</div>
+        <div className='ratingInput'>
+          <h4>Overall rating</h4>
+          (stars)
+        </div>
+        <div className='recommendInput'>
+          Do you recommend this product?
+          <input type='radio' id='recYes' value='yes' name='recommended' />
+          <label for='recYes'>Yes</label>
+          <input type='radio' id='recNo' value='no' name='recommended' />
+          <label for='recNo'>No</label>
+        </div>
+        <div className='characteristicsInput'>
+          render tile for each product characteristc w/ radio buttons
+          {/* DO THIS NEXT */}
+        </div>
         <div className='summaryInput'>
           Review Summary
           <input type='text'></input>
