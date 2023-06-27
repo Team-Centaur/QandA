@@ -6,7 +6,7 @@ import { Link } from 'react-scroll';
 import { useReviewId } from '../../../ReviewIdContext.jsx';
 // Imported custom Hook to use the state from Context
 // very similar to useContext(reviewId);
-const Stars = ({ avgRating, totalReviews, reviewId }) => {
+const Stars = ({ avgRating, totalReviews }) => {
 
   const renderStar = (rating) => {
     const floorRating = Math.floor(rating);
