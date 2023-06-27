@@ -18,23 +18,8 @@ const ProductOverview = ({ dataObj }) => {
       sumRatings += multiply;
       reviewTotal += parseInt(ratingObj[key], 10);
     });
-    console.log('SUM',sumRatings);
-    console.log('TOTAL',reviewTotal);
-    setAvgRating(sumRatings/reviewTotal);
-    setTotalReviews(reviewTotal)
-    }
-  }, [dataObj])
-  // const avgRating = (ratingObj) => {
-  //   let sumRatings = 0;
-  //   let reviewTotal = 0;
-  //   Object.keys(ratingObj).forEach((key) => {
-  //     const multiply = key * ratingObj[key];
-  //     sumRatings += multiply;
-  //     reviewTotal += parseInt(ratingObj[key], 10);
-  //   });
-
-  //   return sumRatings / reviewTotal;
-  // };
+    return sumRatings / reviewTotal;
+  };
 
   if (dataObj) {
     return (

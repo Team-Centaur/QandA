@@ -9,7 +9,7 @@ import WriteReview from './WriteReviewModule/WriteReview.jsx';
 import getReviewMetadata from '../../helperFunctions/getReviewMetadata.js';
 import getReviews from '../../helperFunctions/getReviews.js';
 
-const RatingReview = ({ currItem, reviewsId }) => {
+const RatingReview = ({ currItem }) => {
   const [reviews, setReviews] = useState([]);
   const [page, setPage] = useState(1); // API set to return 2 reviews per page
   const [characteristics, setCharacteristics] = useState({});
@@ -49,7 +49,7 @@ const RatingReview = ({ currItem, reviewsId }) => {
   };
 
   return (
-    <section className='ratingReview' id={useContext(reviewId)}>
+    <section className='ratingReview'>
       <ReviewsList
         reviews={reviews}
         page={page}

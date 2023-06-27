@@ -2,7 +2,6 @@
 import React, { useState, useContext } from 'react';
 import { Star24Filled, Star24Regular } from '@fluentui/react-icons';
 import Star from './Star.jsx';
-import { Link } from 'react-scroll';
 
 const Stars = ({ avgRating, totalReviews }) => {
 
@@ -23,7 +22,6 @@ const Stars = ({ avgRating, totalReviews }) => {
     }
     return stars;
   };
-
 
   if (avgRating) {
     return (
