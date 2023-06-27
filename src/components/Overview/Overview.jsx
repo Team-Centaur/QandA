@@ -9,7 +9,7 @@ import ProductOverview from './ProductOverview/ProductOverview.jsx';
 
 const apiKey = process.env.REACT_APP_API_KEY;
 
-const Overview = ({ currItem }) => {
+const Overview = ({ currItem, reviewId }) => {
   const [dataObj, setDataObj] = useState(null);
   useEffect(() => {
     let obj = {};
@@ -47,7 +47,7 @@ const Overview = ({ currItem }) => {
       <div className="promotion-container"></div>
       <div className="product-container">
         <div className="image-gallery-container"></div>
-        <ProductOverview dataObj={dataObj} />
+        <ProductOverview dataObj={dataObj} reviewId={reviewId} />
       </div>
       <div className="description-container">
 
@@ -57,3 +57,6 @@ const Overview = ({ currItem }) => {
 };
 
 export default Overview;
+
+
+// Gonna try implementing the scroll feature.

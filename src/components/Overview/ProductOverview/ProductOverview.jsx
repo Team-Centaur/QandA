@@ -3,22 +3,32 @@
 import React, { useEffect, useState } from 'react';
 import Stars from './Stars/Stars.jsx';
 
-const ProductOverview = ({ dataObj }) => {
-  const avgRating = (ratingObj) => {
-    let sumRatings = 0;
-    let reviewTotal = 0;
-    Object.keys(ratingObj).forEach((key) => {
+const ProductOverview = ({ dataObj, reviewId }) => {
+  const [totalReviews, setTotalReviews] = useState(0);
+  const [avgRating, setAvgRating] = useState(0);
+
+  useEffect(() => {
+    if(dataObj) {
+      let ratingObj = dataObj.ratings;
+      let sumRatings = 0;
+      let reviewTotal = 0;
+      Object.keys(ratingObj).forEach((key) => {
       const multiply = key * ratingObj[key];
       sumRatings += multiply;
       reviewTotal += parseInt(ratingObj[key], 10);
     });
-    return sumRatings / reviewTotal;
-  };
-
+    setTotalReviews(reviewTotal);
+    setAvgRating(sumRatings/reviewTotal);
+    };
+  });
   if (dataObj) {
     return (
       <div className="product-overview-container">
-        <Stars avgRating={avgRating(dataObj.ratings)} />
+        <Stars
+          avgRating={avgRating}
+          totalReviews= {totalReviews}
+          reviewId={reviewId}
+        />
         <div className="product-category">
           { dataObj.category }
         </div>
