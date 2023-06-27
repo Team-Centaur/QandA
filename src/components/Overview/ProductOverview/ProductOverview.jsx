@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Stars from './Stars/Stars.jsx';
 
-const ProductOverview = ({ dataObj, reviewsId }) => {
+const ProductOverview = ({ dataObj }) => {
   const [totalReviews, setTotalReviews] = useState(0);
   const [avgRating, setAvgRating] = useState(0);
 
@@ -41,7 +41,6 @@ const ProductOverview = ({ dataObj, reviewsId }) => {
       <div className="product-overview-container">
         <Stars
           avgRating={avgRating}
-          reviewsId={reviewsId}
           totalReviews= {totalReviews}
         />
         <div className="product-category">

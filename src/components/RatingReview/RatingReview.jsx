@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 import ReviewsList from './ReviewsListModule/ReviewsList.jsx';
@@ -49,7 +49,7 @@ const RatingReview = ({ currItem, reviewsId }) => {
   };
 
   return (
-    <section className='ratingReview' id={reviewsId}>
+    <section className='ratingReview' id={useContext(reviewId)}>
       <ReviewsList
         reviews={reviews}
         page={page}

@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component, useEffect, useState, createContext } from 'react';
 import axios from 'axios';
 import getRandomProd from '../helperFunctions/App/getRandomProd.js';
 import Overview from './Overview/Overview.jsx';
@@ -10,7 +10,8 @@ import './App.css';
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
   const [currItem, setCurrItem] = useState(null);
-  const [reviewsId, setReviewsId] = useState('reviews');
+  // const [reviewsId, setReviewsId] = useState('reviews');
+  const reviewId = createContext('review');
   // passing reviewId to btoh Ratings and Overview for use of 'react-scroll'
   useEffect(() => {
     getRandomProd().then((data) => {
@@ -25,10 +26,12 @@ function App() {
   return (
     <div className="app-container">
       <h1>Hello worlds!</h1>
-      <Overview currItem={currItem} reviewsId={reviewsId} />
+      <Overview currItem={currItem} />
       <ItemsComponent currItem={currItem} setCurrItem={setCurrItem} />
       <QuesAnswer product={currItem} />
-      <RatingReview currItem={currItem} reviewsId={reviewsId} />
+
+      <reviewId.Provider = value={}
+      <RatingReview currItem={currItem} />
     </div>
   );
 }

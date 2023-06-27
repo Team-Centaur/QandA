@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Star24Filled, Star24Regular } from '@fluentui/react-icons';
 import Star from './Star.jsx';
 import { Link } from 'react-scroll';
 
-const Stars = ({ avgRating, reviewsId, totalReviews }) => {
+const Stars = ({ avgRating, totalReviews }) => {
 
   const renderStar = (rating) => {
     const floorRating = Math.floor(rating);
@@ -29,7 +29,7 @@ const Stars = ({ avgRating, reviewsId, totalReviews }) => {
     return (
       <div className="stars-container">
         {renderStar(avgRating)}
-        <Link to={reviewsId} smooth={true} offset={200} duration={500}> Read all {totalReviews} reviews</Link>
+        <Link to={useContext(reviewId)} smooth={true} offset={200} duration={500}> Read all {totalReviews} reviews</Link>
       </div>
 
     );
