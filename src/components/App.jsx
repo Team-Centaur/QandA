@@ -1,9 +1,9 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component, useEffect, useState} from 'react';
 import Overview from './Overview/Overview.jsx';
 import ItemsComponent from './ItemsComponent/ItemsComponent.jsx';
 import QuesAnswer from './QuesAnswer/QuesAnswer.jsx';
 import RatingReview from './RatingReview/RatingReview.jsx';
-
+import { ReviewIdProvider } from './ReviewIdContext.jsx'; // context needed for overview scrool feature
 import getProductById from '../helperFunctions/App/getProductById.js';
 import getReviewMetadata from '../helperFunctions/getReviewMetadata.js';
 import getStylesById from '../helperFunctions/App/getStylesById.js';
@@ -46,13 +46,18 @@ function App() {
   }
   console.log(currItem);
   return (
-    <div className="app-container">
-      <h1>Hello worlds!</h1>
-      <Overview currItem={currItem} />
-      <ItemsComponent currItem={currItem} setCurrId={setCurrId} />
-      <QuesAnswer product={currItem} />
-      <RatingReview currItem={currItem} />
-    </div>
+    // Can use a state within ReviewIdContext in any child component
+      // that ReviewIdProvider is wrapped around.
+      // no need to send the state as prop through nested children
+    <ReviewIdProvider>
+      <div className="app-container">
+        <h1>Hello worlds!</h1>
+        <Overview currItem={currItem} />
+        <ItemsComponent currItem={currItem} setCurrItem={setCurrItem} />
+        <QuesAnswer product={currItem} />
+        <RatingReview currItem={currItem} />
+      </div>
+    </ReviewIdProvider>
   );
 }
 

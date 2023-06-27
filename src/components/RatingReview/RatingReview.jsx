@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 import ReviewsList from './ReviewsListModule/ReviewsList.jsx';
@@ -10,7 +10,10 @@ import ReviewTile from './ReviewsListModule/ReviewTile.jsx';
 import getReviewMetadata from '../../helperFunctions/getReviewMetadata.js';
 import getReviews from '../../helperFunctions/getReviews.js';
 
-const RatingReview = ({ currItem }) => {
+import { useReviewId } from '../ReviewIdContext.jsx' // custom hook to supply id to
+
+
+const RatingReview = ({ currItem, reviewId }) => {
   const [reviews, setReviews] = useState([]);
   const [page, setPage] = useState(1); // API set to return 2 reviews per page
   const [characteristics, setCharacteristics] = useState({});
@@ -50,7 +53,8 @@ const RatingReview = ({ currItem }) => {
   };
 
   return (
-    <section className='ratingReview'>
+    // supplying Id through custom hook that utilizes useContext
+    <section className='ratingReview' id={useReviewId()}>
       <ReviewsList
         reviews={reviews}
         page={page}
@@ -59,7 +63,7 @@ const RatingReview = ({ currItem }) => {
       />
       <RatingBreakdown />
       <ProductBreakdown />
-      <WriteReview />
+      <WriteReview characteristics={characteristics}/>
     </section>
   );
 };
