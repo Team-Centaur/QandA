@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import StarRating from '../../Utilities/StarRating.jsx';
 import ImageThumbnail from './ImageThumbnail.jsx';
 import makeDatePretty from '../../../helperFunctions/makeDatePretty';
+import ReviewHelpfulness from './ReviewHelpfulness.jsx';
+
+const apiKey = process.env.REACT_APP_API_KEY;
 
 const ReviewTile = ({ review }) => {
   const {
@@ -16,8 +20,25 @@ const ReviewTile = ({ review }) => {
   const [reviewDisplay, setReviewDisplay] = useState(
     (body.length > charLimit) ? (body.slice(0, charLimit) + '...') : body
   );
-  // TODO: check if user email is associated with sale in system
-  const [isVerified, setIsVerified] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);  // TODO: check if user email is associated with sale in system
+  const [reviewHelpfulness, setReviewHelpfulness] = useState(helpfulness);
+
+  const updateHelpfulness = async () => {
+    // send axios PUT request to increment helpfulness
+    try {
+      const response = await axios.put(
+        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${review_id}/helpful`,
+        {
+          headers: {
+            Authorization: apiKey,
+          },
+        },
+      );
+      console.log(`response: ${response}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className='reviewTile'>
@@ -68,11 +89,7 @@ const ReviewTile = ({ review }) => {
         </div>
       )}
 
-      <div className='reviewHelpfulness'>
-        Was this review helpful?
-        <button>Yes ({helpfulness})</button>
-        <button>No (0)</button>
-      </div>
+      <ReviewHelpfulness reviewHelpfulness={reviewHelpfulness} updateHelpfulness={updateHelpfulness}/>
       --------------------------------
     </div>
   );
