@@ -2,6 +2,7 @@
   margin: 1rem 0;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   /* border: 1px solid black; */
   width: 12rem;
   height: 20rem;
