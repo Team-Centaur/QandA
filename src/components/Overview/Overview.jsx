@@ -40,7 +40,7 @@ const Overview = ({ currItem, reviewId }) => {
       .catch((err) => {
         throw err;
       });
-  }, []);
+  }, [currItem]);
 
   return (
     <section className="overview-section">
