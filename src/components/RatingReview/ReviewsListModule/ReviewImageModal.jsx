@@ -28,9 +28,9 @@ const ReviewImageModal = ({ onClose, photo }) => {
           src={photo}
           alt='review image'
           width='100%'
-          max-width='80vw' // 80% of viewport
+          max-width='80vw'
           height='100%'
-          max-height='80vh' // 80% of viewport
+          max-height='80vh'
         />
       </div>
     </>

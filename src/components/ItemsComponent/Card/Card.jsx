@@ -9,7 +9,7 @@ import getProductById from '../../../helperFunctions/App/getProductById.js';
 import getStylesById from '../../../helperFunctions/App/getStylesById.js';
 // import getRandomNumber from '../../../helperFunctions/App/getRandomNumber.js';
 
-function Card({ productID, setCurrItem }) {
+function Card({ productID, setCurrId }) {
   const [productObj, setProductObj] = useState(null);
   const [styles, setStyles] = useState(null);
 
@@ -44,7 +44,7 @@ function Card({ productID, setCurrItem }) {
 
   /// /////////// EVENT HANDLERS //////////////
   const clickHandler = () => {
-    setCurrItem(productObj);
+    setCurrId(productObj.id);
   };
 
   /// /////////// STYLES //////////////

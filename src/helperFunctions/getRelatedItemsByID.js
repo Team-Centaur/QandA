@@ -11,7 +11,8 @@ const getRelatedItemsByID = async (id) => {
         Authorization: apiKey,
       },
     });
-    return data.data;
+    const uniqueData = [...new Set(data.data)];
+    return uniqueData;
   } catch (err) {
     return err;
   }
