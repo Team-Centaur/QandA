@@ -63,7 +63,7 @@ const RatingReview = ({ currItem, reviewId }) => {
       />
       <RatingBreakdown />
       <ProductBreakdown />
-      <WriteReview />
+      <WriteReview characteristics={characteristics}/>
     </section>
   );
 };
