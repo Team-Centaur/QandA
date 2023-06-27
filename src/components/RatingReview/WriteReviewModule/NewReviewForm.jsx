@@ -29,30 +29,47 @@ const NewReviewForm = ({ onClose, characteristics }) => {
       <form style={ReviewFormStyles}>
         <button onClick={onClose}>X</button>
         <h3>Write a new review</h3>
+
         <div className='ratingInput'>
           <h4>Overall rating</h4>
           (stars)
         </div>
+
         <div className='recommendInput'>
           Do you recommend this product?
-          <input type='radio' id='recYes' value='yes' name='recommended' defaultChecked={true} onChange={(e) => console.log(e.target.value)}/>
+          <input type='radio' id='recYes' value='yes' name='recommended' defaultChecked={true} onChange={(e) => console.log(e.target.value)} required />
           <label htmlFor='recYes'> Yes </label>
           <input type='radio' id='recNo' value='no' name='recommended' />
           <label htmlFor='recNo'> No </label>
         </div>
+
         <div className='characteristicsInput'>
           {charaList.map((chara) => <CharacteristicInput chara={chara} key={chara} />)}
         </div>
+
         <div className='summaryInput'>
-          Review Summary
+          <h4>Review Summary</h4>
           <input type='text'></input>
         </div>
+
         <div className='bodyInput'>
-          Review Body
-          <input type='text'></input>
+          <h4>Review Body</h4>
+          <input type='text' required></input>
         </div>
-        <div> upload photos</div>
+
+        <div className='photoUpload'>
+          <h4>Upload photos</h4>
+          *IN PROGRESS*
+        </div>
+
         {/* <input type='text'>nickname</input> */}
+        <div className='reviewerInfo'>
+          <h4>Nickname</h4>
+          <input type='text' required></input>
+          <h4>Email</h4>
+          <input type='email' required></input>
+        </div>
+
       </form>
     </div>
   );

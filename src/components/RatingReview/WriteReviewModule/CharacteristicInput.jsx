@@ -65,7 +65,7 @@ const CharacteristicInput = ({chara}) => {
       <h4>{chara[0]}</h4>
       <div>{meaning}</div>
       <div className='chara'>
-        <input type='radio' id={chara[0]} value='1' name={chara[0]} onChange={onSelection} />
+        <input type='radio' id={chara[0]} value='1' name={chara[0]} onChange={onSelection} required/>
         <label htmlFor={chara[0]}> 1 </label>
       </div>
       <div className='chara'>
