@@ -10,6 +10,9 @@ import ReviewTile from './ReviewsListModule/ReviewTile.jsx';
 import getReviewMetadata from '../../helperFunctions/getReviewMetadata.js';
 import getReviews from '../../helperFunctions/getReviews.js';
 
+import { useReviewId } from '../ReviewIdContext.jsx' // custom hook to supply id to
+
+
 const RatingReview = ({ currItem, reviewId }) => {
   const [reviews, setReviews] = useState([]);
   const [page, setPage] = useState(1); // API set to return 2 reviews per page
@@ -50,7 +53,8 @@ const RatingReview = ({ currItem, reviewId }) => {
   };
 
   return (
-    <section className='ratingReview' id={reviewId}>
+    // supplying Id through custom hook that utilizes useContext
+    <section className='ratingReview' id={useReviewId()}>
       <ReviewsList
         reviews={reviews}
         page={page}

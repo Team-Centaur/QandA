@@ -5,7 +5,7 @@ import Overview from './Overview/Overview.jsx';
 import ItemsComponent from './ItemsComponent/ItemsComponent.jsx';
 import QuesAnswer from './QuesAnswer/QuesAnswer.jsx';
 import RatingReview from './RatingReview/RatingReview.jsx';
-
+import { ReviewIdProvider } from './ReviewIdContext.jsx'; // context needed for overview scrool feature
 import './App.css';
 
 function App() {
@@ -23,13 +23,18 @@ function App() {
   }
   console.log(currItem);
   return (
-    <div className="app-container">
-      <h1>Hello worlds!</h1>
-      <Overview currItem={currItem} reviewId={reviewId} />
-      <ItemsComponent currItem={currItem} setCurrItem={setCurrItem} />
-      <QuesAnswer product={currItem} />
-      <RatingReview currItem={currItem} reviewId={reviewId} />
-    </div>
+    // Can use a state within ReviewIdContext in any child component
+      // that ReviewIdProvider is wrapped around.
+      // no need to send the state as prop through nested children
+    <ReviewIdProvider>
+      <div className="app-container">
+        <h1>Hello worlds!</h1>
+        <Overview currItem={currItem} reviewId={reviewId} />
+        <ItemsComponent currItem={currItem} setCurrItem={setCurrItem} />
+        <QuesAnswer product={currItem} />
+        <RatingReview currItem={currItem} reviewId={reviewId} />
+      </div>
+    </ReviewIdProvider>
   );
 }
 

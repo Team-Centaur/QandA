@@ -10,7 +10,6 @@ const ProductOverview = ({ dataObj, reviewId }) => {
   useEffect(() => {
     if(dataObj) {
       let ratingObj = dataObj.ratings;
-      console.log(dataObj.ratings);
       let sumRatings = 0;
       let reviewTotal = 0;
       Object.keys(ratingObj).forEach((key) => {

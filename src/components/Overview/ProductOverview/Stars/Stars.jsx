@@ -3,7 +3,9 @@ import React, { useState, useContext } from 'react';
 import { Star24Filled, Star24Regular } from '@fluentui/react-icons';
 import Star from './Star.jsx';
 import { Link } from 'react-scroll';
-
+import { useReviewId } from '../../../ReviewIdContext.jsx';
+// Imported custom Hook to use the state from Context
+// very similar to useContext(reviewId);
 const Stars = ({ avgRating, totalReviews, reviewId }) => {
 
   const renderStar = (rating) => {
@@ -28,7 +30,7 @@ const Stars = ({ avgRating, totalReviews, reviewId }) => {
     return (
       <div className="stars-container">
         {renderStar(avgRating)}
-        <Link to={reviewId} smooth={true} offset={200} duration={500}> Read all {totalReviews} reviews</Link>
+        <Link to={useReviewId()} smooth={true} offset={200} duration={500}> Read all {totalReviews} reviews</Link>
       </div>
 
     );
