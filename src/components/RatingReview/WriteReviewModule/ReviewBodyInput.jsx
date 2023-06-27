@@ -3,9 +3,7 @@ import React, { useState } from 'react';
 const ReviewBodyInput = () => {
   const [body, setBody] = useState('');
 
-  const onType = (e) => {
-    setBody(e.target.value);
-  }
+  const onType = (e) => setBody(e.target.value);
 
   return (
     <>
