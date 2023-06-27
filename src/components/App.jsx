@@ -7,6 +7,7 @@ import RatingReview from './RatingReview/RatingReview.jsx';
 import getProductById from '../helperFunctions/App/getProductById.js';
 import getReviewMetadata from '../helperFunctions/getReviewMetadata.js';
 import getStylesById from '../helperFunctions/App/getStylesById.js';
+import getRandomProd from '../helperFunctions/App/getRandomProd.js';
 import './App.css';
 
 function App() {
@@ -15,11 +16,11 @@ function App() {
   const [currItem, setCurrItem] = useState(null);
   const [currReviewMeta, setCurrReviewMeta] = useState(null);
   const [currStyles, setCurrStyles] = useState(null);
-  // useEffect(() => {
-  //   getRandomProd().then((data) => {
-  //     setCurrItem(data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    getRandomProd().then((data) => {
+      setCurrItem(data);
+    });
+  }, []);
 
   useEffect(() => {
     getProductById(currId)

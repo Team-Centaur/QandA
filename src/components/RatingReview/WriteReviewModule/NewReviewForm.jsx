@@ -70,6 +70,7 @@ const NewReviewForm = ({ onClose, characteristics }) => {
           <input type='email' required></input>
         </div>
 
+        <input type='submit' value='Submit'></input>
       </form>
     </div>
   );
