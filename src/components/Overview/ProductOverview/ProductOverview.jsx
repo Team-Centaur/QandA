@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Stars from './Stars/Stars.jsx';
 
-const ProductOverview = ({ dataObj }) => {
+const ProductOverview = ({ dataObj, reviewId }) => {
   const [totalReviews, setTotalReviews] = useState(0);
   const [avgRating, setAvgRating] = useState(0);
 
@@ -18,15 +18,17 @@ const ProductOverview = ({ dataObj }) => {
       sumRatings += multiply;
       reviewTotal += parseInt(ratingObj[key], 10);
     });
-    return sumRatings / reviewTotal;
-  };
-
+    setTotalReviews(reviewTotal);
+    setAvgRating(sumRatings/reviewTotal);
+    };
+  });
   if (dataObj) {
     return (
       <div className="product-overview-container">
         <Stars
           avgRating={avgRating}
           totalReviews= {totalReviews}
+          reviewId={reviewId}
         />
         <div className="product-category">
           { dataObj.category }

@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState, createContext } from 'react';
+import React, { Component, useEffect, useState} from 'react';
 import axios from 'axios';
 import getRandomProd from '../helperFunctions/App/getRandomProd.js';
 import Overview from './Overview/Overview.jsx';
@@ -10,6 +10,7 @@ import './App.css';
 
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
+  const reviewId = useState('review');
   const [currItem, setCurrItem] = useState(null);
   useEffect(() => {
     getRandomProd().then((data) => {
@@ -24,10 +25,10 @@ function App() {
   return (
     <div className="app-container">
       <h1>Hello worlds!</h1>
-      <Overview currItem={currItem} />
+      <Overview currItem={currItem} reviewId={reviewId} />
       <ItemsComponent currItem={currItem} setCurrItem={setCurrItem} />
       <QuesAnswer product={currItem} />
-      <RatingReview currItem={currItem} />
+      <RatingReview currItem={currItem} reviewId={reviewId} />
     </div>
   );
 }
