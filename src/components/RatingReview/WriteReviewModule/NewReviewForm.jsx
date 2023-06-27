@@ -3,6 +3,7 @@ import CharacteristicInput from './CharacteristicInput.jsx';
 import RecommendInput from './RecommendInput.jsx';
 import ReviewerInfoInput from './ReviewerInfoInput.jsx';
 import ReviewBodyInput from './ReviewBodyInput.jsx';
+import PhotoUpload from './PhotoUpload.jsx';
 
 const ReviewFormStyles = {
   position: 'fixed',
@@ -56,8 +57,7 @@ const NewReviewForm = ({ onClose, characteristics }) => {
         </div>
 
         <div className='photoUpload'>
-          <h4>Upload photos</h4>
-          *IN PROGRESS*
+          <PhotoUpload />
         </div>
 
         <div className='reviewerInfo'>
