@@ -41,7 +41,6 @@ const AnswerQuestion = ({ isAnswerQuestion, questionId }) => {
 
   return (
     <form hidden={isAnswerQuestion}>
-      <p>{questionId}</p>
       <input placeholder="username" onChange={usernameOnChangeHandler} />
       <input placeholder="email" onChange={emailOnChangeHandler} />
       <textarea type="text" cols="50" rows="5" placeholder="answer" onChange={answerBodyOnChangeHandler} />
