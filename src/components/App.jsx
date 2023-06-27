@@ -12,7 +12,7 @@ import './App.css';
 
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
-  const [currId, setCurrId] = useState(40400);
+  const [currId, setCurrId] = useState(getRandomProd()); // 40400
   const [currItem, setCurrItem] = useState(null);
   const [currReviewMeta, setCurrReviewMeta] = useState(null);
   const [currStyles, setCurrStyles] = useState(null);
@@ -25,7 +25,6 @@ function App() {
   useEffect(() => {
     getProductById(currId)
       .then((data) => {
-        console.log('DATA:', data);
         setCurrItem(data);
       })
       .then(() => {
