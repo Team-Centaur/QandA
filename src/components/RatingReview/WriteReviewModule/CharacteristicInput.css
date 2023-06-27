@@ -1,0 +1,7 @@
+.chara {
+  display: inline-block;
+  text-align: center;
+}
+.chara label {
+  display: block;
+}
