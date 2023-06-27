@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState} from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import Overview from './Overview/Overview.jsx';
 import ItemsComponent from './ItemsComponent/ItemsComponent.jsx';
 import QuesAnswer from './QuesAnswer/QuesAnswer.jsx';
@@ -48,13 +48,13 @@ function App() {
   console.log(currItem);
   return (
     // Can use a state within ReviewIdContext in any child component
-      // that ReviewIdProvider is wrapped around.
-      // no need to send the state as prop through nested children
+    // that ReviewIdProvider is wrapped around.
+    // no need to send the state as prop through nested children
     <ReviewIdProvider>
       <div className="app-container">
         <h1>Hello worlds!</h1>
         <Overview currItem={currItem} />
-        <ItemsComponent currItem={currItem} setCurrItem={setCurrItem} />
+        <ItemsComponent currItem={currItem} setCurrId={setCurrId} />
         <QuesAnswer product={currItem} />
         <RatingReview currItem={currItem} />
       </div>
