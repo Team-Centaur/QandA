@@ -1,21 +1,45 @@
 import React, { Component, useEffect, useState } from 'react';
-import axios from 'axios';
-import getRandomProd from '../helperFunctions/App/getRandomProd.js';
 import Overview from './Overview/Overview.jsx';
 import ItemsComponent from './ItemsComponent/ItemsComponent.jsx';
 import QuesAnswer from './QuesAnswer/QuesAnswer.jsx';
 import RatingReview from './RatingReview/RatingReview.jsx';
 
+import getProductById from '../helperFunctions/App/getProductById.js';
+import getReviewMetadata from '../helperFunctions/getReviewMetadata.js';
+import getStylesById from '../helperFunctions/App/getStylesById.js';
 import './App.css';
 
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
+  const [currId, setCurrId] = useState(40345);
   const [currItem, setCurrItem] = useState(null);
+  const [currReviewMeta, setCurrReviewMeta] = useState(null);
+  const [currStyles, setCurrStyles] = useState(null);
+  // useEffect(() => {
+  //   getRandomProd().then((data) => {
+  //     setCurrItem(data);
+  //   });
+  // }, []);
+
   useEffect(() => {
-    getRandomProd().then((data) => {
-      setCurrItem(data);
-    });
-  }, []);
+    getProductById(currId)
+      .then((data) => {
+        setCurrItem(data);
+      })
+      .then(() => {
+        getReviewMetadata(currId).then((data) => {
+          setCurrReviewMeta(data);
+        });
+      })
+      .then(() => {
+        getStylesById(currId).then((data) => {
+          setCurrStyles(data);
+        });
+      })
+      .catch((err) => {
+        console.log(`There was an error fetching product info: ${err}`);
+      });
+  }, [currId]);
 
   if (!currItem) {
     return <div>Loading...</div>;
@@ -25,7 +49,7 @@ function App() {
     <div className="app-container">
       <h1>Hello worlds!</h1>
       <Overview currItem={currItem} />
-      <ItemsComponent currItem={currItem} setCurrItem={setCurrItem} />
+      <ItemsComponent currItem={currItem} setCurrId={setCurrId} />
       <QuesAnswer product={currItem} />
       <RatingReview currItem={currItem} />
     </div>

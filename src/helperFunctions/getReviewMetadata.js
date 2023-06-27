@@ -11,11 +11,11 @@ const getReviewMetadata = async (id) => {
         headers: {
           Authorization: apiKey,
         },
-      },
+      }
     );
     return response.data;
   } catch (err) {
-    return err;
+    throw err;
   }
 };
 

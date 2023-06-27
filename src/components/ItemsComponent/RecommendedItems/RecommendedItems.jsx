@@ -7,7 +7,7 @@ import './RecommendedItems.css';
 import getRelatedItemsByID from '../../../helperFunctions/getRelatedItemsByID.js';
 // import getProductById from '../../../helperFunctions/App/getProductById.js';
 
-const RecommendedItems = ({ currItem, setCurrItem }) => {
+const RecommendedItems = ({ currItem, setCurrId }) => {
   const [relatedItems, setRelatedItems] = useState(null);
 
   /// /////////// USE EFFECTS //////////////
@@ -38,7 +38,7 @@ const RecommendedItems = ({ currItem, setCurrItem }) => {
 
   /// /////////// DISPLAY ELEMENTS CREATION //////////////
   const cards = relatedItems.map((product) => (
-    <Card productID={product} key={product} setCurrItem={setCurrItem} />
+    <Card productID={product} key={product} setCurrId={setCurrId} />
   ));
   let listWidth = 100;
 
