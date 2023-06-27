@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Answer from './Answer.jsx';
+import AnswerQuestion from './AnswerQuestion.jsx';
 
 const Question = ({ question }) => {
   const [answers, setAnswers] = useState([]);
   const [displayAnswers, setDisplayAnswers] = useState([]);
   const [isNoMoreAnswers, setIsNoMoreAnswers] = useState(false);
+  const [isAnswerQuestion, setIsAnswerQuestion] = useState(true);
 
   useEffect(() => {
     if (Object.values(question.answers).length > 0) {
@@ -25,6 +27,10 @@ const Question = ({ question }) => {
     }
   };
 
+  const answerQuestionButtonClickHandler = () => {
+    setIsAnswerQuestion(false);
+  };
+
   return (
     <div>
       <h4>This is a question</h4>
@@ -34,6 +40,10 @@ const Question = ({ question }) => {
         More Answers
         {` (${answers.length - displayAnswers.length})`}
       </button>
+      <button type="submit" onClick={answerQuestionButtonClickHandler}>
+        Answer this question
+      </button>
+      <AnswerQuestion isAnswerQuestion={isAnswerQuestion} questionId={question.question_id} />
     </div>
   );
 };

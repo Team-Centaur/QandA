@@ -2,7 +2,6 @@ import React from 'react';
 import Question from './Question.jsx';
 
 const Display = ({ questions }) => {
-  console.log(questions);
 
   return (
     <>
