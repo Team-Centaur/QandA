@@ -1,13 +1,17 @@
 import axios from 'axios';
 
 const apiKey = process.env.REACT_APP_API_KEY;
-const getProductById = (id) => axios.get(
-  `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${id}`,
-  {
-    headers: { Authorization: apiKey },
-  },
-)
-  .then(({ data }) => data)
-  .catch((err) => err);
-
+const getProductById = async (id) => {
+  try {
+    const response = await axios.get(
+      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${id}`,
+      {
+        headers: { Authorization: apiKey },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
 export default getProductById;

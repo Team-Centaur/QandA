@@ -1,9 +1,9 @@
 import React from 'react';
 import RecommendedItems from './RecommendedItems/RecommendedItems.jsx';
 
-const ItemsComponent = ({ currItem, setCurrItem }) => (
+const ItemsComponent = ({ currItem, setCurrId }) => (
   <section className="items-comp--section">
-    <RecommendedItems currItem={currItem} setCurrItem={setCurrItem} />
+    <RecommendedItems currItem={currItem} setCurrId={setCurrId} />
   </section>
 );
 

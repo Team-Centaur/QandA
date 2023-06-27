@@ -14,7 +14,7 @@ const getStylesById = async (id) => {
     });
     return response.data;
   } catch (err) {
-    return err;
+    throw err;
   }
 };
 export default getStylesById;
