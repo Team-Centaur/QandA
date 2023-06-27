@@ -12,7 +12,6 @@ import './App.css';
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
   const [currId, setCurrId] = useState(40345);
-  const reviewId = useState('review');
   const [currItem, setCurrItem] = useState(null);
   const [currReviewMeta, setCurrReviewMeta] = useState(null);
   const [currStyles, setCurrStyles] = useState(null);

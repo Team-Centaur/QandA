@@ -30,7 +30,7 @@ const Stars = ({ avgRating, totalReviews, reviewId }) => {
     return (
       <div className="stars-container">
         {renderStar(avgRating)}
-        <Link to={useReviewId()} smooth={true} offset={200} duration={500}> Read all {totalReviews} reviews</Link>
+        <Link to={useReviewId()} smooth={true} offset={200} duration={500}> Read all {totalReviews} reviews(click!)</Link>
       </div>
 
     );
