@@ -34,7 +34,7 @@ const QuesAnswer = ({ product }) => {
         }
       })
       .catch((err) => console.log(err));
-  }, [product]);
+  }, []);
 
   // expand more questions on button click
   const moreQuestionsButtonClickHandler = () => {
