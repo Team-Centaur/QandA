@@ -1,0 +1,22 @@
+.question {
+  max-width: 40rem;
+  /* max-height: 30rem; */
+}
+
+.question-body {
+  font-weight: 800;
+  font-size: 1.25rem;
+}
+
+.question-options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.question-helpful-option {
+  display: flex;
+}
+
+.question-report-option {
+  display: flex;
+}

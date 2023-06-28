@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Answer from './Answer.jsx';
 import AnswerQuestion from './AnswerQuestion.jsx';
+import './Question.css';
 
 const Question = ({ question }) => {
   const [answers, setAnswers] = useState([]);
@@ -51,9 +52,31 @@ const Question = ({ question }) => {
     setIsNoMoreAnswers(false);
   };
 
+  const helpfulOnClickHandler = () => {
+    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question.question_id}/helpful`, {}, options)
+      .then(response => console.log(response))
+      .catch(err => console.log(err));
+  };
+
+  const reportOnClickHandler = () => {
+    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question.question_id}/report`, {}, options)
+      .then(response => console.log(response))
+      .catch(err => console.log(err));
+  };
+
   return (
-    <div>
-      <p>Q: {question.question_body}</p>
+    <div className="question">
+      <p className="question-body">Q: {question.question_body}</p>
+      <div className="question-options">
+        <div className="question-helpful-option">
+          <p>Helpful?</p>
+          <button type="submit" onClick={helpfulOnClickHandler}>Yes ({question.question_helpfulness})</button>
+        </div>
+        <div className="question-report-option">
+          <p>Report?</p>
+          <button type="submit" onClick={reportOnClickHandler}>Report</button>
+        </div>
+      </div>
       {displayAnswers.map((answer) => <Answer answer={answer} key={answer.id} />)}
       <button type="submit" onClick={moreAnswersButtonClickHandler} hidden={isNoMoreAnswers}>
         See More Answers

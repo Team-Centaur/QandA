@@ -1,6 +1,6 @@
 img {
   max-width: 4rem;
-  max-height: 4rem;
+  /* max-height: 4rem; */
 }
 
 .answer-body {
@@ -8,6 +8,7 @@ img {
 }
 
 .answer {
+  border-style: solid;
   max-width: 40rem;
   max-height: 20rem;
 }
