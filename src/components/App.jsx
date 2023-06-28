@@ -12,15 +12,16 @@ import './App.css';
 
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
-  const [currId, setCurrId] = useState(getRandomProd()); // 40400
+  const [currId, setCurrId] = useState(40400); // 40400
   const [currItem, setCurrItem] = useState(null);
   const [currReviewMeta, setCurrReviewMeta] = useState(null);
   const [currStyles, setCurrStyles] = useState(null);
-  useEffect(() => {
-    getRandomProd().then((data) => {
-      setCurrItem(data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getRandomProd().then((data) => {
+  //     setCurrItem(data);
+  //   });
+  // }, []);
+  //
 
   useEffect(() => {
     getProductById(currId)
@@ -40,7 +41,7 @@ function App() {
       .catch((err) => {
         console.log(`There was an error fetching product info: ${err}`);
       });
-  }, [currId]);
+  }, []);
 
   if (!currItem) {
     return <div>Loading...</div>;
