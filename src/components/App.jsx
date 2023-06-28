@@ -7,11 +7,12 @@ import { ReviewIdProvider } from './ReviewIdContext.jsx'; // context needed for 
 import getProductById from '../helperFunctions/App/getProductById.js';
 import getReviewMetadata from '../helperFunctions/getReviewMetadata.js';
 import getStylesById from '../helperFunctions/App/getStylesById.js';
+import getRandomProd from '../helperFunctions/App/getRandomProd.js';
 import './App.css';
 
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
-  const [currId, setCurrId] = useState(40345);
+  const [currId, setCurrId] = useState(40400); // 40400
   const [currItem, setCurrItem] = useState(null);
   const [currReviewMeta, setCurrReviewMeta] = useState(null);
   const [currStyles, setCurrStyles] = useState(null);
@@ -21,10 +22,10 @@ function App() {
   //   });
   // }, []);
 
+
   useEffect(() => {
     getProductById(currId)
       .then((data) => {
-        console.log('DATA:', data);
         setCurrItem(data);
       })
       .then(() => {
