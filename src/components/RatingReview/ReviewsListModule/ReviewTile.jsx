@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import dayjs from 'dayjs';
 import StarRating from '../../Utilities/StarRating.jsx';
 import ImageThumbnail from './ImageThumbnail.jsx';
-import makeDatePretty from '../../../helperFunctions/makeDatePretty';
+// import makeDatePretty from '../../../helperFunctions/makeDatePretty';
 import ReviewHelpfulness from './ReviewHelpfulness.jsx';
 
 const apiKey = process.env.REACT_APP_API_KEY;
@@ -11,6 +12,9 @@ const ReviewTile = ({ review }) => {
   const {
     body, date, helpfulness, photos, rating, recommend, response, review_id, reviewer_name, summary
   } = review;
+  console.log(review);
+
+  const formattedDate = dayjs(date).format('MMMM D, YYYY');
 
   // if review body is longer than char limit, show button and limit chars displayed
   const charLimit = 250;
@@ -20,6 +24,7 @@ const ReviewTile = ({ review }) => {
   const [reviewDisplay, setReviewDisplay] = useState(
     (body.length > charLimit) ? (body.slice(0, charLimit) + '...') : body
   );
+
   const [isVerified, setIsVerified] = useState(false);  // TODO: check if user email is associated with sale in system
   const [reviewHelpfulness, setReviewHelpfulness] = useState(helpfulness);
   const [votedHelpful, setVotedHelpful] = useState(false);
@@ -50,22 +55,19 @@ const ReviewTile = ({ review }) => {
       --------------------------------
       <h3>{StarRating({ rating })}</h3>
 
-      <div className='reviewDate'>{makeDatePretty(date)}</div>
+      <div className='reviewDate'>{formattedDate}</div>
 
       <div className='reviewSummary'>
         <h4>{summary}</h4>
       </div>
 
       <div className='reviewBody'>{reviewDisplay}</div>
-      {/* button only shows if body is longer than 250 */}
+
       {showButton && (
-      <button
-        type='button'
-        onClick={() => {
+      <button type='button' onClick={ () => {
           setShowButton(false);
           setReviewDisplay(body);
-        }}
-      >
+        }}>
         Show more
       </button>
       )}

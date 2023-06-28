@@ -38,7 +38,7 @@ const RatingReview = ({ currItem, reviewId }) => {
       }
     }
     getReviewData();
-  }, []);
+  }, [currItem]);
 
   const loadMoreReviews = () => {
     getReviews(currItem.id, 'relevant', (page + 1), 2).then((reviewsRes) => {
