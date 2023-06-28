@@ -1,0 +1,41 @@
+img {
+  max-width: 4rem;
+  max-height: 4rem;
+}
+
+.answer-body {
+  font-weight: 700;
+}
+
+.answer {
+  max-width: 40rem;
+  max-height: 20rem;
+}
+
+.answer-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.answer-options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.answer-helpful-option {
+  display: flex;
+}
+
+.answer-helpful-option p, .answer-helpful-option button {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.answer-report-option {
+  display: flex;
+}
+
+.answer-report-option p, .answer-report-option button {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}

@@ -60,9 +60,9 @@ const QuesAnswer = ({ product }) => {
     <section>
       <h2>QUESTIONS & ANSWERS</h2>
       <Search setDisplayQuestions={setDisplayQuestions} questions={questions} />
-      <Display questions={displayQuestions} />
+      <Display questions={displayQuestions} product={product} />
       <button type="submit" className="moreQuestionsButton" onClick={moreQuestionsButtonClickHandler} hidden={isNoMoreQuestions}>
-        MORE QUESTIONS
+        More Answered Questions
         {` (${questions.length - displayQuestions.length})`}
       </button>
       <button
@@ -70,7 +70,7 @@ const QuesAnswer = ({ product }) => {
         className="askQuestionButton"
         onClick={(event) => { addQuestionHandler(event); }}
       >
-        ASK A QUESTION
+        Ask A Question
       </button>
       <AskQuestion isAskQuestion={isAskQuestion} product={product} />
     </section>

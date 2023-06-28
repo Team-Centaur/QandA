@@ -1,19 +1,41 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Answer from './Answer.jsx';
 import AnswerQuestion from './AnswerQuestion.jsx';
 
-const Question = ({ question }) => {
+const Question = ({ question, product }) => {
   const [answers, setAnswers] = useState([]);
   const [displayAnswers, setDisplayAnswers] = useState([]);
   const [isNoMoreAnswers, setIsNoMoreAnswers] = useState(false);
   const [isAnswerQuestion, setIsAnswerQuestion] = useState(true);
 
+  const options = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: process.env.REACT_APP_API_KEY,
+    },
+  };
+
+  // get data and store questions
   useEffect(() => {
-    if (Object.values(question.answers).length > 0) {
-      setAnswers(Object.values(question.answers));
-      setDisplayAnswers([Object.values(question.answers)[0]]);
-    }
-  }, []);
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question.question_id}/answers?page=${1}&count=${1000}`, options)
+      .then((response) => {
+        console.log(response);
+        if (response.data.results.length > 0) {
+          const sortedResults = response.data.results.sort((a, b) => b.helpfulness - a.helpfulness);
+          setAnswers(sortedResults);
+          setDisplayAnswers([sortedResults[0]]);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [product]);
+
+  // useEffect(() => {
+  //   if (Object.values(question.answers).length > 0) {
+  //     setAnswers(Object.values(question.answers));
+  //     setDisplayAnswers([Object.values(question.answers)[0]]);
+  //   }
+  // }, []);
 
   // expand answers section when more answers button is clicked
   const moreAnswersButtonClickHandler = () => {
@@ -33,11 +55,10 @@ const Question = ({ question }) => {
 
   return (
     <div>
-      <h4>This is a question</h4>
-      <p>{question.question_body}</p>
-      {displayAnswers.map((answer) => <Answer answer={answer} key={answer.id} />)}
+      <p>Q: {question.question_body}</p>
+      {displayAnswers.map((answer) => <Answer answer={answer} product={product} key={answer.id} />)}
       <button type="submit" onClick={moreAnswersButtonClickHandler} hidden={isNoMoreAnswers}>
-        More Answers
+        See More Answers
         {` (${answers.length - displayAnswers.length})`}
       </button>
       <button type="submit" onClick={answerQuestionButtonClickHandler}>
