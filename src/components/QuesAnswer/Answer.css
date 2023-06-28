@@ -9,8 +9,11 @@ img {
 
 .answer {
   border-style: solid;
-  max-width: 40rem;
-  max-height: 20rem;
+  border-radius: 1rem;
+  background-color: aqua;
+  width: 40rem;
+  /* max-height: 20rem; */
+  padding: .5rem;
 }
 
 .answer-info {
@@ -39,4 +42,8 @@ img {
 .answer-report-option p, .answer-report-option button {
   margin-left: 1rem;
   margin-right: 1rem;
+}
+
+.username {
+  color: blue;
 }

@@ -33,8 +33,8 @@ console.log(answer);
       <p className="answer-body">A: {answer.body}</p>
       {answer.photos.map((photo) => <img src={photo.url} key={photo.id} />)}
       <div className="answer-info">
-        <p>{answer.answerer_name}</p>
-        <p>{date}</p>
+        <p className="username">{answer.answerer_name}</p>
+        <p className="date">{date}</p>
       </div>
       <div className="answer-options">
         <div className="answer-helpful-option">
