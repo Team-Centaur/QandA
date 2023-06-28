@@ -3,7 +3,7 @@ import axios from 'axios';
 import Answer from './Answer.jsx';
 import AnswerQuestion from './AnswerQuestion.jsx';
 
-const Question = ({ question, product }) => {
+const Question = ({ question }) => {
   const [answers, setAnswers] = useState([]);
   const [displayAnswers, setDisplayAnswers] = useState([]);
   const [isNoMoreAnswers, setIsNoMoreAnswers] = useState(false);
@@ -28,14 +28,7 @@ const Question = ({ question, product }) => {
         }
       })
       .catch((err) => console.log(err));
-  }, [product]);
-
-  // useEffect(() => {
-  //   if (Object.values(question.answers).length > 0) {
-  //     setAnswers(Object.values(question.answers));
-  //     setDisplayAnswers([Object.values(question.answers)[0]]);
-  //   }
-  // }, []);
+  }, [question]);
 
   // expand answers section when more answers button is clicked
   const moreAnswersButtonClickHandler = () => {
@@ -56,7 +49,7 @@ const Question = ({ question, product }) => {
   return (
     <div>
       <p>Q: {question.question_body}</p>
-      {displayAnswers.map((answer) => <Answer answer={answer} product={product} key={answer.id} />)}
+      {displayAnswers.map((answer) => <Answer answer={answer} key={answer.id} />)}
       <button type="submit" onClick={moreAnswersButtonClickHandler} hidden={isNoMoreAnswers}>
         See More Answers
         {` (${answers.length - displayAnswers.length})`}
