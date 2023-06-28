@@ -1,24 +1,25 @@
 .items-comp--reco-container {
   /* width: 90%; */
-  max-width: 100% !important;
+  max-width: 90% !important;
+  margin: 0 auto;
   overflow: hidden;
   position: relative; /* Add this */
 }
 
-.items-comp--reco-container.fade::before {
+/* .items-comp--reco-container.fade.left::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
-  width: 50%; /* Increase this value to spread the fade effect further */
+  width: 50%; 
   background: linear-gradient(
     to left,
     rgba(255, 255, 255, 0) 0%,
     rgba(255, 255, 255, 1) 100%
   );
   pointer-events: none;
-}
+} */
 
 .items-comp--reco-container.fade::after {
   content: '';
@@ -39,12 +40,13 @@
   display: flex;
   flex-wrap: nowrap;
   /* width: 100%; */
+  justify-content: start;
   overflow: hidden;
   gap: 2rem;
 }
 
 .items-comp--reco-list li:first-child {
-  margin-left: 2rem;
+  /* margin-left: 2rem; */
   /* margin-left: 10%; */
 }
 
@@ -62,7 +64,7 @@
   position: absolute;
   top: 50%;
   right: 5%;
-  z-index: 1000;
+  z-index: 2;
   transform: translateY(-50%);
 }
 
@@ -70,6 +72,6 @@
   position: absolute;
   top: 50%;
   left: 5%;
-  z-index: 1000;
+  z-index: 2;
   transform: translateY(-50%);
 }

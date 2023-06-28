@@ -11,22 +11,51 @@ import getRelatedItemsByID from '../../../helperFunctions/getRelatedItemsByID.js
 const RecommendedItems = ({ currItem, setCurrId }) => {
   const [relatedItems, setRelatedItems] = useState(null);
   const [scrollPosition, setScrollPosition] = useState(0);
+  // const [cardsShifted, setCardsShifted] = useState(0);
+  // const [showRightBtn, setShowRightBtn] = useState(true);
+  const [reachMaxScroll, setReachMaxScroll] = useState(false);
 
+  useEffect(() => {
+    if (
+      listRef.current &&
+      scrollPosition + listRef.current.clientWidth + 100 >=
+        listRef.current.scrollWidth
+    ) {
+      setReachMaxScroll(true);
+    } else {
+      setReachMaxScroll(false);
+    }
+  }, [scrollPosition]);
   /////////// Set up carousel
   const listRef = useRef(null);
+  // const reachedMaxScrollWidth =
+  //   scrollPosition + listRef.current.clientWidth >= listRef.current.scrollWidth;
+
   const scrollRight = () => {
     // Check to see if max scroll
     if (
-      scrollPosition + listRef.current.clientWidth >
+      scrollPosition + listRef.current.clientWidth + 100 >=
       listRef.current.scrollWidth
     ) {
+      setReachMaxScroll(true);
       return;
     }
 
-    const newScrollPosition = scrollPosition + 300;
+    const newScrollPosition = scrollPosition + 224;
     setScrollPosition(newScrollPosition);
 
     // Scroll the list to the new position.
+    if (listRef.current) {
+      listRef.current.scrollTo({
+        left: newScrollPosition,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  const scrollLeft = () => {
+    const newScrollPosition = scrollPosition - 224;
+    setScrollPosition(newScrollPosition);
     if (listRef.current) {
       listRef.current.scrollTo({
         left: newScrollPosition,
@@ -87,7 +116,7 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
         <button
           className="items-comp--reco-list_btn left"
           type="button"
-          onClick={scrollRight}
+          onClick={scrollLeft}
         >
           <FaArrowLeft size="1rem" />
         </button>
@@ -100,7 +129,7 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
       >
         {cards}
       </ul>
-      {
+      {!reachMaxScroll && relatedItems.length > 3 && (
         <button
           className="items-comp--reco-list_btn right"
           type="button"
@@ -108,7 +137,7 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
         >
           <FaArrowRight size="1rem" />
         </button>
-      }
+      )}
     </div>
   );
 };
