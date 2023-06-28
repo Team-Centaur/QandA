@@ -34,18 +34,31 @@ const AnswerQuestion = ({ isAnswerQuestion, questionId }) => {
       photos: [], // TODO: set up photos
     };
 
-    axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${questionId}/answers`, data, options)
-      .then(response => console.log(response))
-      .catch(err => console.log(err));
+    axios
+      .post(
+        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${questionId}/answers`,
+        data,
+        options
+      )
+      // .then(response => console.log(response))
+      .catch((err) => console.error(err));
   };
 
   return (
     <form hidden={isAnswerQuestion}>
       <input placeholder="username" onChange={usernameOnChangeHandler} />
       <input placeholder="email" onChange={emailOnChangeHandler} />
-      <textarea type="text" cols="50" rows="5" placeholder="answer" onChange={answerBodyOnChangeHandler} />
+      <textarea
+        type="text"
+        cols="50"
+        rows="5"
+        placeholder="answer"
+        onChange={answerBodyOnChangeHandler}
+      />
       {/* TODO: figure out photos */}
-      <button type="submit" onClick={createAnswerHandler}>Submit</button>
+      <button type="submit" onClick={createAnswerHandler}>
+        Submit
+      </button>
     </form>
   );
 };

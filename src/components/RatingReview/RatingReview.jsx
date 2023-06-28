@@ -10,8 +10,7 @@ import ReviewTile from './ReviewsListModule/ReviewTile.jsx';
 import getReviewMetadata from '../../helperFunctions/getReviewMetadata.js';
 import getReviews from '../../helperFunctions/getReviews.js';
 
-import { useReviewId } from '../ReviewIdContext.jsx' // custom hook to supply id to
-
+import { useReviewId } from '../ReviewIdContext.jsx'; // custom hook to supply id to
 
 const RatingReview = ({ currItem, reviewId }) => {
   const [reviews, setReviews] = useState([]);
@@ -34,14 +33,14 @@ const RatingReview = ({ currItem, reviewId }) => {
         setRatings(metadataRes.ratings);
         setRecommended(metadataRes.recommended);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
     getReviewData();
   }, [currItem]);
 
   const loadMoreReviews = () => {
-    getReviews(currItem.id, 'relevant', (page + 1), 2).then((reviewsRes) => {
+    getReviews(currItem.id, 'relevant', page + 1, 2).then((reviewsRes) => {
       if (reviewsRes.results.length < 2) {
         // if API returns less than 2 reviews, all reviews have been loaded
         setAllReviewsLoaded(true);
@@ -54,7 +53,7 @@ const RatingReview = ({ currItem, reviewId }) => {
 
   return (
     // supplying Id through custom hook that utilizes useContext
-    <section className='ratingReview' id={useReviewId()}>
+    <section className="ratingReview" id={useReviewId()}>
       <ReviewsList
         reviews={reviews}
         page={page}
@@ -63,7 +62,7 @@ const RatingReview = ({ currItem, reviewId }) => {
       />
       <RatingBreakdown />
       <ProductBreakdown />
-      <WriteReview characteristics={characteristics}/>
+      <WriteReview characteristics={characteristics} />
     </section>
   );
 };
