@@ -3,16 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { each } from 'underscore';
 import { FaRegStar } from 'react-icons/fa6';
 
-import Stars from '../../Utilities/Stars/Stars.jsx';
+import Stars from '../../../Utilities/Stars/Stars.jsx';
 // import StarRating from '../../Utilities/StarRating.jsx';
 import './Card.css';
 
-import getProductById from '../../../helperFunctions/App/getProductById.js';
-import getStylesById from '../../../helperFunctions/App/getStylesById.js';
-import getReviewMetadata from '../../../helperFunctions/getReviewMetadata.js';
+import getProductById from '../../../../helperFunctions/App/getProductById.js';
+import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
+import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
 // import getRandomNumber from '../../../helperFunctions/App/getRandomNumber.js';
 
-function Card({ productID, setCurrId }) {
+function Card({ productID, setCurrId, type }) {
   const [productObj, setProductObj] = useState(null);
   const [styles, setStyles] = useState(null);
   const [avgReview, setAvgReview] = useState(0);

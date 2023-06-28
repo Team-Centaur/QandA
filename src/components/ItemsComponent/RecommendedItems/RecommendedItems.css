@@ -55,23 +55,27 @@
 }
 
 .items-comp--reco-list_btn {
-  background: transparent;
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.477);
   border: none;
   filter: drop-shadow(0.0625rem 0rem 0rem #000);
+  border-radius: 100rem;
+  color: #fff;
 }
 
 .items-comp--reco-list_btn.right {
   position: absolute;
-  top: 50%;
+  top: 40%;
   right: 5%;
   z-index: 2;
-  transform: translateY(-50%);
+  /* transform: translateY(-50%); */
 }
 
 .items-comp--reco-list_btn.left {
   position: absolute;
-  top: 50%;
-  left: 5%;
+  top: 40%;
+  left: 1%;
   z-index: 2;
-  transform: translateY(-50%);
+  /* transform: translateY(50%); */
 }
