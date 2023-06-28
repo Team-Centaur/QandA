@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Stars from './Stars/Stars.jsx';
 import SocialShare from './SocialShare/SocialShare.jsx';
-import Styles from './Styles/Styles.jsx';
+import AllStyles from './Styles/AllStyles.jsx';
 const ProductOverview = ({ dataObj }) => {
   const [totalReviews, setTotalReviews] = useState(0);
   const [avgRating, setAvgRating] = useState(0);
@@ -42,7 +42,7 @@ const ProductOverview = ({ dataObj }) => {
           <div className="product-sale-price"></div>
         </div>
         <SocialShare />
-        <Styles dataObj={dataObj}/>
+        <AllStyles dataObj={dataObj}/>
       </div>
 
     );

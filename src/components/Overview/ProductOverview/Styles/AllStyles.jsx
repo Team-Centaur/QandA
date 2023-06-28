@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-const Styles = ({dataObj}) => {
+const AllStyles = ({dataObj}) => {
   const [styles, setStyles] = useState(dataObj.styles);
   if(styles) {
     console.log(dataObj.styles);
@@ -13,4 +13,4 @@ const Styles = ({dataObj}) => {
   }
   return null;
 }
-export default Styles;
+export default AllStyles;
