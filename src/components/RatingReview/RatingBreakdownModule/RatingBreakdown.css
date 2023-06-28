@@ -1,4 +1,7 @@
 .ratingBreakdown {
-  width: 250px;
-  background-color: PowderBlue;
+  width: 300px;
+  border-radius: 20px;
+  padding: 25px;
+  background-color: aliceblue;
+  margin: 10px;
 }
