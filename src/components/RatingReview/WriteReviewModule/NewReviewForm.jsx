@@ -1,5 +1,9 @@
 import React from 'react';
 import CharacteristicInput from './CharacteristicInput.jsx';
+import RecommendInput from './RecommendInput.jsx';
+import ReviewerInfoInput from './ReviewerInfoInput.jsx';
+import ReviewBodyInput from './ReviewBodyInput.jsx';
+import PhotoUpload from './PhotoUpload.jsx';
 
 const ReviewFormStyles = {
   position: 'fixed',
@@ -8,7 +12,7 @@ const ReviewFormStyles = {
   transform: 'translate(-50%, 50%)',
   backgroundColor: '#FFF',
   padding: '50px',
-  zIndex:  1,
+  zIndex:  2,
 };
 
 const FormOverlayStyles = {
@@ -36,11 +40,7 @@ const NewReviewForm = ({ onClose, characteristics }) => {
         </div>
 
         <div className='recommendInput'>
-          Do you recommend this product?
-          <input type='radio' id='recYes' value='yes' name='recommended' defaultChecked={true} onChange={(e) => console.log(e.target.value)} required />
-          <label htmlFor='recYes'> Yes </label>
-          <input type='radio' id='recNo' value='no' name='recommended' />
-          <label htmlFor='recNo'> No </label>
+          <RecommendInput />
         </div>
 
         <div className='characteristicsInput'>
@@ -49,27 +49,22 @@ const NewReviewForm = ({ onClose, characteristics }) => {
 
         <div className='summaryInput'>
           <h4>Review Summary</h4>
-          <input type='text'></input>
+          <textarea maxLength='60' placeholder='Example: Best purchase ever!'></textarea>
         </div>
 
         <div className='bodyInput'>
-          <h4>Review Body</h4>
-          <input type='text' required></input>
+          <ReviewBodyInput />
         </div>
 
         <div className='photoUpload'>
-          <h4>Upload photos</h4>
-          *IN PROGRESS*
+          <PhotoUpload />
         </div>
 
-        {/* <input type='text'>nickname</input> */}
         <div className='reviewerInfo'>
-          <h4>Nickname</h4>
-          <input type='text' required></input>
-          <h4>Email</h4>
-          <input type='email' required></input>
+          <ReviewerInfoInput />
         </div>
 
+        <input type='submit' value='Submit'></input>
       </form>
     </div>
   );
