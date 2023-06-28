@@ -16,11 +16,11 @@ function App() {
   const [currItem, setCurrItem] = useState(null);
   const [currReviewMeta, setCurrReviewMeta] = useState(null);
   const [currStyles, setCurrStyles] = useState(null);
-  // useEffect(() => {
-  //   getRandomProd().then((data) => {
-  //     setCurrItem(data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    getRandomProd().then((data) => {
+      setCurrItem(data);
+    });
+  }, []);
 
 
   useEffect(() => {

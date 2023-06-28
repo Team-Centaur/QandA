@@ -11,7 +11,7 @@ const ReviewTile = ({ review }) => {
   const {
     body, date, helpfulness, photos, rating, recommend, response, review_id, reviewer_name, summary
   } = review;
-  console.log(review);
+  // console.log(review);
 
   const formattedDate = dayjs(date).format('MMMM D, YYYY');
 
