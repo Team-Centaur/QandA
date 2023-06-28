@@ -21,7 +21,7 @@ function App() {
   //     setCurrItem(data);
   //   });
   // }, []);
-  //
+
 
   useEffect(() => {
     getProductById(currId)
