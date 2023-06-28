@@ -46,6 +46,11 @@ const Question = ({ question }) => {
     setIsAnswerQuestion(false);
   };
 
+  const collapseAnswersOnClickHandlers = () => {
+    setDisplayAnswers([answers[0]]);
+    setIsNoMoreAnswers(false);
+  };
+
   return (
     <div>
       <p>Q: {question.question_body}</p>
@@ -54,6 +59,7 @@ const Question = ({ question }) => {
         See More Answers
         {` (${answers.length - displayAnswers.length})`}
       </button>
+      <button type="submit" onClick={collapseAnswersOnClickHandlers} hidden={!isNoMoreAnswers}>Collapse Answers</button>
       <button type="submit" onClick={answerQuestionButtonClickHandler}>
         Answer this question
       </button>
