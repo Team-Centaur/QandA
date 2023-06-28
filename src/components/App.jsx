@@ -41,7 +41,7 @@ function App() {
       .catch((err) => {
         console.log(`There was an error fetching product info: ${err}`);
       });
-  }, []);
+  }, [currId]);
 
   if (!currItem) {
     return <div>Loading...</div>;

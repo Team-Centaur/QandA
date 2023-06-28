@@ -3,7 +3,6 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import StarRating from '../../Utilities/StarRating.jsx';
 import ImageThumbnail from './ImageThumbnail.jsx';
-// import makeDatePretty from '../../../helperFunctions/makeDatePretty';
 import ReviewHelpfulness from './ReviewHelpfulness.jsx';
 
 const apiKey = process.env.REACT_APP_API_KEY;
