@@ -28,15 +28,27 @@ const QuesAnswer = ({ product }) => {
 
   // get data and store questions
   useEffect(() => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions?product_id=${product.id}&page=${1}&count=${1000}`, options)
+    axios
+      .get(
+        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions?product_id=${
+          product.id
+        }&page=${1}&count=${100}`,
+        options
+      )
       .then((response) => {
         if (response.data.results.length > 0) {
-          const sortedResults = response.data.results.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
+          const sortedResults = response.data.results.sort(
+            (a, b) => b.question_helpfulness - a.question_helpfulness
+          );
           setQuestions(sortedResults);
           setDisplayQuestions([...sortedResults.slice(0, 4)]);
         }
       })
+<<<<<<< HEAD
       .catch((err) => console.log(err));
+=======
+      .catch((err) => console.error(err));
+>>>>>>> 2dd3cc7a02cfba10e6aa03096bc25237d3e0f71d
   }, [product]);
 
   // expand more questions on button click
@@ -48,7 +60,10 @@ const QuesAnswer = ({ product }) => {
       setIsNoMoreQuestions(true);
     } else {
       setDisplayQuestions(
-        questions.slice(0, displayQuestions.length + NUMBER_OF_QUESTIONS_TO_LOAD),
+        questions.slice(
+          0,
+          displayQuestions.length + NUMBER_OF_QUESTIONS_TO_LOAD
+        )
       );
     }
   };
@@ -62,17 +77,30 @@ const QuesAnswer = ({ product }) => {
     <section className="ques-ans-main">
       <h2>QUESTIONS & ANSWERS</h2>
       <Search setDisplayQuestions={setDisplayQuestions} questions={questions} />
+<<<<<<< HEAD
       <div className="display">
         <Display questions={displayQuestions} product={product} />
       </div>
       <button type="submit" className="moreQuestionsButton" onClick={moreQuestionsButtonClickHandler} hidden={isNoMoreQuestions}>
         More Answered Questions
+=======
+      <Display questions={displayQuestions} />
+      <button
+        type="submit"
+        className="moreQuestionsButton"
+        onClick={moreQuestionsButtonClickHandler}
+        hidden={isNoMoreQuestions}
+      >
+        MORE QUESTIONS
+>>>>>>> 2dd3cc7a02cfba10e6aa03096bc25237d3e0f71d
         {` (${questions.length - displayQuestions.length})`}
       </button>
       <button
         type="submit"
         className="askQuestionButton"
-        onClick={(event) => { addQuestionHandler(event); }}
+        onClick={(event) => {
+          addQuestionHandler(event);
+        }}
       >
         Ask A Question
       </button>
