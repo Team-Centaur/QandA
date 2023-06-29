@@ -22,7 +22,6 @@ const OutfitItems = ({ currItem }) => {
 
   // Set savedItemsId to localStorage
   useEffect(() => {
-    console.log('hello');
     localStorage.setItem('outfit', JSON.stringify(savedItemsId));
   }, [savedItemsId]);
 
@@ -90,7 +89,6 @@ const OutfitItems = ({ currItem }) => {
     }
     setSavedItemsId((prevState) => [currItem.id, ...prevState]);
   };
-  console.log(savedItemsId);
   /// /////////// CONDITIONAL RENDERING & LOADING STATE //////////////
   if (savedItemsId.length === 0) {
     return (
@@ -118,7 +116,6 @@ const OutfitItems = ({ currItem }) => {
     />
   ));
 
-  console.log(savedItemsId.length, reachMaxScroll);
   // /////////// JSX //////////////
   return (
     <div
