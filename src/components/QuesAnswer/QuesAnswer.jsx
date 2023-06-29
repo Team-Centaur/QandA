@@ -4,6 +4,7 @@ import axios from 'axios';
 import Search from './Search.jsx';
 import AskQuestion from './AskQuestion.jsx';
 import Display from './Display.jsx';
+import './QuesAnswer.css';
 
 const QuesAnswer = ({ product }) => {
   const [questions, setQuestions] = useState([]);
@@ -57,7 +58,7 @@ const QuesAnswer = ({ product }) => {
   };
 
   return (
-    <section>
+    <section className="ques-ans-main">
       <h2>QUESTIONS & ANSWERS</h2>
       <Search setDisplayQuestions={setDisplayQuestions} questions={questions} />
       <Display questions={displayQuestions} product={product} />
