@@ -25,7 +25,7 @@ const Question = ({ question }) => {
         if (response.data.results.length > 0) {
           const sortedResults = response.data.results.sort((a, b) => b.helpfulness - a.helpfulness);
           setAnswers(sortedResults);
-          setDisplayAnswers([sortedResults[0]]);
+          setDisplayAnswers([...sortedResults.slice(0, 2)]);
         }
       })
       .catch((err) => console.log(err));
