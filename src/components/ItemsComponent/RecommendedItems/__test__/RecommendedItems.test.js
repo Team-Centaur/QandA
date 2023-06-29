@@ -1,5 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
 import RecommendedItems from '../RecommendedItems';
@@ -56,37 +62,44 @@ describe('RecommendedItems component', () => {
     ],
   };
 
-  beforeEach(() => {
-    render(<RecommendedItems currItem={currItem} setCurrId={setCurrId} />);
+  beforeEach(async () => {
+    await act(async () => {
+      render(<RecommendedItems currItem={currItem} setCurrId={setCurrId} />);
+    });
   });
 
   test('renders Loading message when fetching data', () => {
+    render(<RecommendedItems currItem={currItem} setCurrId={setCurrId} />);
     const loadingElement = screen.getByText(/loading.../i);
     expect(loadingElement).toBeInTheDocument();
   });
 
   test('renders the Cards after fetching data', async () => {
-    const cardElements = await screen.findAllByTestId('card');
-    expect(cardElements).toHaveLength(5);
+    await act(async () => {
+      const cardElements = await screen.findAllByTestId('card');
+      expect(cardElements).toHaveLength(5);
+    });
   });
 
   test('calls setCurrId when a Card is clicked', async () => {
-    // Define what the mock should return
+    await act(async () => {
+      const card = await screen.findAllByTestId('card');
 
-    const card = await screen.findAllByTestId('card');
+      // Simulate a click event on the first Card
+      fireEvent.click(card[0]);
 
-    // Simulate a click event on the first Card
-    fireEvent.click(card[0]);
-
-    // Check that setCurrId has been called with the right id
-    expect(setCurrId).toHaveBeenCalledTimes(1);
+      // Check that setCurrId has been called with the right id
+      expect(setCurrId).toHaveBeenCalledTimes(1);
+    });
   });
 
   test('renders a right arrow button', async () => {
-    const rightButton = await screen.findByRole('button', {
-      name: /right-scroll/i,
+    await act(async () => {
+      const rightButton = await screen.findByRole('button', {
+        name: /right-scroll/i,
+      });
+      expect(rightButton).toBeInTheDocument();
     });
-    expect(rightButton).toBeInTheDocument();
   });
 
   //   test('renders a left arrow button after the right arrow button is clicked', async () => {
