@@ -6,11 +6,9 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import ReviewHelpfulness from './ReviewHelpfulness';
-// takes prop reviewHelpfulness (number) and
-test('increments helpfuless score on button click', () => {
-  const reviewHelpfulness = 12;
-  render(<ReviewHelpfulness reviewHelpfulness={reviewHelpfulness} />)
-  const helpfulElement = screen.getByRole('button');
-  expect(helpfulElement).toBeInTheDocument();
 
+it('displays helpfulness prop in button', () => {
+  render(<ReviewHelpfulness reviewHelpfulness={12} />)
+  const helpfulElement = screen.getByRole('button', {name: 'Yes (12)'});
+  expect(helpfulElement).toBeInTheDocument();
 });
