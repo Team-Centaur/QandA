@@ -1,0 +1,105 @@
+.items-comp--outfit-container {
+  /* width: 90%; */
+  max-width: 90% !important;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative; /* Add this */
+}
+
+/* .items-comp--outfit-container.fade.left::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 50%; 
+    background: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 1) 100%
+    );
+    pointer-events: none;
+  } */
+
+.items-comp--outfit-container.fade::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 30%; /* Increase this value to spread the fade effect further */
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  pointer-events: none;
+}
+
+.items-comp--outfit-list {
+  display: flex;
+  flex-wrap: nowrap;
+  /* width: 100%; */
+  justify-content: start;
+  overflow: hidden;
+  gap: 2rem;
+}
+
+.items-comp--outfit-list li:first-child {
+  /* margin-left: 2rem; */
+  /* margin-left: 10%; */
+}
+
+.items-comp--outfit-list li:last-child {
+  margin-right: 2rem;
+}
+
+.items-comp--outfit-list_btn {
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.477);
+  border: none;
+  filter: drop-shadow(0.0625rem 0rem 0rem #000);
+  border-radius: 100rem;
+  color: #fff;
+}
+
+.items-comp--outfit-list_btn.right {
+  position: absolute;
+  top: 40%;
+  right: 5%;
+  z-index: 2;
+  /* transform: translateY(-50%); */
+}
+
+.items-comp--outfit-list_btn.left {
+  position: absolute;
+  top: 40%;
+  left: 1%;
+  z-index: 2;
+  /* transform: translateY(50%); */
+}
+
+.items-comp--outfit-add_btn {
+  font-size: 1.25rem;
+  width: 12rem;
+  height: 22rem;
+  background: #e3e3e3;
+  border-radius: 0.1875rem;
+  border: none;
+  box-shadow: rgba(60, 64, 67, 0.3) 0rem 0.0625rem 0.125rem 0rem,
+    rgba(60, 64, 67, 0.15) 0rem 0.125rem 0.375rem 0.125rem;
+  cursor: pointer;
+  transition-duration: 300ms;
+}
+
+.items-comp--outfit-add_btn:hover {
+  background-color: #b3b3b3;
+}
+
+.items-comp--outfit-add_btn:active {
+  background-color: #a1a1a1;
+  box-shadow: rgba(60, 64, 67, 0.3) 0rem 0.03125rem 0.0625rem 0rem,
+    rgba(60, 64, 67, 0.15) 0rem 0.0625rem 0.1875rem 0.0625rem;
+  transform: translateY(2px);
+}
