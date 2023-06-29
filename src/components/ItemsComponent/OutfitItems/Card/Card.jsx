@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // import ActionBtnStar from './ActionBtn/ActionBtnStar.jsx';
 import { each } from 'underscore';
-import { FaRegStar } from 'react-icons/fa6';
+import { FaXmark } from 'react-icons/fa6';
 
 import Stars from '../../../Utilities/Stars/Stars.jsx';
 // import StarRating from '../../Utilities/StarRating.jsx';
@@ -11,7 +11,7 @@ import getProductById from '../../../../helperFunctions/App/getProductById.js';
 import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
 import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
 
-function Card({ productID, setCurrId, type }) {
+function Card({ productID, savedItemsId, setSavedItemsId }) {
   const [productObj, setProductObj] = useState(null);
   const [styles, setStyles] = useState(null);
   const [avgReview, setAvgReview] = useState(0);
@@ -65,10 +65,10 @@ function Card({ productID, setCurrId, type }) {
   }
 
   /// /////////// EVENT HANDLERS //////////////
-  const clickHandler = () => {
-    setCurrId(productObj.id);
+  const handleRemoveItem = () => {
+    const updatedItems = savedItemsId.filter((itemId) => itemId !== productID);
+    setSavedItemsId(updatedItems);
   };
-
   /// /////////// STYLES //////////////
   const starStyle = {
     color: '#000',
@@ -83,7 +83,7 @@ function Card({ productID, setCurrId, type }) {
 
   /// /////////// JSX //////////////
   return (
-    <li className="items-comp--card" onClick={clickHandler}>
+    <li className="items-comp--card">
       {/* If there is no photo url, display gray background with text */}
       {!imageUrl && (
         <div className="items-comp--card_img">
@@ -101,7 +101,7 @@ function Card({ productID, setCurrId, type }) {
           >
             No Photo Available
           </div>
-          <FaRegStar color="black" />
+          <FaXmark color="black" />
           {/* <ActionBtnStar /> */}
         </div>
       )}
@@ -117,7 +117,7 @@ function Card({ productID, setCurrId, type }) {
               backgroundPosition: 'center',
             }}
           />
-          <FaRegStar style={starStyle} />
+          <FaXmark style={starStyle} onClick={handleRemoveItem} />
           {/* <ActionBtnStar /> */}
         </div>
       )}

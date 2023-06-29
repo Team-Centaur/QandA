@@ -12,6 +12,20 @@ const OutfitItems = ({ currItem }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [reachMaxScroll, setReachMaxScroll] = useState(false);
 
+  // Load localStorage
+  useEffect(() => {
+    const retreivedIds = JSON.parse(localStorage.getItem('outfit'));
+    if (retreivedIds.length > 0) {
+      setSavedItemsId(retreivedIds);
+    }
+  }, []);
+
+  // Set savedItemsId to localStorage
+  useEffect(() => {
+    console.log('hello');
+    localStorage.setItem('outfit', JSON.stringify(savedItemsId));
+  }, [savedItemsId]);
+
   useEffect(() => {
     if (
       outfitListRef.current &&
@@ -96,7 +110,12 @@ const OutfitItems = ({ currItem }) => {
   /// /////////// DISPLAY ELEMENTS CREATION //////////////
 
   const cards = savedItemsId.map((product) => (
-    <Card productID={product} key={product} />
+    <Card
+      productID={product}
+      key={product}
+      savedItemsId={savedItemsId}
+      setSavedItemsId={setSavedItemsId}
+    />
   ));
 
   console.log(savedItemsId.length, reachMaxScroll);
