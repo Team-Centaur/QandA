@@ -6,34 +6,35 @@ import Card from './Card/Card.jsx';
 import './OutfitItems.css';
 
 import getRelatedItemsByID from '../../../helperFunctions/App/getRelatedItemsById.js';
-// import getProductById from '../../../helperFunctions/App/getProductById.js';
 
-const OutfitItems = ({ currItem, setCurrId }) => {
-  const [relatedItems, setRelatedItems] = useState(null);
+const OutfitItems = ({ currItem }) => {
+  const [savedItemsId, setSavedItemsId] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [reachMaxScroll, setReachMaxScroll] = useState(false);
 
   useEffect(() => {
     if (
-      listRef.current &&
-      scrollPosition + listRef.current.clientWidth + 100 >=
-        listRef.current.scrollWidth
+      outfitListRef.current &&
+      scrollPosition + outfitListRef.current.clientWidth + 100 >=
+        outfitListRef.current.scrollWidth &&
+      savedItemsId.length > 2
     ) {
       setReachMaxScroll(true);
     } else {
       setReachMaxScroll(false);
     }
-  }, [scrollPosition]);
-  /////////// Set up carousel
-  const listRef = useRef(null);
+  }, [scrollPosition, savedItemsId]);
+
+  /// /////////// CAROUSEL LOGIC //////////////
+  const outfitListRef = useRef(null);
   // const reachedMaxScrollWidth =
-  //   scrollPosition + listRef.current.clientWidth >= listRef.current.scrollWidth;
+  //   scrollPosition + outfitListRef.current.clientWidth >= outfitListRef.current.scrollWidth;
 
   const scrollRight = () => {
     // Check to see if max scroll
     if (
-      scrollPosition + listRef.current.clientWidth + 100 >=
-      listRef.current.scrollWidth
+      scrollPosition + outfitListRef.current.clientWidth + 100 >=
+      outfitListRef.current.scrollWidth
     ) {
       setReachMaxScroll(true);
       return;
@@ -43,8 +44,8 @@ const OutfitItems = ({ currItem, setCurrId }) => {
     setScrollPosition(newScrollPosition);
 
     // Scroll the list to the new position.
-    if (listRef.current) {
-      listRef.current.scrollTo({
+    if (outfitListRef.current) {
+      outfitListRef.current.scrollTo({
         left: newScrollPosition,
         behavior: 'smooth',
       });
@@ -54,62 +55,56 @@ const OutfitItems = ({ currItem, setCurrId }) => {
   const scrollLeft = () => {
     const newScrollPosition = scrollPosition - 224;
     setScrollPosition(newScrollPosition);
-    if (listRef.current) {
-      listRef.current.scrollTo({
+    if (outfitListRef.current) {
+      outfitListRef.current.scrollTo({
         left: newScrollPosition,
         behavior: 'smooth',
       });
     }
   };
   // Reset scroll position when currItem changes
-  useEffect(() => {
-    setScrollPosition(0);
-  }, [currItem]);
 
-  /// /////////// USE EFFECTS //////////////
-  useEffect(() => {
-    // Reset relateted items each time currItem is changed
-    setRelatedItems(null);
-    getRelatedItemsByID(currItem.id)
-      .then((data) => {
-        setRelatedItems(data);
-      })
-      .catch((err) => {
-        console.error(`There was an error: ${err}`);
-      });
-  }, [currItem]);
+  /// /////////// PAGE RENDERING USEEFFECT //////////////
+  // When an id is added to savedItemsIds we need to rerender the page and
+  // make calls to the DB to get info on the item
 
+  /// /////////// ADD OUTFIT HANDLER //////////////
+  const handleAddItem = () => {
+    const cantAdd = savedItemsId.some((id) => id === currItem.id);
+    if (cantAdd) {
+      return;
+    }
+    setSavedItemsId((prevState) => [currItem.id, ...prevState]);
+  };
+  console.log(savedItemsId);
   /// /////////// CONDITIONAL RENDERING & LOADING STATE //////////////
-  if (!relatedItems) {
-    return <p style={{ fontSize: '2rem' }}>Loading...</p>;
-  }
-
-  if (!relatedItems || !Array.isArray(relatedItems)) {
+  if (savedItemsId.length === 0) {
     return (
-      <div className="items-comp--reco_container">
-        There are no related Products
+      <div className="items-comp--outfit-container">
+        <ul className="items-comp--outfit-list" ref={outfitListRef}>
+          <button
+            className="items-comp--outfit-add_btn"
+            onClick={handleAddItem}
+          >
+            Add This Item +
+          </button>
+        </ul>
       </div>
     );
   }
 
   /// /////////// DISPLAY ELEMENTS CREATION //////////////
 
-  // const cards = relatedItems.map((product) => (
-  //   <Card productID={product} key={product} setCurrId={setCurrId} />
-  // ));
+  const cards = savedItemsId.map((product) => (
+    <Card productID={product} key={product} />
+  ));
 
-  let listWidth = 100;
-
-  /// /////////// STYLES //////////////
-  if (relatedItems.length > 3) {
-    listWidth += (relatedItems.length - 3) * 30;
-  }
-
+  console.log(savedItemsId.length, reachMaxScroll);
   // /////////// JSX //////////////
   return (
     <div
       className={`items-comp--outfit-container ${
-        relatedItems.length > 3 ? 'fade' : ''
+        savedItemsId.length > 3 ? 'fade' : ''
       }`}
     >
       {scrollPosition > 0 && (
@@ -125,12 +120,14 @@ const OutfitItems = ({ currItem, setCurrId }) => {
       <ul
         className="items-comp--outfit-list"
         // style={{ width: `${listWidth}%` }}
-        ref={listRef}
+        ref={outfitListRef}
       >
-        {/* {cards} */}
-        <button className="items-comp--outfit-add_btn">Add Outfit +</button>
+        <button className="items-comp--outfit-add_btn" onClick={handleAddItem}>
+          Add Item +
+        </button>
+        {cards}
       </ul>
-      {!reachMaxScroll && relatedItems.length > 3 && (
+      {!reachMaxScroll && savedItemsId.length > 3 && (
         <button
           className="items-comp--outfit-list_btn right"
           type="button"

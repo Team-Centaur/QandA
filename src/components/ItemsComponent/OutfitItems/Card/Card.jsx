@@ -10,7 +10,6 @@ import './Card.css';
 import getProductById from '../../../../helperFunctions/App/getProductById.js';
 import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
 import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
-// import getRandomNumber from '../../../helperFunctions/App/getRandomNumber.js';
 
 function Card({ productID, setCurrId, type }) {
   const [productObj, setProductObj] = useState(null);
