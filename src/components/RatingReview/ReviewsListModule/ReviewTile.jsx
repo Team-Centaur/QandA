@@ -46,12 +46,12 @@ const ReviewTile = ({ review }) => {
             Authorization: apiKey,
           },
         });
-        console.log(response);
+        // console.log(response);
         setReviewHelpfulness(reviewHelpfulness + 1);
         setVotedHelpful(true);
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

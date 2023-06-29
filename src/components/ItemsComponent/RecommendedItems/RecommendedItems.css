@@ -1,6 +1,7 @@
 .items-comp--reco-container {
   /* width: 90%; */
   max-width: 90% !important;
+  height: 24rem;
   margin: 0 auto;
   overflow: hidden;
   position: relative; /* Add this */

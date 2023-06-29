@@ -37,17 +37,51 @@ const AskQuestion = ({ isAskQuestion, product }) => {
       product_id: product.id,
     };
 
-    axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions', data, options)
-      .then((response) => console.log(response))
-      .catch((err) => console.log(err));
+    axios
+      .post(
+        'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions',
+        data,
+        options
+      )
+      // .then((response) => console.log(response))
+      .catch((err) => console.error(err));
   };
 
   return (
-    <form className="askQuestionContainer" value={questionBody} hidden={isAskQuestion}>
-      <input className="askQuestionNameInput" maxLength="60" placeholder="Name" onChange={questionNameOnChangeHandler} value={questionName} />
-      <input className="askQuestionEmailInput" maxLength="60" placeholder="Email" onChange={questionEmailOnChangeHandler} value={questionEmail} />
-      <textarea type="text" rows="5" cols="50" maxLength="1000" placeholder="question" onChange={questionBodyOnChangeHandler} />
-      <button type="submit" className="submitAskQuestionButton" onClick={createQuestionHandler}>Submit</button>
+    <form
+      className="askQuestionContainer"
+      value={questionBody}
+      hidden={isAskQuestion}
+    >
+      <input
+        className="askQuestionNameInput"
+        maxLength="60"
+        placeholder="Name"
+        onChange={questionNameOnChangeHandler}
+        value={questionName}
+      />
+      <input
+        className="askQuestionEmailInput"
+        maxLength="60"
+        placeholder="Email"
+        onChange={questionEmailOnChangeHandler}
+        value={questionEmail}
+      />
+      <textarea
+        type="text"
+        rows="5"
+        cols="50"
+        maxLength="1000"
+        placeholder="question"
+        onChange={questionBodyOnChangeHandler}
+      />
+      <button
+        type="submit"
+        className="submitAskQuestionButton"
+        onClick={createQuestionHandler}
+      >
+        Submit
+      </button>
     </form>
   );
 };

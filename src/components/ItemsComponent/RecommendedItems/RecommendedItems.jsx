@@ -5,7 +5,7 @@ import Card from './Card/Card.jsx';
 
 import './RecommendedItems.css';
 
-import getRelatedItemsByID from '../../../helperFunctions/getRelatedItemsByID.js';
+import getRelatedItemsById from '../../../helperFunctions/App/getRelatedItemsById.js';
 // import getProductById from '../../../helperFunctions/App/getProductById.js';
 
 const RecommendedItems = ({ currItem, setCurrId }) => {
@@ -41,7 +41,7 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
       return;
     }
 
-    const newScrollPosition = scrollPosition + 224;
+    const newScrollPosition = scrollPosition + 220;
     setScrollPosition(newScrollPosition);
 
     // Scroll the list to the new position.
@@ -54,7 +54,7 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
   };
 
   const scrollLeft = () => {
-    const newScrollPosition = scrollPosition - 224;
+    const newScrollPosition = scrollPosition - 220;
     setScrollPosition(newScrollPosition);
     if (listRef.current) {
       listRef.current.scrollTo({
@@ -72,7 +72,7 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
   useEffect(() => {
     // Reset relateted items each time currItem is changed
     setRelatedItems(null);
-    getRelatedItemsByID(currItem.id)
+    getRelatedItemsById(currItem.id)
       .then((data) => {
         setRelatedItems(data);
       })
@@ -83,7 +83,11 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
 
   /// /////////// CONDITIONAL RENDERING & LOADING STATE //////////////
   if (!relatedItems) {
-    return <p style={{ fontSize: '2rem' }}>Loading...</p>;
+    return (
+      <div className="items-comp--reco-container">
+        <p style={{ fontSize: '2rem' }}>Loading...</p>;
+      </div>
+    );
   }
 
   if (!relatedItems || !Array.isArray(relatedItems)) {
@@ -114,7 +118,7 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
   return (
     <div
       className={`items-comp--reco-container ${
-        relatedItems.length > 3 ? 'fade' : ''
+        relatedItems.length > 2 ? 'fade' : ''
       }`}
     >
       {scrollPosition > 0 && (
@@ -122,6 +126,7 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
           className="items-comp--reco-list_btn left"
           type="button"
           onClick={scrollLeft}
+          aria-label="left-scroll"
         >
           <FaArrowLeft size="1rem" />
         </button>
@@ -137,6 +142,7 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
       {!reachMaxScroll && relatedItems.length > 3 && (
         <button
           className="items-comp--reco-list_btn right"
+          aria-label="right-scroll"
           type="button"
           onClick={scrollRight}
         >
