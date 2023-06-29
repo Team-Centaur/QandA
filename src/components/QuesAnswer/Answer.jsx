@@ -58,8 +58,7 @@ const Answer = ({ answer }) => {
         <div className="answer-report-option">
           <p>Report?</p>
           <button type="submit" onClick={reportOnClickHandler}>
-            {isAnswerReportClicked && <>Reported</>}
-            {!isAnswerReportClicked && <>Report</>}
+            {isAnswerReportClicked ? <>Reported</> : <>Report</>}
           </button>
         </div>
       </div>

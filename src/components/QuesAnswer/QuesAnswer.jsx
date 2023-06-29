@@ -7,6 +7,7 @@ import Display from './Display.jsx';
 import './QuesAnswer.css';
 
 const QuesAnswer = ({ product }) => {
+  console.log(product);
   const [questions, setQuestions] = useState([]);
   const [displayQuestions, setDisplayQuestions] = useState([]);
   const [isNoMoreQuestions, setIsNoMoreQuestions] = useState(false);
@@ -32,11 +33,11 @@ const QuesAnswer = ({ product }) => {
         if (response.data.results.length > 0) {
           const sortedResults = response.data.results.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
           setQuestions(sortedResults);
-          setDisplayQuestions([sortedResults[0]]);
+          setDisplayQuestions([...sortedResults.slice(0, 4)]);
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [product]);
 
   // expand more questions on button click
   const moreQuestionsButtonClickHandler = () => {
@@ -61,7 +62,9 @@ const QuesAnswer = ({ product }) => {
     <section className="ques-ans-main">
       <h2>QUESTIONS & ANSWERS</h2>
       <Search setDisplayQuestions={setDisplayQuestions} questions={questions} />
-      <Display questions={displayQuestions} product={product} />
+      <div className="display">
+        <Display questions={displayQuestions} product={product} />
+      </div>
       <button type="submit" className="moreQuestionsButton" onClick={moreQuestionsButtonClickHandler} hidden={isNoMoreQuestions}>
         More Answered Questions
         {` (${questions.length - displayQuestions.length})`}
