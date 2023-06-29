@@ -41,7 +41,7 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
       return;
     }
 
-    const newScrollPosition = scrollPosition + 224;
+    const newScrollPosition = scrollPosition + 220;
     setScrollPosition(newScrollPosition);
 
     // Scroll the list to the new position.
@@ -54,7 +54,7 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
   };
 
   const scrollLeft = () => {
-    const newScrollPosition = scrollPosition - 224;
+    const newScrollPosition = scrollPosition - 220;
     setScrollPosition(newScrollPosition);
     if (listRef.current) {
       listRef.current.scrollTo({
@@ -118,7 +118,7 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
   return (
     <div
       className={`items-comp--reco-container ${
-        relatedItems.length > 3 ? 'fade' : ''
+        relatedItems.length > 2 ? 'fade' : ''
       }`}
     >
       {scrollPosition > 0 && (

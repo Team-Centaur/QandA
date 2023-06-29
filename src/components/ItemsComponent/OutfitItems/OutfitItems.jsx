@@ -40,7 +40,7 @@ const OutfitItems = ({ currItem }) => {
       return;
     }
 
-    const newScrollPosition = scrollPosition + 224;
+    const newScrollPosition = scrollPosition + 220;
     setScrollPosition(newScrollPosition);
 
     // Scroll the list to the new position.
@@ -53,7 +53,7 @@ const OutfitItems = ({ currItem }) => {
   };
 
   const scrollLeft = () => {
-    const newScrollPosition = scrollPosition - 224;
+    const newScrollPosition = scrollPosition - 220;
     setScrollPosition(newScrollPosition);
     if (outfitListRef.current) {
       outfitListRef.current.scrollTo({
@@ -104,7 +104,7 @@ const OutfitItems = ({ currItem }) => {
   return (
     <div
       className={`items-comp--outfit-container ${
-        savedItemsId.length > 3 ? 'fade' : ''
+        savedItemsId.length > 2 ? 'fade' : ''
       }`}
     >
       {scrollPosition > 0 && (
@@ -127,7 +127,7 @@ const OutfitItems = ({ currItem }) => {
         </button>
         {cards}
       </ul>
-      {!reachMaxScroll && savedItemsId.length > 3 && (
+      {!reachMaxScroll && savedItemsId.length > 2 && (
         <button
           className="items-comp--outfit-list_btn right"
           type="button"
