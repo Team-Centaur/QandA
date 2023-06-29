@@ -60,7 +60,7 @@ const RatingReview = ({ currItem, reviewId }) => {
         loadMoreReviews={loadMoreReviews}
         allReviewsLoaded={allReviewsLoaded}
       />
-      <RatingBreakdown />
+      <RatingBreakdown ratings={ratings}/>
       <ProductBreakdown />
       <WriteReview characteristics={characteristics} />
     </section>

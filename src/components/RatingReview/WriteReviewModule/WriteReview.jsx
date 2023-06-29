@@ -8,7 +8,7 @@ const WriteReview = ({ characteristics }) => {
   const onClose = () => setWriteReview(false);
 
   return <div>
-   <button onClick={onWriteReview}>Write a review</button>
+   <button onClick={onWriteReview} id='writeReviewButton'>Write a review</button>
    {writeReview && <NewReviewForm onClose={onClose} characteristics={characteristics}/>}
   </div>
 };
