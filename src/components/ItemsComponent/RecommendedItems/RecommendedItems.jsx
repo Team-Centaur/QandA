@@ -83,7 +83,11 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
 
   /// /////////// CONDITIONAL RENDERING & LOADING STATE //////////////
   if (!relatedItems) {
-    return <p style={{ fontSize: '2rem' }}>Loading...</p>;
+    return (
+      <div className="items-comp--reco-container">
+        <p style={{ fontSize: '2rem' }}>Loading...</p>;
+      </div>
+    );
   }
 
   if (!relatedItems || !Array.isArray(relatedItems)) {
