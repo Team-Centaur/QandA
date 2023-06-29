@@ -18,9 +18,25 @@ function App() {
   const [currStyles, setCurrStyles] = useState(null);
   const [currAvgReview, setCurrAvgReview] = useState(null);
   useEffect(() => {
-    getRandomProd().then((data) => {
-      setCurrItem(data);
-    });
+    getRandomProd()
+      .then((data) => {
+        setCurrItem(data);
+        return data;
+      })
+      .then((data) => {
+        getReviewMetadata(data.id).then((reviewData) => {
+          setCurrReviewMeta(reviewData);
+        });
+        return data;
+      })
+      .then((data) => {
+        getStylesById(data.id).then((stylesData) => {
+          setCurrStyles(stylesData);
+        });
+      })
+      .catch((err) =>
+        console.error(`There was an error fetching product info: ${err}`g)
+      );
   }, []);
 
   // useEffect(() => {
@@ -55,6 +71,8 @@ function App() {
         <Overview currItem={currItem} />
         <ItemsComponent
           currItem={currItem}
+          currReviewMeta={currReviewMeta}
+          currStyles={currStyles}
           setCurrId={setCurrId}
           setCurrStyles={setCurrStyles}
           setCurrItem={setCurrItem}
