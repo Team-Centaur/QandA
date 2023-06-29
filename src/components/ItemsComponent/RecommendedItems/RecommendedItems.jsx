@@ -8,7 +8,14 @@ import './RecommendedItems.css';
 import getRelatedItemsById from '../../../helperFunctions/App/getRelatedItemsById.js';
 // import getProductById from '../../../helperFunctions/App/getProductById.js';
 
-const RecommendedItems = ({ currItem, setCurrId }) => {
+const RecommendedItems = ({
+  currItem,
+  setCurrId,
+  setCurrItem,
+  setCurrStyles,
+  setCurrReviewMeta,
+  setCurrAvgReview,
+}) => {
   const [relatedItems, setRelatedItems] = useState(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   // const [cardsShifted, setCardsShifted] = useState(0);
@@ -104,7 +111,10 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
       productID={product}
       key={product}
       setCurrId={setCurrId}
-      type={'recommended'}
+      setCurrItem={setCurrItem}
+      setCurrStyles={setCurrStyles}
+      setCurrReviewMeta={setCurrReviewMeta}
+      setCurrAvgReview={setCurrAvgReview}
     />
   ));
   let listWidth = 100;

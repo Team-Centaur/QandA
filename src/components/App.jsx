@@ -16,6 +16,7 @@ function App() {
   const [currItem, setCurrItem] = useState(null);
   const [currReviewMeta, setCurrReviewMeta] = useState(null);
   const [currStyles, setCurrStyles] = useState(null);
+  const [currAvgReview, setCurrAvgReview] = useState(null);
   useEffect(() => {
     getRandomProd().then((data) => {
       setCurrItem(data);
@@ -41,7 +42,6 @@ function App() {
         console.log(`There was an error fetching product info: ${err}`);
       });
   }, [currId]);
-
   if (!currItem) {
     return <div>Loading...</div>;
   }
@@ -53,7 +53,14 @@ function App() {
       <div className="app-container">
         <h1>Hello worlds!</h1>
         <Overview currItem={currItem} />
-        <ItemsComponent currItem={currItem} setCurrId={setCurrId} />
+        <ItemsComponent
+          currItem={currItem}
+          setCurrId={setCurrId}
+          setCurrStyles={setCurrStyles}
+          setCurrItem={setCurrItem}
+          setCurrReviewMeta={setCurrReviewMeta}
+          setCurrAvgReview={setCurrAvgReview}
+        />
         <QuesAnswer product={currItem} />
         <RatingReview currItem={currItem} />
       </div>
