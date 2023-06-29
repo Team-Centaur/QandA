@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDom from 'react-dom';
 import CharacteristicInput from './CharacteristicInput.jsx';
 import RecommendInput from './RecommendInput.jsx';
 import ReviewerInfoInput from './ReviewerInfoInput.jsx';
@@ -12,7 +13,7 @@ const ReviewFormStyles = {
   transform: 'translate(-50%, 50%)',
   backgroundColor: '#FFF',
   padding: '50px',
-  zIndex:  2,
+  zIndex:  2001
 };
 
 const FormOverlayStyles = {
@@ -22,13 +23,13 @@ const FormOverlayStyles = {
   right: 0,
   bottom: 0,
   backgroundColor: 'rgba(0, 0, 0, .7)',
-  zIndex: 1
+  zIndex: 2001
 };
 
 const NewReviewForm = ({ onClose, characteristics }) => {
   let charaList = Object.entries(characteristics);
 
-  return (
+  return ReactDom.createPortal(
     <div style={FormOverlayStyles}>
       <form style={ReviewFormStyles}>
         <button onClick={onClose}>X</button>
@@ -66,7 +67,8 @@ const NewReviewForm = ({ onClose, characteristics }) => {
 
         <input type='submit' value='Submit'></input>
       </form>
-    </div>
+    </div>,
+    document.getElementById('portal')
   );
 };
 
