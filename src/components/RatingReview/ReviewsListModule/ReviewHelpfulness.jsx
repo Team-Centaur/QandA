@@ -1,6 +1,7 @@
 import React from 'react';
 
 const ReviewHelpfulness = ({ reviewHelpfulness, updateHelpfulness }) => {
+  console.log(updateHelpfulness);
   return (
     <div className='reviewHelpfulness'>
       Was this review helpful?
