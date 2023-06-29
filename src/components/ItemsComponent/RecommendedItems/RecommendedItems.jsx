@@ -5,7 +5,7 @@ import Card from './Card/Card.jsx';
 
 import './RecommendedItems.css';
 
-import getRelatedItemsByID from '../../../helperFunctions/getRelatedItemsByID.js';
+import getRelatedItemsById from '../../../helperFunctions/App/getRelatedItemsById.js';
 // import getProductById from '../../../helperFunctions/App/getProductById.js';
 
 const RecommendedItems = ({ currItem, setCurrId }) => {
@@ -72,7 +72,7 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
   useEffect(() => {
     // Reset relateted items each time currItem is changed
     setRelatedItems(null);
-    getRelatedItemsByID(currItem.id)
+    getRelatedItemsById(currItem.id)
       .then((data) => {
         setRelatedItems(data);
       })
@@ -122,6 +122,7 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
           className="items-comp--reco-list_btn left"
           type="button"
           onClick={scrollLeft}
+          aria-label="left-scroll"
         >
           <FaArrowLeft size="1rem" />
         </button>
@@ -137,6 +138,7 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
       {!reachMaxScroll && relatedItems.length > 3 && (
         <button
           className="items-comp--reco-list_btn right"
+          aria-label="right-scroll"
           type="button"
           onClick={scrollRight}
         >

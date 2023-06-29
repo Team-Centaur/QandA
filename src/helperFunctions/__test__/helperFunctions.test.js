@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-import getProductById from './App/getProductById';
-import getRelatedItemsByID from './getRelatedItemsByID';
-import getStylesById from './App/getStylesById';
-import getReviewMetadata from './getReviewMetadata';
+import getProductById from '../App/getProductById';
+import getRelatedItemsById from '../App/getRelatedItemsById';
+import getStylesById from '../App/getStylesById';
+import getReviewMetadata from '../getReviewMetadata';
 // Mock axios
 
 jest.mock('axios');
@@ -76,7 +76,7 @@ describe('getProductById', () => {
   });
 });
 
-describe('getRelatedItemsByID', () => {
+describe('getRelatedItemsById', () => {
   it('fetch related items by ID', async () => {
     // Prepare
     let id = 1;
@@ -86,7 +86,7 @@ describe('getRelatedItemsByID', () => {
     axios.mockResolvedValue(response);
 
     // Act
-    const data = await getRelatedItemsByID(id);
+    const data = await getRelatedItemsById(id);
 
     // Assert
     expect(axios).toHaveBeenCalledWith({
@@ -109,7 +109,7 @@ describe('getRelatedItemsByID', () => {
     axios.mockRejectedValue(error);
 
     // Act
-    const data = await getRelatedItemsByID(id);
+    const data = await getRelatedItemsById(id);
 
     // Assert
     expect(data).toEqual(error);
@@ -124,7 +124,7 @@ describe('getRelatedItemsByID', () => {
     axios.mockResolvedValue(response);
 
     // Act
-    const data = await getRelatedItemsByID(id);
+    const data = await getRelatedItemsById(id);
 
     // Function to check if array has duplicates
     const hasDuplicates = (arr) => arr.length !== new Set(arr).size;
@@ -184,7 +184,7 @@ describe('getStylesById.js', () => {
     axios.mockRejectedValue(error);
 
     // Act
-    const data = await getRelatedItemsByID(id);
+    const data = await getRelatedItemsById(id);
 
     // Assert
     expect(data).toEqual(error);

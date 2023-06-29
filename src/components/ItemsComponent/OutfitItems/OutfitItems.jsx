@@ -5,7 +5,7 @@ import Card from './Card/Card.jsx';
 
 import './OutfitItems.css';
 
-import getRelatedItemsByID from '../../../helperFunctions/getRelatedItemsByID.js';
+import getRelatedItemsByID from '../../../helperFunctions/App/getRelatedItemsById.js';
 // import getProductById from '../../../helperFunctions/App/getProductById.js';
 
 const OutfitItems = ({ currItem, setCurrId }) => {

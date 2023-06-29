@@ -39,13 +39,8 @@ const QuesAnswer = ({ product }) => {
           setDisplayQuestions([response.data.results[0]]);
         }
       })
-<<<<<<< HEAD
       .catch((err) => console.error(err));
   }, [product]);
-=======
-      .catch((err) => console.log(err));
-  }, []);
->>>>>>> compare
 
   // expand more questions on button click
   const moreQuestionsButtonClickHandler = () => {
