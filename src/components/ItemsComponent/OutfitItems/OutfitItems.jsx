@@ -13,6 +13,9 @@ const OutfitItems = ({ currItem }) => {
   // Load localStorage
   useEffect(() => {
     const retreivedIds = JSON.parse(localStorage.getItem('outfit'));
+    if (!retreivedIds) {
+      return;
+    }
     if (retreivedIds.length > 0) {
       setSavedItemsId(retreivedIds);
     }
@@ -74,6 +77,7 @@ const OutfitItems = ({ currItem }) => {
   const handleAddItem = () => {
     const canAdd = savedItemsId.some((id) => id === currItem.id);
     (!canAdd || savedItemsId.length === 0) &&
+      currItem.id &&
       setSavedItemsId((prevState) => [currItem.id, ...prevState]);
   };
 
