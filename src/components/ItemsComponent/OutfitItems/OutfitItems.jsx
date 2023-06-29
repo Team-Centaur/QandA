@@ -5,8 +5,6 @@ import Card from './Card/Card.jsx';
 
 import './OutfitItems.css';
 
-import getRelatedItemsByID from '../../../helperFunctions/App/getRelatedItemsById.js';
-
 const OutfitItems = ({ currItem }) => {
   const [savedItemsId, setSavedItemsId] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -25,43 +23,35 @@ const OutfitItems = ({ currItem }) => {
     localStorage.setItem('outfit', JSON.stringify(savedItemsId));
   }, [savedItemsId]);
 
-  useEffect(() => {
-    if (
-      outfitListRef.current &&
-      scrollPosition + outfitListRef.current.clientWidth + 100 >=
-        outfitListRef.current.scrollWidth &&
-      savedItemsId.length > 2
-    ) {
-      setReachMaxScroll(true);
-    } else {
-      setReachMaxScroll(false);
-    }
-  }, [scrollPosition, savedItemsId]);
-
-  /// /////////// CAROUSEL LOGIC //////////////
+  ////////////////////////////////////////////
+  ////////////// CAROUSEL LOGIC //////////////
+  ////////////////////////////////////////////
   const outfitListRef = useRef(null);
-  // const reachedMaxScrollWidth =
-  //   scrollPosition + outfitListRef.current.clientWidth >= outfitListRef.current.scrollWidth;
+  /// helper functions
+  const hasReachedMaxScroll = () =>
+    scrollPosition + outfitListRef.current.clientWidth + 100 >=
+    outfitListRef.current.scrollWidth;
 
+  const scrollTo = (position) => {
+    outfitListRef.current.scrollTo({
+      left: position,
+      behavior: 'smooth',
+    });
+  };
+
+  //// Main functions
   const scrollRight = () => {
     // Check to see if max scroll
-    if (
-      scrollPosition + outfitListRef.current.clientWidth + 100 >=
-      outfitListRef.current.scrollWidth
-    ) {
+    if (hasReachedMaxScroll()) {
       setReachMaxScroll(true);
       return;
     }
-
     const newScrollPosition = scrollPosition + 220;
     setScrollPosition(newScrollPosition);
 
     // Scroll the list to the new position.
     if (outfitListRef.current) {
-      outfitListRef.current.scrollTo({
-        left: newScrollPosition,
-        behavior: 'smooth',
-      });
+      scrollTo(newScrollPosition);
     }
   };
 
@@ -69,89 +59,86 @@ const OutfitItems = ({ currItem }) => {
     const newScrollPosition = scrollPosition - 220;
     setScrollPosition(newScrollPosition);
     if (outfitListRef.current) {
-      outfitListRef.current.scrollTo({
-        left: newScrollPosition,
-        behavior: 'smooth',
-      });
+      scrollTo(newScrollPosition);
     }
   };
-  // Reset scroll position when currItem changes
 
-  /// /////////// PAGE RENDERING USEEFFECT //////////////
-  // When an id is added to savedItemsIds we need to rerender the page and
-  // make calls to the DB to get info on the item
+  ///Check to see if at end of carousel, move to beginning if less than 2 items
+  useEffect(() => {
+    const maxScrollReached = hasReachedMaxScroll();
+    setReachMaxScroll(maxScrollReached);
+    if (savedItemsId.length <= 2) setScrollPosition(0);
+  }, [scrollPosition, savedItemsId]);
 
-  /// /////////// ADD OUTFIT HANDLER //////////////
+  ////////////// ADD OUTFIT HANDLER //////////////
   const handleAddItem = () => {
-    const cantAdd = savedItemsId.some((id) => id === currItem.id);
-    if (cantAdd) {
-      return;
-    }
-    setSavedItemsId((prevState) => [currItem.id, ...prevState]);
+    const canAdd = savedItemsId.some((id) => id === currItem.id);
+    (!canAdd || savedItemsId.length === 0) &&
+      setSavedItemsId((prevState) => [currItem.id, ...prevState]);
   };
-  /// /////////// CONDITIONAL RENDERING & LOADING STATE //////////////
+
+  ////////////// RENDER ELEMENTS //////////////
+  const renderAddItemButton = () => (
+    <button className="items-comp--outfit-add_btn" onClick={handleAddItem}>
+      Add Item +
+    </button>
+  );
+
+  const renderCards = () =>
+    savedItemsId.map((product) => (
+      <Card
+        productID={product}
+        key={product}
+        savedItemsId={savedItemsId}
+        setSavedItemsId={setSavedItemsId}
+      />
+    ));
+
+  const renderLeftArrow = () =>
+    scrollPosition > 0 && (
+      <button
+        className="items-comp--outfit-list_btn left"
+        type="button"
+        onClick={scrollLeft}
+      >
+        <FaArrowLeft size="1rem" />
+      </button>
+    );
+
+  const renderRightArrow = () =>
+    !reachMaxScroll &&
+    savedItemsId.length > 2 && (
+      <button
+        className="items-comp--outfit-list_btn right"
+        type="button"
+        onClick={scrollRight}
+      >
+        <FaArrowRight size="1rem" />
+      </button>
+    );
+
+  ////////////// JSX //////////////
   if (savedItemsId.length === 0) {
     return (
       <div className="items-comp--outfit-container">
         <ul className="items-comp--outfit-list" ref={outfitListRef}>
-          <button
-            className="items-comp--outfit-add_btn"
-            onClick={handleAddItem}
-          >
-            Add This Item +
-          </button>
+          {renderAddItemButton()}
         </ul>
       </div>
     );
   }
-
-  /// /////////// DISPLAY ELEMENTS CREATION //////////////
-
-  const cards = savedItemsId.map((product) => (
-    <Card
-      productID={product}
-      key={product}
-      savedItemsId={savedItemsId}
-      setSavedItemsId={setSavedItemsId}
-    />
-  ));
-
-  // /////////// JSX //////////////
   return (
     <div
       className={`items-comp--outfit-container ${
         savedItemsId.length > 2 ? 'fade' : ''
       }`}
     >
-      {scrollPosition > 0 && (
-        <button
-          className="items-comp--outfit-list_btn left"
-          type="button"
-          onClick={scrollLeft}
-        >
-          <FaArrowLeft size="1rem" />
-        </button>
-      )}
-
-      <ul
-        className="items-comp--outfit-list"
-        // style={{ width: `${listWidth}%` }}
-        ref={outfitListRef}
-      >
-        <button className="items-comp--outfit-add_btn" onClick={handleAddItem}>
-          Add Item +
-        </button>
-        {cards}
+      {renderLeftArrow()}
+      <ul className="items-comp--outfit-list" ref={outfitListRef}>
+        {renderAddItemButton()}
+        {renderCards()}
       </ul>
-      {!reachMaxScroll && savedItemsId.length > 2 && (
-        <button
-          className="items-comp--outfit-list_btn right"
-          type="button"
-          onClick={scrollRight}
-        >
-          <FaArrowRight size="1rem" />
-        </button>
-      )}
+      {renderRightArrow()}
     </div>
   );
 };
