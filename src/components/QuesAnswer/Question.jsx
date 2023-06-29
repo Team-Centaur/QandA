@@ -9,8 +9,8 @@ const Question = ({ question }) => {
   const [displayAnswers, setDisplayAnswers] = useState([]);
   const [isNoMoreAnswers, setIsNoMoreAnswers] = useState(false);
   const [isAnswerQuestion, setIsAnswerQuestion] = useState(true);
-  const [isAnswerHelpfulClicked, setIsAnswerHelpfulClicked] = useState(false);
-  const [isAnswerReportedClicked, setIsAnswerReportedClicked] = useState(false);
+  const [isQuestionHelpfulClicked, setIsQuestionHelpfulClicked] = useState(false);
+  const [isQuestionReportedClicked, setIsQuestionReportedClicked] = useState(false);
   const [questionHelpfulness, setQuestionHelpfulness] = useState(question.question_helpfulness);
 
   const options = {
@@ -24,7 +24,6 @@ const Question = ({ question }) => {
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question.question_id}/answers?page=${1}&count=${1000}`, options)
       .then((response) => {
-        console.log(response);
         if (response.data.results.length > 0) {
           const sortedResults = response.data.results.sort((a, b) => b.helpfulness - a.helpfulness);
           setAnswers(sortedResults);
@@ -50,24 +49,24 @@ const Question = ({ question }) => {
   };
 
   const helpfulOnClickHandler = () => {
-    setIsAnswerHelpfulClicked(true);
-    if (!isAnswerHelpfulClicked) {
+    setIsQuestionHelpfulClicked(true);
+    if (!isQuestionHelpfulClicked) {
       axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question.question_id}/helpful`, {}, options)
         .then(response => setQuestionHelpfulness(questionHelpfulness+1))
         .catch(err => {
-          setIsAnswerHelpfulClicked(false);
+          setIsQuestionHelpfulClicked(false);
           console.log(err);
         });
     }
   };
 
   const reportOnClickHandler = () => {
-    setIsAnswerReportedClicked(true);
-    if (!isAnswerReportedClicked) {
+    setIsQuestionReportedClicked(true);
+    if (!isQuestionReportedClicked) {
       axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question.question_id}/report`, {}, options)
         .then(response => console.log(response))
         .catch(err => {
-          setIsAnswerReportedClicked(false);
+          setIsQuestionReportedClicked(false);
           console.log(err);
         });
     }
@@ -84,8 +83,8 @@ const Question = ({ question }) => {
         <div className="question-report-option">
           <p>Report?</p>
           <button type="submit" onClick={reportOnClickHandler}>
-            {isAnswerReportedClicked && <>Reported</>}
-            {!isAnswerReportedClicked && <>Report</>}
+            {isQuestionReportedClicked && <>Reported</>}
+            {!isQuestionReportedClicked && <>Report</>}
           </button>
         </div>
       </div>
