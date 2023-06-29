@@ -35,8 +35,11 @@ const QuesAnswer = ({ product }) => {
       )
       .then((response) => {
         if (response.data.results.length > 0) {
-          setQuestions(response.data.results);
-          setDisplayQuestions([response.data.results[0]]);
+          const sortedResults = response.data.results.sort(
+            (a, b) => b.question_helpfulness - a.question_helpfulness
+          );
+          setQuestions(sortedResults);
+          setDisplayQuestions([sortedResults[0]]);
         }
       })
       .catch((err) => console.error(err));
@@ -67,7 +70,7 @@ const QuesAnswer = ({ product }) => {
   return (
     <section>
       <h2>QUESTIONS & ANSWERS</h2>
-      <Search setDisplayQuestions={setDisplayQuestions} />
+      <Search setDisplayQuestions={setDisplayQuestions} questions={questions} />
       <Display questions={displayQuestions} />
       <button
         type="submit"
