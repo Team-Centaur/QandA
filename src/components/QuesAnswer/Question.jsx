@@ -9,6 +9,9 @@ const Question = ({ question }) => {
   const [displayAnswers, setDisplayAnswers] = useState([]);
   const [isNoMoreAnswers, setIsNoMoreAnswers] = useState(false);
   const [isAnswerQuestion, setIsAnswerQuestion] = useState(true);
+  const [isAnswerHelpfulClicked, setIsAnswerHelpfulClicked] = useState(false);
+  const [isAnswerReportedClicked, setIsAnswerReportedClicked] = useState(false);
+  const [questionHelpfulness, setQuestionHelpfulness] = useState(question.question_helpfulness);
 
   const options = {
     headers: {
@@ -33,17 +36,6 @@ const Question = ({ question }) => {
 
   // expand answers section when more answers button is clicked
   const moreAnswersButtonClickHandler = () => {
-    // commented out code to expand by a few answers at a time
-    // -------------------------------------------------------
-    // const NUMBER_OF_ANSWERS_LEFT = 3;
-    // const NUMBER_OF_ANSWERS_TO_LOAD = 2;
-    // if (answers.length - displayAnswers.length < NUMBER_OF_ANSWERS_LEFT) {
-    //   setDisplayAnswers(answers);
-    //   setIsNoMoreAnswers(true);
-    // } else {
-    //   setDisplayAnswers(answers.slice(0, displayAnswers.length + NUMBER_OF_ANSWERS_TO_LOAD));
-    // }
-
     setDisplayAnswers(answers);
     setIsNoMoreAnswers(true);
   };
@@ -53,20 +45,32 @@ const Question = ({ question }) => {
   };
 
   const collapseAnswersOnClickHandlers = () => {
-    setDisplayAnswers([answers[0]]);
+    setDisplayAnswers([...answers.slice(0, 2)]);
     setIsNoMoreAnswers(false);
   };
 
   const helpfulOnClickHandler = () => {
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question.question_id}/helpful`, {}, options)
-      .then(response => console.log(response))
-      .catch(err => console.log(err));
+    setIsAnswerHelpfulClicked(true);
+    if (!isAnswerHelpfulClicked) {
+      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question.question_id}/helpful`, {}, options)
+        .then(response => setQuestionHelpfulness(questionHelpfulness+1))
+        .catch(err => {
+          setIsAnswerHelpfulClicked(false);
+          console.log(err);
+        });
+    }
   };
 
   const reportOnClickHandler = () => {
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question.question_id}/report`, {}, options)
-      .then(response => console.log(response))
-      .catch(err => console.log(err));
+    setIsAnswerReportedClicked(true);
+    if (!isAnswerReportedClicked) {
+      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question.question_id}/report`, {}, options)
+        .then(response => console.log(response))
+        .catch(err => {
+          setIsAnswerReportedClicked(false);
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -75,11 +79,14 @@ const Question = ({ question }) => {
       <div className="question-options">
         <div className="question-helpful-option">
           <p>Helpful?</p>
-          <button type="submit" onClick={helpfulOnClickHandler}>Yes ({question.question_helpfulness})</button>
+          <button type="submit" onClick={helpfulOnClickHandler}>Yes ({questionHelpfulness})</button>
         </div>
         <div className="question-report-option">
           <p>Report?</p>
-          <button type="submit" onClick={reportOnClickHandler}>Report</button>
+          <button type="submit" onClick={reportOnClickHandler}>
+            {isAnswerReportedClicked && <>Reported</>}
+            {!isAnswerReportedClicked && <>Report</>}
+          </button>
         </div>
       </div>
       {displayAnswers.map((answer) => <Answer answer={answer} key={answer.id} />)}
