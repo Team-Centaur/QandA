@@ -3,16 +3,14 @@ import { FaArrowRight } from 'react-icons/fa';
 import { FaArrowLeft } from 'react-icons/fa';
 import Card from './Card/Card.jsx';
 
-import './RecommendedItems.css';
+import './OutfitItems.css';
 
 import getRelatedItemsByID from '../../../helperFunctions/getRelatedItemsByID.js';
 // import getProductById from '../../../helperFunctions/App/getProductById.js';
 
-const RecommendedItems = ({ currItem, setCurrId }) => {
+const OutfitItems = ({ currItem, setCurrId }) => {
   const [relatedItems, setRelatedItems] = useState(null);
   const [scrollPosition, setScrollPosition] = useState(0);
-  // const [cardsShifted, setCardsShifted] = useState(0);
-  // const [showRightBtn, setShowRightBtn] = useState(true);
   const [reachMaxScroll, setReachMaxScroll] = useState(false);
 
   useEffect(() => {
@@ -95,14 +93,11 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
   }
 
   /// /////////// DISPLAY ELEMENTS CREATION //////////////
-  const cards = relatedItems.map((product) => (
-    <Card
-      productID={product}
-      key={product}
-      setCurrId={setCurrId}
-      type={'recommended'}
-    />
-  ));
+
+  // const cards = relatedItems.map((product) => (
+  //   <Card productID={product} key={product} setCurrId={setCurrId} />
+  // ));
+
   let listWidth = 100;
 
   /// /////////// STYLES //////////////
@@ -113,13 +108,13 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
   // /////////// JSX //////////////
   return (
     <div
-      className={`items-comp--reco-container ${
+      className={`items-comp--outfit-container ${
         relatedItems.length > 3 ? 'fade' : ''
       }`}
     >
       {scrollPosition > 0 && (
         <button
-          className="items-comp--reco-list_btn left"
+          className="items-comp--outfit-list_btn left"
           type="button"
           onClick={scrollLeft}
         >
@@ -128,15 +123,16 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
       )}
 
       <ul
-        className="items-comp--reco-list"
+        className="items-comp--outfit-list"
         // style={{ width: `${listWidth}%` }}
         ref={listRef}
       >
-        {cards}
+        {/* {cards} */}
+        <button className="items-comp--outfit-add_btn">Add Outfit +</button>
       </ul>
       {!reachMaxScroll && relatedItems.length > 3 && (
         <button
-          className="items-comp--reco-list_btn right"
+          className="items-comp--outfit-list_btn right"
           type="button"
           onClick={scrollRight}
         >
@@ -147,4 +143,4 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
   );
 };
 
-export default RecommendedItems;
+export default OutfitItems;

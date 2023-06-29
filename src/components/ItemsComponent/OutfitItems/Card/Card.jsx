@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
 // import ActionBtnStar from './ActionBtn/ActionBtnStar.jsx';
+import { each } from 'underscore';
 import { FaRegStar } from 'react-icons/fa6';
 
-import StarRating from '../../Utilities/StarRating.jsx';
+import Stars from '../../../Utilities/Stars/Stars.jsx';
+// import StarRating from '../../Utilities/StarRating.jsx';
 import './Card.css';
 
-import getProductById from '../../../helperFunctions/App/getProductById.js';
-import getStylesById from '../../../helperFunctions/App/getStylesById.js';
+import getProductById from '../../../../helperFunctions/App/getProductById.js';
+import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
+import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
 // import getRandomNumber from '../../../helperFunctions/App/getRandomNumber.js';
 
-function Card({ productID, setCurrId }) {
+function Card({ productID, setCurrId, type }) {
   const [productObj, setProductObj] = useState(null);
   const [styles, setStyles] = useState(null);
+  const [avgReview, setAvgReview] = useState(0);
 
   useEffect(() => {
     getProductById(productID).then((data) => {
@@ -27,6 +31,25 @@ function Card({ productID, setCurrId }) {
       .catch((err) => {
         console.error(`There was an error getting product styles: ${err}`);
       });
+  }, []);
+
+  useEffect(() => {
+    getReviewMetadata(productID).then((data) => {
+      let totalVotes = 0;
+      let totalRating = 0;
+
+      each(data.ratings, (votes, key) => {
+        votes = Number.parseInt(votes);
+        key = Number.parseInt(key);
+        const keyTotal = key * votes;
+        totalVotes += votes;
+        totalRating += keyTotal;
+      });
+
+      const avgReview = (totalRating / totalVotes).toFixed(2);
+
+      setAvgReview(avgReview);
+    });
   }, []);
 
   /// /////////// CONDITIONAL RENDERING & LOADING STATE //////////////
@@ -117,9 +140,9 @@ function Card({ productID, setCurrId }) {
             </p>
           </div>
         )}
-        <p className="items-comp--card_text-rating">
-          <StarRating rating={3} />
-        </p>
+        <div className="items-comp--card_text-rating">
+          <Stars avgRating={avgReview} />
+        </div>
       </div>
     </li>
   );
