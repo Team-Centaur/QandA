@@ -3,11 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import Stars from './Stars/Stars.jsx';
 import SocialShare from './SocialShare/SocialShare.jsx';
-import AllStyles from './Styles/AllStyles.jsx';
+import AllStyles from './ProductStyles/AllStyles.jsx';
+import './ProductOverviewCompStyles/styles.css'
 const ProductOverview = ({ dataObj }) => {
   const [totalReviews, setTotalReviews] = useState(0);
   const [avgRating, setAvgRating] = useState(0);
-
+  const [currStyle, setCurrStyle] = useState({});
+  const [onSale, setOnSale] = useState(false);
   useEffect(() => {
     if(dataObj) {
       let ratingObj = dataObj.ratings;
@@ -20,8 +22,9 @@ const ProductOverview = ({ dataObj }) => {
     });
     setTotalReviews(reviewTotal);
     setAvgRating(sumRatings/reviewTotal);
+    setCurrStyle(dataObj.styles[0])
     };
-  });
+  },[dataObj]);
   if (dataObj) {
     return (
       <div className="product-overview-container">
@@ -36,13 +39,18 @@ const ProductOverview = ({ dataObj }) => {
           <h2 className="product-name">
             { dataObj.name}
           </h2>
-          <div className="product-price">
-            { dataObj.defaultPrice }
+          <div className="price-container">
+            <div className={onSale ? 'product-on-sale' : 'default-price'}>
+              { dataObj.defaultPrice }
+            </div>
+            <div style ={{color:'red'}}className="product-sale-price"> {currStyle.sale_price}</div>
           </div>
-          <div className="product-sale-price"></div>
         </div>
         <SocialShare />
-        <AllStyles dataObj={dataObj}/>
+        <div className="styles-container">
+          <p><span>{`Styles >`}</span> {currStyle.name}</p>
+          <AllStyles dataObj={dataObj} setCurrStyle = {setCurrStyle} setOnSale = {setOnSale}/>
+        </div>
       </div>
 
     );
