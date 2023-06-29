@@ -33,14 +33,19 @@ const Question = ({ question }) => {
 
   // expand answers section when more answers button is clicked
   const moreAnswersButtonClickHandler = () => {
-    const NUMBER_OF_ANSWERS_LEFT = 3;
-    const NUMBER_OF_ANSWERS_TO_LOAD = 2;
-    if (answers.length - displayAnswers.length < NUMBER_OF_ANSWERS_LEFT) {
-      setDisplayAnswers(answers);
-      setIsNoMoreAnswers(true);
-    } else {
-      setDisplayAnswers(answers.slice(0, displayAnswers.length + NUMBER_OF_ANSWERS_TO_LOAD));
-    }
+    // commented out code to expand by a few answers at a time
+    // -------------------------------------------------------
+    // const NUMBER_OF_ANSWERS_LEFT = 3;
+    // const NUMBER_OF_ANSWERS_TO_LOAD = 2;
+    // if (answers.length - displayAnswers.length < NUMBER_OF_ANSWERS_LEFT) {
+    //   setDisplayAnswers(answers);
+    //   setIsNoMoreAnswers(true);
+    // } else {
+    //   setDisplayAnswers(answers.slice(0, displayAnswers.length + NUMBER_OF_ANSWERS_TO_LOAD));
+    // }
+
+    setDisplayAnswers(answers);
+    setIsNoMoreAnswers(true);
   };
 
   const answerQuestionButtonClickHandler = () => {
