@@ -1,3 +1,12 @@
+.items-comp--reco-heading {
+  margin-left: 5%;
+  margin-top: 5%;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.1625rem;
+}
+
 .items-comp--reco-container {
   /* width: 90%; */
   max-width: 90% !important;

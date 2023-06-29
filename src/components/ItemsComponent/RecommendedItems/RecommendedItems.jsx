@@ -126,40 +126,43 @@ const RecommendedItems = ({
 
   // /////////// JSX //////////////
   return (
-    <div
-      className={`items-comp--reco-container ${
-        relatedItems.length > 2 ? 'fade' : ''
-      }`}
-    >
-      {scrollPosition > 0 && (
-        <button
-          className="items-comp--reco-list_btn left"
-          type="button"
-          onClick={scrollLeft}
-          aria-label="left-scroll"
-        >
-          <FaArrowLeft size="1rem" />
-        </button>
-      )}
-
-      <ul
-        className="items-comp--reco-list"
-        // style={{ width: `${listWidth}%` }}
-        ref={listRef}
+    <>
+      <h3 className="items-comp--reco-heading">RELATED PRODUCTS</h3>
+      <div
+        className={`items-comp--reco-container ${
+          relatedItems.length > 2 ? 'fade' : ''
+        }`}
       >
-        {cards}
-      </ul>
-      {!reachMaxScroll && relatedItems.length > 3 && (
-        <button
-          className="items-comp--reco-list_btn right"
-          aria-label="right-scroll"
-          type="button"
-          onClick={scrollRight}
+        {scrollPosition > 0 && (
+          <button
+            className="items-comp--reco-list_btn left"
+            type="button"
+            onClick={scrollLeft}
+            aria-label="left-scroll"
+          >
+            <FaArrowLeft size="1rem" />
+          </button>
+        )}
+
+        <ul
+          className="items-comp--reco-list"
+          // style={{ width: `${listWidth}%` }}
+          ref={listRef}
         >
-          <FaArrowRight size="1rem" />
-        </button>
-      )}
-    </div>
+          {cards}
+        </ul>
+        {!reachMaxScroll && relatedItems.length > 3 && (
+          <button
+            className="items-comp--reco-list_btn right"
+            aria-label="right-scroll"
+            type="button"
+            onClick={scrollRight}
+          >
+            <FaArrowRight size="1rem" />
+          </button>
+        )}
+      </div>
+    </>
   );
 };
 

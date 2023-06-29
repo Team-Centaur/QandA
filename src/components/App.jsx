@@ -23,25 +23,25 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-    getProductById(currId)
-      .then((data) => {
-        setCurrItem(data);
-      })
-      .then(() => {
-        getReviewMetadata(currId).then((data) => {
-          setCurrReviewMeta(data);
-        });
-      })
-      .then(() => {
-        getStylesById(currId).then((data) => {
-          setCurrStyles(data);
-        });
-      })
-      .catch((err) => {
-        console.log(`There was an error fetching product info: ${err}`);
-      });
-  }, [currId]);
+  // useEffect(() => {
+  //   getProductById(currId)
+  //     .then((data) => {
+  //       setCurrItem(data);
+  //     })
+  //     .then(() => {
+  //       getReviewMetadata(currId).then((data) => {
+  //         setCurrReviewMeta(data);
+  //       });
+  //     })
+  //     .then(() => {
+  //       getStylesById(currId).then((data) => {
+  //         setCurrStyles(data);
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log(`There was an error fetching product info: ${err}`);
+  //     });
+  // }, [currId]);
   if (!currItem) {
     return <div>Loading...</div>;
   }
