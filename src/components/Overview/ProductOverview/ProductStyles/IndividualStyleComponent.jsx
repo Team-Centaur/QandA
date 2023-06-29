@@ -1,12 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
 
-const IndividualStyleComponent = ({style, onStyleHandler}) => {
+const IndividualStyleComponent = ({style, onStyleHandler, isSelected}) => {
   const thumbnailPhoto = style.photos[0].thumbnail_url;
   console.log('Render IndividualStyle')
   if(style) {
     return (
-      <div className="individual-style" onClick={(e) => onStyleHandler(style)}>
+      <div className={isSelected === style? 'test': ''} onClick={(e) => onStyleHandler(style)}>
         <img
           src = {thumbnailPhoto}
           className = "thumbnail-img"
