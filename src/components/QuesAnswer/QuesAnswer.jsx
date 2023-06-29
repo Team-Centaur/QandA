@@ -44,11 +44,7 @@ const QuesAnswer = ({ product }) => {
           setDisplayQuestions([...sortedResults.slice(0, 4)]);
         }
       })
-<<<<<<< HEAD
       .catch((err) => console.log(err));
-=======
-      .catch((err) => console.error(err));
->>>>>>> 2dd3cc7a02cfba10e6aa03096bc25237d3e0f71d
   }, [product]);
 
   // expand more questions on button click
@@ -77,22 +73,11 @@ const QuesAnswer = ({ product }) => {
     <section className="ques-ans-main">
       <h2>QUESTIONS & ANSWERS</h2>
       <Search setDisplayQuestions={setDisplayQuestions} questions={questions} />
-<<<<<<< HEAD
       <div className="display">
         <Display questions={displayQuestions} product={product} />
       </div>
       <button type="submit" className="moreQuestionsButton" onClick={moreQuestionsButtonClickHandler} hidden={isNoMoreQuestions}>
         More Answered Questions
-=======
-      <Display questions={displayQuestions} />
-      <button
-        type="submit"
-        className="moreQuestionsButton"
-        onClick={moreQuestionsButtonClickHandler}
-        hidden={isNoMoreQuestions}
-      >
-        MORE QUESTIONS
->>>>>>> 2dd3cc7a02cfba10e6aa03096bc25237d3e0f71d
         {` (${questions.length - displayQuestions.length})`}
       </button>
       <button

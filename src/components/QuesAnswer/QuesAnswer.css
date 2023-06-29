@@ -5,11 +5,11 @@
   align-items: center;
 }
 
-.display {
+/* .display {
   overflow: scroll;
   height: 100vh;
 }
 
 .display::-webkit-scrollbar {
   display: none;
-}
+} */
