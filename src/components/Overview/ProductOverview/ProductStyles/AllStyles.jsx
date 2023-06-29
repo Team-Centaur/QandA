@@ -1,11 +1,15 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import IndividualStyleComponent from './IndividualStyleComponent.jsx';
 import './ProductStylesCSS/styles.css';
 
-const AllStyles = ({dataObj, setCurrStyle, setOnSale}) => {
-  const [styles, setStyles] = useState(dataObj.styles);
-  const [isSelected, setIsSelected] = useState(dataObj.styles[0]);
+const AllStyles = ({ styles, setCurrStyle, setOnSale}) => {
+  const [isSelected, setIsSelected] = useState(styles[0]);
+  useEffect(() => {
+    setIsSelected(styles[0])
+  }, [styles])
+  console.log('ALL STYLES', styles);
+  console.log('SELECTED', isSelected);
   const onStyleHandler = (style) => {
     setCurrStyle(style);
     setIsSelected(style);

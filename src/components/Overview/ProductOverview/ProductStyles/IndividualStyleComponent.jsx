@@ -3,7 +3,8 @@ import { useState } from 'react';
 
 const IndividualStyleComponent = ({style, onStyleHandler, isSelected}) => {
   const thumbnailPhoto = style.photos[0].thumbnail_url;
-  console.log('Render IndividualStyle')
+
+
   if(style) {
     return (
       <div className={isSelected === style? 'test': ''} onClick={(e) => onStyleHandler(style)}>

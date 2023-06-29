@@ -9,6 +9,7 @@ const ProductOverview = ({ dataObj }) => {
   const [totalReviews, setTotalReviews] = useState(0);
   const [avgRating, setAvgRating] = useState(0);
   const [currStyle, setCurrStyle] = useState({});
+  const [styles, setStyles] = useState(dataObj.styles); // array of styles
   const [onSale, setOnSale] = useState(false);
   useEffect(() => {
     if(dataObj) {
@@ -22,7 +23,9 @@ const ProductOverview = ({ dataObj }) => {
     });
     setTotalReviews(reviewTotal);
     setAvgRating(sumRatings/reviewTotal);
-    setCurrStyle(dataObj.styles[0])
+    setCurrStyle(dataObj.styles[0]);
+    setStyles(dataObj.styles);
+    dataObj.styles[0].sale_price? setOnSale(true) : setOnSale(false);
     };
   },[dataObj]);
   if (dataObj) {
@@ -49,7 +52,7 @@ const ProductOverview = ({ dataObj }) => {
         <SocialShare />
         <div className="styles-container">
           <p><span>{`Styles >`}</span> {currStyle.name}</p>
-          <AllStyles dataObj={dataObj} setCurrStyle = {setCurrStyle} setOnSale = {setOnSale}/>
+          <AllStyles styles={styles} setCurrStyle = {setCurrStyle} setOnSale = {setOnSale}/>
         </div>
       </div>
 

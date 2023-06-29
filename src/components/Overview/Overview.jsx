@@ -11,6 +11,7 @@ const apiKey = process.env.REACT_APP_API_KEY;
 
 const Overview = ({ currItem, reviewId }) => {
   const [dataObj, setDataObj] = useState(null);
+  console.log()
   useEffect(() => {
     let obj = {};
     getStylesById(currItem.id)
@@ -41,19 +42,21 @@ const Overview = ({ currItem, reviewId }) => {
         throw err;
       });
   }, [currItem]);
+  if(dataObj) {
+    return (
+      <section className="overview-section">
+        <div className="promotion-container"></div>
+        <div className="product-container">
+          <div className="image-gallery-container"></div>
+          <ProductOverview dataObj={dataObj} reviewId={reviewId} />
+        </div>
+        <div className="description-container">
 
-  return (
-    <section className="overview-section">
-      <div className="promotion-container"></div>
-      <div className="product-container">
-        <div className="image-gallery-container"></div>
-        <ProductOverview dataObj={dataObj} reviewId={reviewId} />
-      </div>
-      <div className="description-container">
-
-      </div>
-    </section>
-  );
+        </div>
+      </section>
+    );
+  }
+  return null;
 };
 
 export default Overview;
