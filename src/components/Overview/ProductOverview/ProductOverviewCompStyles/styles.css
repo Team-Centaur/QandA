@@ -1,0 +1,14 @@
+.product-overview-container{
+  margin: 0;
+
+}
+.product-on-sale {
+  text-decoration: line-through;
+}
+.price-container {
+  display:flex;
+  flex-direction: row;
+  gap:0.4rem;
+}
+
+
