@@ -23,7 +23,11 @@ jest.mock('../../../../helperFunctions/App/getRelatedItemsById', () => {
 // Mock the child Card component
 jest.mock('../Card/Card', () => {
   return ({ productID, setCurrId }) => (
-    <div data-testid="card" onClick={() => setCurrId(productID)}>
+    <div
+      data-testid="card"
+      style={{ width: '225px' }}
+      onClick={() => setCurrId(productID)}
+    >
       {productID}
     </div>
   );
@@ -102,13 +106,13 @@ describe('RecommendedItems component', () => {
     });
   });
 
-  //   test('renders a left arrow button after the right arrow button is clicked', async () => {
-  //     const rightButton = await screen.findByRole('button', {
-  //       name: /right-scroll/i,
-  //     });
-  //     fireEvent.click(rightButton);
-  //     const leftButton = await screen.findByRole('button', {
-  //       name: /left-scroll/i,
-  //     });
+  // test('renders a left arrow button after the right arrow button is clicked', async () => {
+  //   const rightButton = await screen.findByRole('button', {
+  //     name: /right-scroll/i,
   //   });
+  //   fireEvent.click(rightButton);
+  //   const leftButton = await screen.findByRole('button', {
+  //     name: /left-scroll/i,
+  //   });
+  // });
 });
