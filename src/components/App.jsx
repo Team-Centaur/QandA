@@ -35,7 +35,7 @@ function App() {
         });
       })
       .catch((err) =>
-        console.error(`There was an error fetching product info: ${err}`g)
+        console.error(`There was an error fetching product info: ${err}`)
       );
   }, []);
 

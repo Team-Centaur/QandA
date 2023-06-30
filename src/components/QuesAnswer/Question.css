@@ -1,0 +1,32 @@
+.question {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border-style: solid;
+  border-radius: 1rem;
+  background-color: yellow;
+  border-color: black;
+  width: 45rem;
+  padding: .5rem;
+}
+
+.question-body {
+  font-weight: 800;
+  font-size: 1.25rem;
+}
+
+.question-options {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.question-helpful-option {
+  display: flex;
+
+}
+
+.question-report-option {
+  display: flex;
+}

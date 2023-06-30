@@ -4,6 +4,7 @@ import axios from 'axios';
 import Search from './Search.jsx';
 import AskQuestion from './AskQuestion.jsx';
 import Display from './Display.jsx';
+import './QuesAnswer.css';
 
 const QuesAnswer = ({ product }) => {
   const [questions, setQuestions] = useState([]);
@@ -39,10 +40,10 @@ const QuesAnswer = ({ product }) => {
             (a, b) => b.question_helpfulness - a.question_helpfulness
           );
           setQuestions(sortedResults);
-          setDisplayQuestions([sortedResults[0]]);
+          setDisplayQuestions([...sortedResults.slice(0, 4)]);
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.log(err));
   }, [product]);
 
   // expand more questions on button click
@@ -68,17 +69,14 @@ const QuesAnswer = ({ product }) => {
   };
 
   return (
-    <section>
+    <section className="ques-ans-main">
       <h2>QUESTIONS & ANSWERS</h2>
       <Search setDisplayQuestions={setDisplayQuestions} questions={questions} />
-      <Display questions={displayQuestions} />
-      <button
-        type="submit"
-        className="moreQuestionsButton"
-        onClick={moreQuestionsButtonClickHandler}
-        hidden={isNoMoreQuestions}
-      >
-        MORE QUESTIONS
+      <div className="display">
+        <Display questions={displayQuestions} product={product} />
+      </div>
+      <button type="submit" className="moreQuestionsButton" onClick={moreQuestionsButtonClickHandler} hidden={isNoMoreQuestions}>
+        More Answered Questions
         {` (${questions.length - displayQuestions.length})`}
       </button>
       <button
@@ -88,7 +86,7 @@ const QuesAnswer = ({ product }) => {
           addQuestionHandler(event);
         }}
       >
-        ASK A QUESTION
+        Ask A Question
       </button>
       <AskQuestion isAskQuestion={isAskQuestion} product={product} />
     </section>
