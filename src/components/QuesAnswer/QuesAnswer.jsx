@@ -66,6 +66,7 @@ const QuesAnswer = ({ product }) => {
   // make ask a question form appear when ask a question button is clicked
   const addQuestionHandler = () => {
     setIsAskQuestion(false);
+    document.body.style.overflow = 'hidden';
   };
 
   return (
@@ -88,7 +89,7 @@ const QuesAnswer = ({ product }) => {
       >
         Ask A Question
       </button>
-      <AskQuestion isAskQuestion={isAskQuestion} product={product} />
+      <AskQuestion isAskQuestion={isAskQuestion} setIsAskQuestion={setIsAskQuestion} product={product} />
     </section>
   );
 };
