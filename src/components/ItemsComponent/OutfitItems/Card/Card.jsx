@@ -1,56 +1,12 @@
 import React, { useEffect, useState } from 'react';
-// import ActionBtnStar from './ActionBtn/ActionBtnStar.jsx';
-import { each } from 'underscore';
-import { FaXmark } from 'react-icons/fa6';
+
+import { FaRegCircleXmark } from 'react-icons/fa6';
 
 import Stars from '../../../Utilities/Stars/Stars.jsx';
-// import StarRating from '../../Utilities/StarRating.jsx';
 import './Card.css';
-
-import getProductById from '../../../../helperFunctions/App/getProductById.js';
-import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
-import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
 
 function Card({ productData, fullProds, setFullProds }) {
   const { styles, product, rating, id } = productData;
-  // console.log(productData);
-  useEffect(() => {
-    // console.log(productData, styles);
-  }, []);
-  // useEffect(() => {
-  //   getProductById(productID).then((data) => {
-  //     setProductObj(data);
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   getStylesById(productID)
-  //     .then((data) => {
-  //       setStyles(data.results);
-  //     })
-  //     .catch((err) => {
-  //       console.error(`There was an error getting product styles: ${err}`);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   getReviewMetadata(productID).then((data) => {
-  //     let totalVotes = 0;
-  //     let totalRating = 0;
-
-  //     each(data.ratings, (votes, key) => {
-  //       votes = Number.parseInt(votes);
-  //       key = Number.parseInt(key);
-  //       const keyTotal = key * votes;
-  //       totalVotes += votes;
-  //       totalRating += keyTotal;
-  //     });
-
-  //     const avgReview = (totalRating / totalVotes).toFixed(2);
-
-  //     setAvgReview(avgReview);
-  //   });
-  // }, []);
 
   /// /////////// CONDITIONAL RENDERING & LOADING STATE //////////////
   if (!styles) {
@@ -60,12 +16,9 @@ function Card({ productData, fullProds, setFullProds }) {
   // const randomStyle = styles[getRandomNumber(0, styles.length - 1)];
 
   // console.warn('STYLES: ', styles);
-  const defaultStyle =
-    styles && styles.results && styles.results[0] ? styles.results[0] : null;
-  const imageUrl =
-    defaultStyle && defaultStyle.photos && defaultStyle.photos[0]
-      ? defaultStyle.photos[0].thumbnail_url
-      : null;
+  const defaultStyle = styles;
+
+  const imageUrl = defaultStyle.photos[0].thumbnail_url;
 
   // const imageUrl = true;
 
@@ -79,16 +32,32 @@ function Card({ productData, fullProds, setFullProds }) {
     setFullProds(updatedItems);
   };
   /// /////////// STYLES //////////////
+
   const starStyle = {
-    color: '#000',
+    color: '#f8f8f8', // A light complimentary color
     fontSize: '1.5rem',
     zIndex: '2000',
     position: 'absolute',
     top: '5%',
     right: '5%',
-    // filter: 'drop-shadow(rgba(255, 255, 255, 0.4) 0rem 0rem .3125rem)',
-    filter: 'drop-shadow(rgba(255, 255, 255, 0.5) 0rem 0rem 0.1125rem )',
+    filter: 'drop-shadow(rgba(255, 255, 255, 0.4) 0rem 0rem .3125rem)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)', // Darkish transparent background
+    borderRadius: '50%', // Makes the button circular
+    width: '1.5rem', // Equal width and height
+    height: '1.5rem',
+    display: 'flex', // Center the icon
+    justifyContent: 'center',
+    alignItems: 'center',
   };
+  // const starStyle = {
+  //   color: '#000',
+  //   fontSize: '1.5rem',
+  //   zIndex: '2000',
+  //   position: 'absolute',
+  //   top: '5%',
+  //   right: '5%',
+  //   filter: 'drop-shadow(rgba(255, 255, 255, 0.4) 0rem 0rem .3125rem)',
+  // };
 
   /// /////////// JSX //////////////
   return (
@@ -110,7 +79,10 @@ function Card({ productData, fullProds, setFullProds }) {
           >
             No Photo Available
           </div>
-          <FaXmark color="black" className="items-outfit--card_img-icon" />
+          <FaRegCircleXmark
+            color="black"
+            className="items-outfit--card_img-icon"
+          />
 
           {/* <ActionBtnStar /> */}
         </div>
@@ -127,7 +99,7 @@ function Card({ productData, fullProds, setFullProds }) {
               backgroundPosition: 'center',
             }}
           />
-          <FaXmark
+          <FaRegCircleXmark
             style={starStyle}
             onClick={handleRemoveItem}
             className="items-outfit--card_img-icon"

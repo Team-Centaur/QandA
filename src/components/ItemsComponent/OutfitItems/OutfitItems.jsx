@@ -5,9 +5,7 @@ import Card from './Card/Card.jsx';
 
 import './OutfitItems.css';
 
-const OutfitItems = ({ currItem, currStyles, currAvgRating }) => {
-  const [savedOutfits, setSavedOutfits] = useState([]);
-  const [savedItemsId, setSavedItemsId] = useState([]);
+const OutfitItems = ({ currItem, currStyles, currAvgRating, currentStyle }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [reachMaxScroll, setReachMaxScroll] = useState(false);
   const [fullProds, setFullProds] = useState([]);
@@ -77,10 +75,8 @@ const OutfitItems = ({ currItem, currStyles, currAvgRating }) => {
   ////////////// ADD OUTFIT HANDLER //////////////
   const handleAddItem = () => {
     const cantAdd = fullProds.some((product) => {
-      console.log(product.id, currItem.id);
       return product.id == currItem.id;
     });
-    console.log(cantAdd);
     if (cantAdd) {
       return;
     }
@@ -89,12 +85,12 @@ const OutfitItems = ({ currItem, currStyles, currAvgRating }) => {
         id: currItem.id,
         product: currItem,
         styles: currStyles,
+        styles: currentStyle,
         rating: currAvgRating,
       },
       ...prevState,
     ]);
   };
-  console.error('ERRRRR!!!!!!!!!!!!!!!', fullProds, currStyles, currItem);
 
   ////////////// RENDER ELEMENTS //////////////
   const renderAddItemButton = () => (

@@ -4,13 +4,11 @@ import { each } from 'underscore';
 import { FaRegStar } from 'react-icons/fa6';
 
 import Stars from '../../../Utilities/Stars/Stars.jsx';
-// import StarRating from '../../Utilities/StarRating.jsx';
 import './Card.css';
 
 import getProductById from '../../../../helperFunctions/App/getProductById.js';
 import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
 import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
-// import getRandomNumber from '../../../helperFunctions/App/getRandomNumber.js';
 
 function Card({
   productID,
@@ -18,7 +16,8 @@ function Card({
   setCurrItem,
   setCurrStyles,
   setCurrAvgRating,
-  setCurrReviewMeta,
+
+  setCurrentStyle,
 }) {
   const [productObj, setProductObj] = useState(null);
   const [styles, setStyles] = useState(null);
@@ -81,20 +80,36 @@ function Card({
     setCurrItem(productObj);
     setCurrStyles(outgoingStyles);
     setCurrAvgRating(avgRating);
-    // setCurrReviewMeta(metaReviewData);
+    setCurrentStyle(styles[0]);
   };
 
   /// /////////// STYLES //////////////
+
   const starStyle = {
-    color: '#000',
+    color: '#f8f8f8', // A light complimentary color
     fontSize: '1.5rem',
     zIndex: '2000',
     position: 'absolute',
     top: '5%',
     right: '5%',
-    // filter: 'drop-shadow(rgba(255, 255, 255, 0.4) 0rem 0rem .3125rem)',
-    filter: 'drop-shadow(rgba(255, 255, 255, 0.5) 0rem 0rem 0.1125rem )',
+    filter: 'drop-shadow(rgba(255, 255, 255, 0.4) 0rem 0rem .3125rem)',
+
+    width: '1.5rem', // Equal width and height
+    height: '1.5rem',
+    display: 'flex', // Center the icon
+    justifyContent: 'center',
+    alignItems: 'center',
   };
+  // const starStyle = {
+  //   color: '#000',
+  //   fontSize: '1.5rem',
+  //   zIndex: '2000',
+  //   position: 'absolute',
+  //   top: '5%',
+  //   right: '5%',
+  //   // filter: 'drop-shadow(rgba(255, 255, 255, 0.4) 0rem 0rem .3125rem)',
+  //   filter: 'drop-shadow(rgba(255, 255, 255, 0.5) 0rem 0rem 0.1125rem )',
+  // };
 
   /// /////////// JSX //////////////
   return (

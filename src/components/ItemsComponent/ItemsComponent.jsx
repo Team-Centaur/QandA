@@ -6,11 +6,12 @@ const ItemsComponent = ({
   currItem,
   currStyles,
   currAvgRating,
+  currentStyle,
   setCurrId,
   setCurrItem,
   setCurrStyles,
-  setCurrReviewMeta,
   setCurrAvgRating,
+  setCurrentStyle,
 }) => (
   <section className="items-comp--section">
     <RecommendedItems
@@ -18,12 +19,13 @@ const ItemsComponent = ({
       setCurrId={setCurrId}
       setCurrItem={setCurrItem}
       setCurrStyles={setCurrStyles}
-      setCurrReviewMeta={setCurrReviewMeta}
       setCurrAvgRating={setCurrAvgRating}
+      setCurrentStyle={setCurrentStyle}
     />
     <OutfitItems
       currItem={currItem}
       currStyles={currStyles}
+      currentStyle={currentStyle}
       currAvgRating={currAvgRating}
     />
   </section>

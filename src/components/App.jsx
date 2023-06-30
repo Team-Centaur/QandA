@@ -44,29 +44,10 @@ function App() {
       );
   }, []);
 
-  // useEffect(() => {
-  //   getProductById(currId)
-  //     .then((data) => {
-  //       setCurrItem(data);
-  //     })
-  //     .then(() => {
-  //       getReviewMetadata(currId).then((data) => {
-  //         setCurrReviewMeta(data);
-  //       });
-  //     })
-  //     .then(() => {
-  //       getStylesById(currId).then((data) => {
-  //         setCurrStyles(data);
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.log(`There was an error fetching product info: ${err}`);
-  //     });
-  // }, [currId]);
   if (!currItem) {
     return <div>Loading...</div>;
   }
-  console.log({ currItem }, { currStyles }, { currAvgRating });
+
   return (
     // Can use a state within ReviewIdContext in any child component
     // that ReviewIdProvider is wrapped around.
@@ -83,10 +64,12 @@ function App() {
           currItem={currItem}
           currReviewMeta={currReviewMeta}
           currStyles={currStyles}
+          currentStyle={currentStyle}
           currAvgRating={currAvgRating}
           setCurrId={setCurrId}
           setCurrStyles={setCurrStyles}
           setCurrItem={setCurrItem}
+          setCurrentStyle={setCurrentStyle}
           setCurrAvgRating={setCurrAvgRating}
         />
         <QuesAnswer product={currItem} />
