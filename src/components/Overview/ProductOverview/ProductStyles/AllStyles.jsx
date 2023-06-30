@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import IndividualStyleComponent from './IndividualStyleComponent.jsx';
 import './ProductStylesCSS/styles.css';
 
-const AllStyles = ({ styles, setCurrStyle, setOnSale}) => {
+const AllStyles = ({ styles, setCurrentStyle, setOnSale}) => {
   const [isSelected, setIsSelected] = useState(styles[0]);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const AllStyles = ({ styles, setCurrStyle, setOnSale}) => {
 
 
   const onStyleHandler = (style) => {
-    setCurrStyle(style);
+    setCurrentStyle(style);
     setIsSelected(style);
     style.sale_price ? setOnSale(true) : setOnSale(false);
   }

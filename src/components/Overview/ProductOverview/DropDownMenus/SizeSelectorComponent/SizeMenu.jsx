@@ -1,20 +1,19 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-const SizeMenu = ({currStyle, setSizeSelected}) =>{
+const SizeMenu = ({currentStyle, setSizeSelected}) =>{
   const [sizesArray, setSizesArray] = useState(null);
   useEffect(() => {
-    if(currStyle.skus) {
-      setSizesArray(Object.entries(currStyle.skus)); // returns an array of subarray of key-value
+    if(currentStyle.skus) {
+      setSizesArray(Object.entries(currentStyle.skus)); // returns an array of subarray of key-value
     }
-  }, [currStyle])
+  }, [currentStyle])
 
   const onSizeSelect = (event) => {
     const sku = event.target.value; // gives the sku of option
-    for(let key in currStyle.skus) {
+    for(let key in currentStyle.skus) {
       if(key === sku) {
-        console.log([sku, currStyle.skus[key]]);
-        setSizeSelected([sku, currStyle.skus[key]]) // give an array of sku and obj containing quantity and size
+        setSizeSelected([sku, currentStyle.skus[key]]) // give an array of sku and obj containing quantity and size
       }
     }
     // setSizeSelected(sizeArray); // state will be utilized in quantity selector
