@@ -45,6 +45,7 @@ function App() {
   if (!currItem) {
     return <div>Loading...</div>;
   }
+  console.log(currStyles);
   return (
     // Can use a state within ReviewIdContext in any child component
     // that ReviewIdProvider is wrapped around.
