@@ -4,11 +4,13 @@ import OutfitItems from './OutfitItems/OutfitItems.jsx';
 
 const ItemsComponent = ({
   currItem,
+  currStyles,
+  currAvgRating,
   setCurrId,
   setCurrItem,
   setCurrStyles,
   setCurrReviewMeta,
-  setCurrAvgReview,
+  setCurrAvgRating,
 }) => (
   <section className="items-comp--section">
     <RecommendedItems
@@ -17,9 +19,13 @@ const ItemsComponent = ({
       setCurrItem={setCurrItem}
       setCurrStyles={setCurrStyles}
       setCurrReviewMeta={setCurrReviewMeta}
-      setCurrAvgReview={setCurrAvgReview}
+      setCurrAvgRating={setCurrAvgRating}
     />
-    <OutfitItems currItem={currItem} />
+    <OutfitItems
+      currItem={currItem}
+      currStyles={currStyles}
+      currAvgRating={currAvgRating}
+    />
   </section>
 );
 

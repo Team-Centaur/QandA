@@ -11,45 +11,46 @@ import getProductById from '../../../../helperFunctions/App/getProductById.js';
 import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
 import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
 
-function Card({ productID, savedItemsId, setSavedItemsId }) {
-  const [productObj, setProductObj] = useState(null);
-  const [styles, setStyles] = useState(null);
-  const [avgReview, setAvgReview] = useState(0);
-
+function Card({ productData, fullProds, setFullProds }) {
+  const { styles, product, rating, id } = productData;
+  // console.log(productData);
   useEffect(() => {
-    getProductById(productID).then((data) => {
-      setProductObj(data);
-    });
+    // console.log(productData, styles);
   }, []);
+  // useEffect(() => {
+  //   getProductById(productID).then((data) => {
+  //     setProductObj(data);
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    getStylesById(productID)
-      .then((data) => {
-        setStyles(data.results);
-      })
-      .catch((err) => {
-        console.error(`There was an error getting product styles: ${err}`);
-      });
-  }, []);
+  // useEffect(() => {
+  //   getStylesById(productID)
+  //     .then((data) => {
+  //       setStyles(data.results);
+  //     })
+  //     .catch((err) => {
+  //       console.error(`There was an error getting product styles: ${err}`);
+  //     });
+  // }, []);
 
-  useEffect(() => {
-    getReviewMetadata(productID).then((data) => {
-      let totalVotes = 0;
-      let totalRating = 0;
+  // useEffect(() => {
+  //   getReviewMetadata(productID).then((data) => {
+  //     let totalVotes = 0;
+  //     let totalRating = 0;
 
-      each(data.ratings, (votes, key) => {
-        votes = Number.parseInt(votes);
-        key = Number.parseInt(key);
-        const keyTotal = key * votes;
-        totalVotes += votes;
-        totalRating += keyTotal;
-      });
+  //     each(data.ratings, (votes, key) => {
+  //       votes = Number.parseInt(votes);
+  //       key = Number.parseInt(key);
+  //       const keyTotal = key * votes;
+  //       totalVotes += votes;
+  //       totalRating += keyTotal;
+  //     });
 
-      const avgReview = (totalRating / totalVotes).toFixed(2);
+  //     const avgReview = (totalRating / totalVotes).toFixed(2);
 
-      setAvgReview(avgReview);
-    });
-  }, []);
+  //     setAvgReview(avgReview);
+  //   });
+  // }, []);
 
   /// /////////// CONDITIONAL RENDERING & LOADING STATE //////////////
   if (!styles) {
@@ -57,17 +58,25 @@ function Card({ productID, savedItemsId, setSavedItemsId }) {
   }
 
   // const randomStyle = styles[getRandomNumber(0, styles.length - 1)];
-  const randomStyle = styles[0];
-  const imageUrl = randomStyle.photos[0].thumbnail_url;
 
-  if (!productObj) {
+  // console.warn('STYLES: ', styles);
+  const defaultStyle =
+    styles && styles.results && styles.results[0] ? styles.results[0] : null;
+  const imageUrl =
+    defaultStyle && defaultStyle.photos && defaultStyle.photos[0]
+      ? defaultStyle.photos[0].thumbnail_url
+      : null;
+
+  // const imageUrl = true;
+
+  if (!productData) {
     return null;
   }
 
   /// /////////// EVENT HANDLERS //////////////
   const handleRemoveItem = () => {
-    const updatedItems = savedItemsId.filter((itemId) => itemId !== productID);
-    setSavedItemsId(updatedItems);
+    const updatedItems = fullProds.filter((item) => item.id !== id);
+    setFullProds(updatedItems);
   };
   /// /////////// STYLES //////////////
   const starStyle = {
@@ -127,25 +136,27 @@ function Card({ productID, savedItemsId, setSavedItemsId }) {
         </div>
       )}
       <div className="items-outfit--card_text">
-        <p className="items-outfit--card_text-cat">{productObj.category}</p>
-        <p className="items-outfit--card_text-title">{productObj.name}</p>
+        <p className="items-outfit--card_text-cat">
+          {productData.product.category}
+        </p>
+        <p className="items-outfit--card_text-title">{product.name}</p>
         {/* If there is no sales price display normal price */}
-        {!randomStyle.sale_price && (
-          <p className="items-outfit--card_text-price">{`$${randomStyle.original_price}`}</p>
+        {!defaultStyle.sale_price && (
+          <p className="items-outfit--card_text-price">{`$${defaultStyle.original_price}`}</p>
         )}
         {/* If there is a sale price, display it and cross out normal price */}
-        {randomStyle.sale_price && (
+        {defaultStyle.sale_price && (
           <div className="items-outfit--card_text-price__container">
             <p className="items-outfit--card_text-price sale">
-              {`$${randomStyle.original_price}`}
+              {`$${defaultStyle.original_price}`}
             </p>
             <p className="items-outfit--card_text-sale">
-              {`$${randomStyle.sale_price}`}
+              {`$${defaultStyle.sale_price}`}
             </p>
           </div>
         )}
         <div className="items-outfit--card_text-rating">
-          <Stars avgRating={avgReview} />
+          <Stars avgRating={rating} />
         </div>
       </div>
     </li>

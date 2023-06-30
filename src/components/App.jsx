@@ -8,6 +8,7 @@ import getProductById from '../helperFunctions/App/getProductById.js';
 import getReviewMetadata from '../helperFunctions/getReviewMetadata.js';
 import getStylesById from '../helperFunctions/App/getStylesById.js';
 import getRandomProd from '../helperFunctions/App/getRandomProd.js';
+import getAvgRating from '../helperFunctions/App/getAvgRating.js';
 import './App.css';
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
   const [currItem, setCurrItem] = useState(null);
   const [currReviewMeta, setCurrReviewMeta] = useState(null);
   const [currStyles, setCurrStyles] = useState(null);
-  const [currAvgReview, setCurrAvgReview] = useState(null);
+  const [currAvgRating, setCurrAvgRating] = useState(null);
   useEffect(() => {
     getRandomProd()
       .then((data) => {
@@ -26,6 +27,8 @@ function App() {
       .then((data) => {
         getReviewMetadata(data.id).then((reviewData) => {
           setCurrReviewMeta(reviewData);
+          setCurrAvgRating(getAvgRating(reviewData.ratings));
+          console.log();
         });
         return data;
       })
@@ -61,6 +64,7 @@ function App() {
   if (!currItem) {
     return <div>Loading...</div>;
   }
+  console.log({ currItem }, { currStyles }, { currAvgRating });
   return (
     // Can use a state within ReviewIdContext in any child component
     // that ReviewIdProvider is wrapped around.
@@ -73,11 +77,11 @@ function App() {
           currItem={currItem}
           currReviewMeta={currReviewMeta}
           currStyles={currStyles}
+          currAvgRating={currAvgRating}
           setCurrId={setCurrId}
           setCurrStyles={setCurrStyles}
           setCurrItem={setCurrItem}
-          setCurrReviewMeta={setCurrReviewMeta}
-          setCurrAvgReview={setCurrAvgReview}
+          setCurrAvgRating={setCurrAvgRating}
         />
         <QuesAnswer product={currItem} />
         <RatingReview currItem={currItem} />

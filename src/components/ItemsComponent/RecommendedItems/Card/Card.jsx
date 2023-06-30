@@ -17,13 +17,14 @@ function Card({
   setCurrId,
   setCurrItem,
   setCurrStyles,
-  setCurrAvgReview,
+  setCurrAvgRating,
   setCurrReviewMeta,
 }) {
   const [productObj, setProductObj] = useState(null);
   const [styles, setStyles] = useState(null);
+  const [outgoingStyles, setOutgoingStyles] = useState(null);
   const [metaReviewData, setMetaReviewData] = useState(null);
-  const [avgReview, setAvgReview] = useState(0);
+  const [avgRating, setAvgRating] = useState(0);
 
   useEffect(() => {
     getProductById(productID).then((data) => {
@@ -34,6 +35,7 @@ function Card({
   useEffect(() => {
     getStylesById(productID)
       .then((data) => {
+        setOutgoingStyles(data);
         setStyles(data.results);
       })
       .catch((err) => {
@@ -55,9 +57,9 @@ function Card({
         totalRating += keyTotal;
       });
 
-      const avgReview = (totalRating / totalVotes).toFixed(2);
+      const avgRating = (totalRating / totalVotes).toFixed(2);
 
-      setAvgReview(avgReview);
+      setAvgRating(avgRating);
     });
   }, []);
 
@@ -77,9 +79,9 @@ function Card({
   /// /////////// EVENT HANDLERS //////////////
   const clickHandler = () => {
     setCurrItem(productObj);
-    setCurrStyles(styles);
-    setCurrAvgReview(avgReview);
-    setCurrReviewMeta(metaReviewData);
+    setCurrStyles(outgoingStyles);
+    setCurrAvgRating(avgRating);
+    // setCurrReviewMeta(metaReviewData);
   };
 
   /// /////////// STYLES //////////////
@@ -153,7 +155,7 @@ function Card({
           </div>
         )}
         <div className="items-comp--card_text-rating">
-          <Stars avgRating={avgReview} />
+          <Stars avgRating={avgRating} />
         </div>
       </div>
     </li>
