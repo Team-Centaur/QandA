@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import ReactDom from 'react-dom';
 import axios from 'axios';
+import './AnswerQuestion.css';
 
-const AnswerQuestion = ({ isAnswerQuestion, questionId }) => {
+const AnswerQuestion = ({ isAnswerQuestion, setIsAnswerQuestion, questionId }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [answerBody, setAnswerBody] = useState('');
@@ -44,22 +46,35 @@ const AnswerQuestion = ({ isAnswerQuestion, questionId }) => {
       .catch((err) => console.error(err));
   };
 
-  return (
-    <form hidden={isAnswerQuestion}>
-      <input placeholder="username" onChange={usernameOnChangeHandler} />
-      <input placeholder="email" onChange={emailOnChangeHandler} />
-      <textarea
-        type="text"
-        cols="50"
-        rows="5"
-        placeholder="answer"
-        onChange={answerBodyOnChangeHandler}
-      />
-      {/* TODO: figure out photos */}
-      <button type="submit" onClick={createAnswerHandler}>
-        Submit
-      </button>
-    </form>
+  const answerQuestionCloseHandler = () => {
+    setIsAnswerQuestion(true);
+    document.body.style.overflow = 'auto';
+  };
+
+  return !isAnswerQuestion && ReactDom.createPortal(
+    <>
+      <div className="overlay" />
+      <div className="answerQuestionModal">
+        <button className="answerQuestionClose" onClick={answerQuestionCloseHandler}>X</button>
+        <h2 className="answerQuestionTitle">Answer Question</h2>
+        <form className="answerQuestionForm">
+          <input placeholder="username" onChange={usernameOnChangeHandler} />
+          <input placeholder="email" onChange={emailOnChangeHandler} />
+          <textarea
+            type="text"
+            cols="50"
+            rows="5"
+            placeholder="answer"
+            onChange={answerBodyOnChangeHandler}
+          />
+          {/* TODO: figure out photos */}
+          <button className="answerQuestionSubmit" type="submit" onClick={createAnswerHandler}>
+            Submit
+          </button>
+        </form>
+      </div>
+    </>,
+    document.getElementById('portal')
   );
 };
 

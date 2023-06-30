@@ -41,6 +41,7 @@ const Question = ({ question }) => {
 
   const answerQuestionButtonClickHandler = () => {
     setIsAnswerQuestion(false);
+    document.body.style.overflow = 'hidden';
   };
 
   const collapseAnswersOnClickHandlers = () => {
@@ -96,7 +97,7 @@ const Question = ({ question }) => {
       <button type="submit" onClick={answerQuestionButtonClickHandler}>
         Answer this question
       </button>
-      <AnswerQuestion isAnswerQuestion={isAnswerQuestion} questionId={question.question_id} />
+      <AnswerQuestion isAnswerQuestion={isAnswerQuestion} setIsAnswerQuestion={setIsAnswerQuestion} questionId={question.question_id} />
     </div>
   );
 };

@@ -1,0 +1,49 @@
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(0, 0, 0, .8);
+  z-index: 1000;
+}
+
+.answerQuestionModal {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFF;
+  padding: 3rem;
+  z-index: 1000;
+}
+
+.answerQuestionClose {
+  align-self: flex-end;
+}
+
+.answerQuestionTitle {
+  align-self: center;
+}
+
+.answerQuestionForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.answerQuestionForm input {
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+}
+
+.answerQuestionForm input:first-child {
+  margin-bottom: 0;
+}
+
+.answerQuestionSubmit {
+  align-self: flex-end;
+  margin-top: 1rem;
+}
