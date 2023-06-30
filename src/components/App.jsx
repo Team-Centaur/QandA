@@ -16,6 +16,7 @@ function App() {
   const [currItem, setCurrItem] = useState(null);
   const [currReviewMeta, setCurrReviewMeta] = useState(null);
   const [currStyles, setCurrStyles] = useState(null);
+  const [currentStyle, setCurrentStyle] = useState({});
   const [currAvgReview, setCurrAvgReview] = useState(null);
   useEffect(() => {
     getRandomProd()
@@ -32,6 +33,7 @@ function App() {
       .then((data) => {
         getStylesById(data.id).then((stylesData) => {
           setCurrStyles(stylesData);
+          setCurrentStyle(stylesData.results[0])
         });
       })
       .catch((err) =>
@@ -68,7 +70,7 @@ function App() {
     <ReviewIdProvider>
       <div className="app-container">
         <h1>Hello worlds!</h1>
-        <Overview currItem={currItem} />
+        <Overview currItem={currItem} currentStyle ={currentStyle} setCurrentStyle ={setCurrentStyle} />
         <ItemsComponent
           currItem={currItem}
           currReviewMeta={currReviewMeta}
