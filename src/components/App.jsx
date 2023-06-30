@@ -16,32 +16,48 @@ function App() {
   const [currItem, setCurrItem] = useState(null);
   const [currReviewMeta, setCurrReviewMeta] = useState(null);
   const [currStyles, setCurrStyles] = useState(null);
-  // useEffect(() => {
-  //   getRandomProd().then((data) => {
-  //     setCurrItem(data);
-  //   });
-  // }, []);
-
+  const [currAvgReview, setCurrAvgReview] = useState(null);
   useEffect(() => {
-    getProductById(currId)
+    getRandomProd()
       .then((data) => {
         setCurrItem(data);
+        return data;
       })
-      .then(() => {
-        getReviewMetadata(currId).then((data) => {
-          setCurrReviewMeta(data);
+      .then((data) => {
+        getReviewMetadata(data.id).then((reviewData) => {
+          setCurrReviewMeta(reviewData);
+        });
+        return data;
+      })
+      .then((data) => {
+        getStylesById(data.id).then((stylesData) => {
+          setCurrStyles(stylesData);
         });
       })
-      .then(() => {
-        getStylesById(currId).then((data) => {
-          setCurrStyles(data);
-        });
-      })
-      .catch((err) => {
-        console.log(`There was an error fetching product info: ${err}`);
-      });
-  }, [currId]);
+      .catch((err) =>
+        console.error(`There was an error fetching product info: ${err}`g)
+      );
+  }, []);
 
+  // useEffect(() => {
+  //   getProductById(currId)
+  //     .then((data) => {
+  //       setCurrItem(data);
+  //     })
+  //     .then(() => {
+  //       getReviewMetadata(currId).then((data) => {
+  //         setCurrReviewMeta(data);
+  //       });
+  //     })
+  //     .then(() => {
+  //       getStylesById(currId).then((data) => {
+  //         setCurrStyles(data);
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log(`There was an error fetching product info: ${err}`);
+  //     });
+  // }, [currId]);
   if (!currItem) {
     return <div>Loading...</div>;
   }
@@ -54,7 +70,16 @@ function App() {
       <div className="app-container">
         <h1>Hello worlds!</h1>
         <Overview currItem={currItem} />
-        <ItemsComponent currItem={currItem} setCurrId={setCurrId} />
+        <ItemsComponent
+          currItem={currItem}
+          currReviewMeta={currReviewMeta}
+          currStyles={currStyles}
+          setCurrId={setCurrId}
+          setCurrStyles={setCurrStyles}
+          setCurrItem={setCurrItem}
+          setCurrReviewMeta={setCurrReviewMeta}
+          setCurrAvgReview={setCurrAvgReview}
+        />
         <QuesAnswer product={currItem} />
         <RatingReview currItem={currItem} />
       </div>

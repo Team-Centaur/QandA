@@ -12,9 +12,17 @@ import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
 import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
 // import getRandomNumber from '../../../helperFunctions/App/getRandomNumber.js';
 
-function Card({ productID, setCurrId, type }) {
+function Card({
+  productID,
+  setCurrId,
+  setCurrItem,
+  setCurrStyles,
+  setCurrAvgReview,
+  setCurrReviewMeta,
+}) {
   const [productObj, setProductObj] = useState(null);
   const [styles, setStyles] = useState(null);
+  const [metaReviewData, setMetaReviewData] = useState(null);
   const [avgReview, setAvgReview] = useState(0);
 
   useEffect(() => {
@@ -37,6 +45,7 @@ function Card({ productID, setCurrId, type }) {
     getReviewMetadata(productID).then((data) => {
       let totalVotes = 0;
       let totalRating = 0;
+      setMetaReviewData(data);
 
       each(data.ratings, (votes, key) => {
         votes = Number.parseInt(votes);
@@ -67,7 +76,10 @@ function Card({ productID, setCurrId, type }) {
 
   /// /////////// EVENT HANDLERS //////////////
   const clickHandler = () => {
-    setCurrId(productObj.id);
+    setCurrItem(productObj);
+    setCurrStyles(styles);
+    setCurrAvgReview(avgReview);
+    setCurrReviewMeta(metaReviewData);
   };
 
   /// /////////// STYLES //////////////

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // import ActionBtnStar from './ActionBtn/ActionBtnStar.jsx';
 import { each } from 'underscore';
-import { FaRegStar } from 'react-icons/fa6';
+import { FaXmark } from 'react-icons/fa6';
 
 import Stars from '../../../Utilities/Stars/Stars.jsx';
 // import StarRating from '../../Utilities/StarRating.jsx';
@@ -10,9 +10,8 @@ import './Card.css';
 import getProductById from '../../../../helperFunctions/App/getProductById.js';
 import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
 import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
-// import getRandomNumber from '../../../helperFunctions/App/getRandomNumber.js';
 
-function Card({ productID, setCurrId, type }) {
+function Card({ productID, savedItemsId, setSavedItemsId }) {
   const [productObj, setProductObj] = useState(null);
   const [styles, setStyles] = useState(null);
   const [avgReview, setAvgReview] = useState(0);
@@ -54,7 +53,7 @@ function Card({ productID, setCurrId, type }) {
 
   /// /////////// CONDITIONAL RENDERING & LOADING STATE //////////////
   if (!styles) {
-    return <div className="items-comp--card">Loading...</div>;
+    return <div className="items-outfit--card">Loading...</div>;
   }
 
   // const randomStyle = styles[getRandomNumber(0, styles.length - 1)];
@@ -66,10 +65,10 @@ function Card({ productID, setCurrId, type }) {
   }
 
   /// /////////// EVENT HANDLERS //////////////
-  const clickHandler = () => {
-    setCurrId(productObj.id);
+  const handleRemoveItem = () => {
+    const updatedItems = savedItemsId.filter((itemId) => itemId !== productID);
+    setSavedItemsId(updatedItems);
   };
-
   /// /////////// STYLES //////////////
   const starStyle = {
     color: '#000',
@@ -84,12 +83,12 @@ function Card({ productID, setCurrId, type }) {
 
   /// /////////// JSX //////////////
   return (
-    <li className="items-comp--card" onClick={clickHandler}>
+    <li className="items-outfit--card">
       {/* If there is no photo url, display gray background with text */}
       {!imageUrl && (
-        <div className="items-comp--card_img">
+        <div className="items-outfit--card_img">
           <div
-            className="items-comp--card_img-img"
+            className="items-outfit--card_img-img"
             style={{
               display: 'flex',
               justifyContent: 'center',
@@ -102,15 +101,16 @@ function Card({ productID, setCurrId, type }) {
           >
             No Photo Available
           </div>
-          <FaRegStar color="black" />
+          <FaXmark color="black" className="items-outfit--card_img-icon" />
+
           {/* <ActionBtnStar /> */}
         </div>
       )}
       {/* If there is a photo url, display photo */}
       {imageUrl && (
-        <div className="items-comp--card_img">
+        <div className="items-outfit--card_img">
           <div
-            className="items-comp--card_img-img"
+            className="items-outfit--card_img-img"
             style={{
               backgroundImage: `url(${imageUrl})`,
               backgroundSize: 'cover',
@@ -118,29 +118,33 @@ function Card({ productID, setCurrId, type }) {
               backgroundPosition: 'center',
             }}
           />
-          <FaRegStar style={starStyle} />
+          <FaXmark
+            style={starStyle}
+            onClick={handleRemoveItem}
+            className="items-outfit--card_img-icon"
+          />
           {/* <ActionBtnStar /> */}
         </div>
       )}
-      <div className="items-comp--card_text">
-        <p className="items-comp--card_text-cat">{productObj.category}</p>
-        <p className="items-comp--card_text-title">{productObj.name}</p>
+      <div className="items-outfit--card_text">
+        <p className="items-outfit--card_text-cat">{productObj.category}</p>
+        <p className="items-outfit--card_text-title">{productObj.name}</p>
         {/* If there is no sales price display normal price */}
         {!randomStyle.sale_price && (
-          <p className="items-comp--card_text-price">{`$${randomStyle.original_price}`}</p>
+          <p className="items-outfit--card_text-price">{`$${randomStyle.original_price}`}</p>
         )}
         {/* If there is a sale price, display it and cross out normal price */}
         {randomStyle.sale_price && (
-          <div className="items-comp--card_text-price__container">
-            <p className="items-comp--card_text-price sale">
+          <div className="items-outfit--card_text-price__container">
+            <p className="items-outfit--card_text-price sale">
               {`$${randomStyle.original_price}`}
             </p>
-            <p className="items-comp--card_text-sale">
+            <p className="items-outfit--card_text-sale">
               {`$${randomStyle.sale_price}`}
             </p>
           </div>
         )}
-        <div className="items-comp--card_text-rating">
+        <div className="items-outfit--card_text-rating">
           <Stars avgRating={avgReview} />
         </div>
       </div>

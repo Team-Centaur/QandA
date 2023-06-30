@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const apiKey = process.env.REACT_APP_API_KEY;
 
-const getRelatedItemsByID = async (id) => {
+const getRelatedItemsById = async (id) => {
   try {
     const data = await axios({
       method: 'get',
@@ -18,4 +18,4 @@ const getRelatedItemsByID = async (id) => {
   }
 };
 
-export default getRelatedItemsByID;
+export default getRelatedItemsById;
