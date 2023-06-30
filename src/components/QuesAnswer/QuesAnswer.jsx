@@ -7,7 +7,6 @@ import Display from './Display.jsx';
 import './QuesAnswer.css';
 
 const QuesAnswer = ({ product }) => {
-  console.log(product);
   const [questions, setQuestions] = useState([]);
   const [displayQuestions, setDisplayQuestions] = useState([]);
   const [isNoMoreQuestions, setIsNoMoreQuestions] = useState(false);
