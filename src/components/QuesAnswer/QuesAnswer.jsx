@@ -27,13 +27,7 @@ const QuesAnswer = ({ product }) => {
 
   // get data and store questions
   useEffect(() => {
-    axios
-      .get(
-        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions?product_id=${
-          product.id
-        }&page=${1}&count=${100}`,
-        options
-      )
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions?product_id=${product.id}&page=${1}&count=${1000}`,options)
       .then((response) => {
         if (response.data.results.length > 0) {
           const sortedResults = response.data.results.sort(
@@ -66,6 +60,7 @@ const QuesAnswer = ({ product }) => {
   // make ask a question form appear when ask a question button is clicked
   const addQuestionHandler = () => {
     setIsAskQuestion(false);
+    document.body.style.overflow = 'hidden';
   };
 
   return (
@@ -88,7 +83,7 @@ const QuesAnswer = ({ product }) => {
       >
         Ask A Question
       </button>
-      <AskQuestion isAskQuestion={isAskQuestion} product={product} />
+      <AskQuestion isAskQuestion={isAskQuestion} setIsAskQuestion={setIsAskQuestion} product={product} questions={questions} setQuestions={setQuestions} />
     </section>
   );
 };
