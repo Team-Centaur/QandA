@@ -1,6 +1,6 @@
 import React from 'react';
 
-const StarFilter = ({ stars, numOfVotes, sumOfVotes }) => {
+const StarFilter = ({ stars, numOfVotes, sumOfVotes, onFilterClick }) => {
   const starFilterStyles = {
     backgroundColor: 'white',
     borderRadius: '10px',
@@ -26,8 +26,8 @@ const StarFilter = ({ stars, numOfVotes, sumOfVotes }) => {
 
 
   return (
-    <div className='starFilter' style={starFilterStyles}>
-      <span> {stars} Stars </span>
+    <div className='starFilter' value={stars} style={starFilterStyles} role='button' onClick={onFilterClick}>
+      <span> {stars} {(stars === '1') ? 'Star' : 'Stars'} </span>
       <div className='starBar' style={starBarStyles}>
         <div className='starBarFill' style={starBarFillStyles}>
         </div>
