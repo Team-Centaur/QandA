@@ -1,0 +1,49 @@
+img {
+  max-width: 4rem;
+}
+
+.answer-body {
+  font-weight: 700;
+}
+
+.answer {
+  border-style: solid;
+  border-radius: 1rem;
+  background-color: aqua;
+  width: 40rem;
+  padding: .5rem;
+}
+
+.answer-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.answer-options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.answer-helpful-option {
+  display: flex;
+}
+
+.answer-helpful-option p, .answer-helpful-option button {
+  margin-left: .5rem;
+  margin-right: .5rem;
+  padding: .5rem;
+}
+
+.answer-report-option {
+  display: flex;
+}
+
+.answer-report-option p, .answer-report-option button {
+  margin-left: .5rem;
+  margin-right: .5rem;
+  padding: .5rem;
+}
+
+.username {
+  color: blue;
+}

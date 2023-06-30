@@ -14,7 +14,7 @@ const Search = ({ setDisplayQuestions, questions }) => {
       });
       setDisplayQuestions(filteredQuestions);
     } else {
-      setDisplayQuestions([questions[0]]);
+      setDisplayQuestions(questions.slice(0, 4));
     }
   };
 
