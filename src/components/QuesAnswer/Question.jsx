@@ -20,7 +20,7 @@ const Question = ({ question }) => {
     },
   };
 
-  // get data and store questions
+  // get data and store answers for question
   useEffect(() => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question.question_id}/answers?page=${1}&count=${1000}`, options)
       .then((response) => {
@@ -97,7 +97,7 @@ const Question = ({ question }) => {
       <button type="submit" onClick={answerQuestionButtonClickHandler}>
         Answer this question
       </button>
-      <AnswerQuestion isAnswerQuestion={isAnswerQuestion} setIsAnswerQuestion={setIsAnswerQuestion} questionId={question.question_id} />
+      <AnswerQuestion isAnswerQuestion={isAnswerQuestion} setIsAnswerQuestion={setIsAnswerQuestion} questionId={question.question_id} answers={answers} setAnswers={setAnswers} />
     </div>
   );
 };

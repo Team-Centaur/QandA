@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import axios from 'axios';
 import './AnswerQuestion.css';
 
-const AnswerQuestion = ({ isAnswerQuestion, setIsAnswerQuestion, questionId }) => {
+const AnswerQuestion = ({ isAnswerQuestion, setIsAnswerQuestion, questionId, answers, setAnswers }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [answerBody, setAnswerBody] = useState('');
@@ -36,13 +36,18 @@ const AnswerQuestion = ({ isAnswerQuestion, setIsAnswerQuestion, questionId }) =
       photos: [], // TODO: set up photos
     };
 
-    axios
-      .post(
+    axios.post(
         `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${questionId}/answers`,
         data,
         options
       )
-      // .then(response => console.log(response))
+      .then(response => {
+        axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${questionId}/answers?page=${1}&count=${1000}`, options)
+          .then(response => {
+            setAnswers(response.data.results);
+            answerQuestionCloseHandler();
+          })
+      })
       .catch((err) => console.error(err));
   };
 
