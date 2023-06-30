@@ -3,15 +3,16 @@ import { useState, useEffect } from 'react';
 import IndividualStyleComponent from './IndividualStyleComponent.jsx';
 import './ProductStylesCSS/styles.css';
 
-const AllStyles = ({ styles, setCurrStyle, setOnSale }) => {
+const AllStyles = ({ styles, setCurrentStyle, setOnSale }) => {
   const [isSelected, setIsSelected] = useState(styles[0]);
+
   useEffect(() => {
     setIsSelected(styles[0]);
   }, [styles]);
-  // console.log('ALL STYLES', styles);
-  // console.log('SELECTED', isSelected);
+  console.log('ALL STYLES', styles);
+  console.log('SELECTED', isSelected);
   const onStyleHandler = (style) => {
-    setCurrStyle(style);
+    setCurrentStyle(style);
     setIsSelected(style);
     style.sale_price ? setOnSale(true) : setOnSale(false);
   };
