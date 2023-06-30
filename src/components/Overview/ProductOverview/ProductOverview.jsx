@@ -4,13 +4,19 @@ import React, { useEffect, useState } from 'react';
 import Stars from './Stars/Stars.jsx';
 import SocialShare from './SocialShare/SocialShare.jsx';
 import AllStyles from './ProductStyles/AllStyles.jsx';
+import SizeMenu from './DropDownMenus/SizeSelectorComponent/SizeMenu.jsx';
+import QuantityMenu from './DropDownMenus/QuantitySelectorComponent/QuantityMenu.jsx';
 import './ProductOverviewCompStyles/styles.css'
+
 const ProductOverview = ({ dataObj }) => {
   const [totalReviews, setTotalReviews] = useState(0);
   const [avgRating, setAvgRating] = useState(0);
   const [currStyle, setCurrStyle] = useState({});
   const [styles, setStyles] = useState(dataObj.styles); // array of styles
-  const [onSale, setOnSale] = useState(false);
+  const [onSale, setOnSale] = useState(false); // an object withe size and its quantity
+  const [sizeSelected, setSizeSelected ] = useState(null);
+  const [quantitySelected, setQuantitySelected] = useState(1);
+
   useEffect(() => {
     if(dataObj) {
       let ratingObj = dataObj.ratings;
@@ -28,6 +34,11 @@ const ProductOverview = ({ dataObj }) => {
     dataObj.styles[0].sale_price? setOnSale(true) : setOnSale(false);
     };
   },[dataObj]);
+
+  useEffect (() => {
+    setQuantitySelected(1);
+    setSizeSelected(null);
+  }, [currStyle])
   if (dataObj) {
     return (
       <div className="product-overview-container">
@@ -53,6 +64,15 @@ const ProductOverview = ({ dataObj }) => {
         <div className="styles-container">
           <p><span>{`Styles >`}</span> {currStyle.name}</p>
           <AllStyles styles={styles} setCurrStyle = {setCurrStyle} setOnSale = {setOnSale}/>
+        </div>
+        <div className = "dropdown-menus-container">
+          <SizeMenu currStyle={currStyle} setSizeSelected={setSizeSelected} />
+          <QuantityMenu
+            currStyle={currStyle}
+            sizeSelected={sizeSelected}
+            quantitySelected={quantitySelected}
+            setQuantitySelected={setQuantitySelected}
+          />
         </div>
       </div>
 
