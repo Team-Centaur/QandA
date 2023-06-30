@@ -9,7 +9,7 @@ import ProductOverview from './ProductOverview/ProductOverview.jsx';
 
 const apiKey = process.env.REACT_APP_API_KEY;
 
-const Overview = ({ currItem, reviewId }) => {
+const Overview = ({ currItem, currentStyle, setCurrentStyle }) => {
   const [dataObj, setDataObj] = useState(null);
   console.log()
   useEffect(() => {
@@ -48,7 +48,7 @@ const Overview = ({ currItem, reviewId }) => {
         <div className="promotion-container"></div>
         <div className="product-container">
           <div className="image-gallery-container"></div>
-          <ProductOverview dataObj={dataObj} reviewId={reviewId} />
+          <ProductOverview dataObj={dataObj} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} />
         </div>
         <div className="description-container">
 

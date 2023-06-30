@@ -124,26 +124,32 @@ const OutfitItems = ({ currItem }) => {
   ////////////// JSX //////////////
   if (savedItemsId.length === 0) {
     return (
-      <div className="items-comp--outfit-container">
-        <ul className="items-comp--outfit-list" ref={outfitListRef}>
-          {renderAddItemButton()}
-        </ul>
-      </div>
+      <>
+        <h3 className="items-comp--outfit-heading">Outfit</h3>
+        <div className="items-comp--outfit-container">
+          <ul className="items-comp--outfit-list" ref={outfitListRef}>
+            {renderAddItemButton()}
+          </ul>
+        </div>
+      </>
     );
   }
   return (
-    <div
-      className={`items-comp--outfit-container ${
-        savedItemsId.length > 2 ? 'fade' : ''
-      }`}
-    >
-      {renderLeftArrow()}
-      <ul className="items-comp--outfit-list" ref={outfitListRef}>
-        {renderAddItemButton()}
-        {renderCards()}
-      </ul>
-      {renderRightArrow()}
-    </div>
+    <>
+      <h3 className="items-comp--outfit-heading">Outfit</h3>
+      <div
+        className={`items-comp--outfit-container ${
+          savedItemsId.length > 2 ? 'fade' : ''
+        }`}
+      >
+        {renderLeftArrow()}
+        <ul className="items-comp--outfit-list" ref={outfitListRef}>
+          {renderAddItemButton()}
+          {renderCards()}
+        </ul>
+        {renderRightArrow()}
+      </div>
+    </>
   );
 };
 

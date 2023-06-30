@@ -8,7 +8,14 @@ import './RecommendedItems.css';
 import getRelatedItemsById from '../../../helperFunctions/App/getRelatedItemsById.js';
 // import getProductById from '../../../helperFunctions/App/getProductById.js';
 
-const RecommendedItems = ({ currItem, setCurrId }) => {
+const RecommendedItems = ({
+  currItem,
+  setCurrId,
+  setCurrItem,
+  setCurrStyles,
+  setCurrReviewMeta,
+  setCurrAvgReview,
+}) => {
   const [relatedItems, setRelatedItems] = useState(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   // const [cardsShifted, setCardsShifted] = useState(0);
@@ -104,7 +111,10 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
       productID={product}
       key={product}
       setCurrId={setCurrId}
-      type={'recommended'}
+      setCurrItem={setCurrItem}
+      setCurrStyles={setCurrStyles}
+      setCurrReviewMeta={setCurrReviewMeta}
+      setCurrAvgReview={setCurrAvgReview}
     />
   ));
   let listWidth = 100;
@@ -116,40 +126,43 @@ const RecommendedItems = ({ currItem, setCurrId }) => {
 
   // /////////// JSX //////////////
   return (
-    <div
-      className={`items-comp--reco-container ${
-        relatedItems.length > 2 ? 'fade' : ''
-      }`}
-    >
-      {scrollPosition > 0 && (
-        <button
-          className="items-comp--reco-list_btn left"
-          type="button"
-          onClick={scrollLeft}
-          aria-label="left-scroll"
-        >
-          <FaArrowLeft size="1rem" />
-        </button>
-      )}
-
-      <ul
-        className="items-comp--reco-list"
-        // style={{ width: `${listWidth}%` }}
-        ref={listRef}
+    <>
+      <h3 className="items-comp--reco-heading">RELATED PRODUCTS</h3>
+      <div
+        className={`items-comp--reco-container ${
+          relatedItems.length > 2 ? 'fade' : ''
+        }`}
       >
-        {cards}
-      </ul>
-      {!reachMaxScroll && relatedItems.length > 3 && (
-        <button
-          className="items-comp--reco-list_btn right"
-          aria-label="right-scroll"
-          type="button"
-          onClick={scrollRight}
+        {scrollPosition > 0 && (
+          <button
+            className="items-comp--reco-list_btn left"
+            type="button"
+            onClick={scrollLeft}
+            aria-label="left-scroll"
+          >
+            <FaArrowLeft size="1rem" />
+          </button>
+        )}
+
+        <ul
+          className="items-comp--reco-list"
+          // style={{ width: `${listWidth}%` }}
+          ref={listRef}
         >
-          <FaArrowRight size="1rem" />
-        </button>
-      )}
-    </div>
+          {cards}
+        </ul>
+        {!reachMaxScroll && relatedItems.length > 3 && (
+          <button
+            className="items-comp--reco-list_btn right"
+            aria-label="right-scroll"
+            type="button"
+            onClick={scrollRight}
+          >
+            <FaArrowRight size="1rem" />
+          </button>
+        )}
+      </div>
+    </>
   );
 };
 

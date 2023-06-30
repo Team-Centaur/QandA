@@ -1,0 +1,15 @@
+
+.ques-ans-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* .display {
+  overflow: scroll;
+  height: 100vh;
+}
+
+.display::-webkit-scrollbar {
+  display: none;
+} */
