@@ -6,6 +6,7 @@ const SizeMenu = ({currentStyle, setSizeSelected}) =>{
   useEffect(() => {
     if(currentStyle.skus) {
       setSizesArray(Object.entries(currentStyle.skus)); // returns an array of subarray of key-value
+      console.log(currentStyle.skus);
     }
   }, [currentStyle])
 

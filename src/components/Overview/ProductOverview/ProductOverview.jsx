@@ -6,6 +6,7 @@ import SocialShare from './SocialShare/SocialShare.jsx';
 import AllStyles from './ProductStyles/AllStyles.jsx';
 import SizeMenu from './DropDownMenus/SizeSelectorComponent/SizeMenu.jsx';
 import QuantityMenu from './DropDownMenus/QuantitySelectorComponent/QuantityMenu.jsx';
+import axios from 'axios';
 import './ProductOverviewCompStyles/styles.css'
 
 const ProductOverview = ({ dataObj,currentStyle, setCurrentStyle }) => {
@@ -14,8 +15,8 @@ const ProductOverview = ({ dataObj,currentStyle, setCurrentStyle }) => {
   // const [currStyle, setCurrStyle] = useState({});
   const [styles, setStyles] = useState(dataObj.styles); // array of styles
   const [onSale, setOnSale] = useState(false); // an object withe size and its quantity
-  const [sizeSelected, setSizeSelected ] = useState(null);
-  const [quantitySelected, setQuantitySelected] = useState(1);
+  const [sizeSelected, setSizeSelected ] = useState(null); // an array of sku and total quantity
+  const [quantitySelected, setQuantitySelected] = useState(1); // int
 
   useEffect(() => {
     if(dataObj) {
@@ -39,6 +40,31 @@ const ProductOverview = ({ dataObj,currentStyle, setCurrentStyle }) => {
     setQuantitySelected(1);
     setSizeSelected(null);
   }, [currentStyle])
+
+  const onAddToCart = (style, count) => {
+    const sku_id = style[0];
+    console.log(sku_id)
+    if(sku_id) {
+      // Create a post call with body
+        // {'sku_id' : sku_id, 'count':count}
+        const data = {
+          'sku_id': sku_id,
+          'count': count
+        }
+        axios.post
+          (
+            'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/cart',
+            data,{
+              headers: {Authorization: process.env.REACT_APP_API_KEY }
+            }
+          )
+        .then((response)=> console.log(response))
+        .catch((err) => console.log(err))
+    } else {
+
+      alert('You have nothing in cart');
+    }
+  }
   if (dataObj) {
     return (
       <div className="product-overview-container">
@@ -74,6 +100,7 @@ const ProductOverview = ({ dataObj,currentStyle, setCurrentStyle }) => {
             setQuantitySelected={setQuantitySelected}
           />
         </div>
+        {sizeSelected && <button onClick={(e) => onAddToCart(sizeSelected, quantitySelected)}>Add To Cart</button>}
       </div>
 
     );
