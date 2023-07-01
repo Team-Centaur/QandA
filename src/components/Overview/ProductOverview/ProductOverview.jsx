@@ -80,9 +80,9 @@ const ProductOverview = ({ dataObj,currentStyle, setCurrentStyle }) => {
             { dataObj.name}
           </h2>
           <div className="price-container">
-            <div className={onSale ? 'product-on-sale' : 'default-price'}>
-              { currentStyle.original_price }
-            </div>
+            { dataObj.defaultPrice && <div className={onSale ? 'product-on-sale' : 'default-price'}>
+              { dataObj.defaultPrice }
+            </div>}
             <div style ={{color:'red'}}className="product-sale-price"> {currentStyle.sale_price}</div>
           </div>
         </div>
