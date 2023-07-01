@@ -9,6 +9,7 @@ import './Card.css';
 import getProductById from '../../../../helperFunctions/App/getProductById.js';
 import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
 import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
+import getRandomNumber from '../../../../helperFunctions/App/getRandomNumber.js';
 
 function Card({
   productID,
@@ -19,6 +20,7 @@ function Card({
   setRelatedItemData,
   setCurrentStyle,
   setOpenModal,
+  styleType,
 }) {
   const [productObj, setProductObj] = useState(null);
   const [styles, setStyles] = useState(null);
@@ -68,9 +70,15 @@ function Card({
     return <div className="items-comp--card">Loading...</div>;
   }
 
-  // const randomStyle = styles[getRandomNumber(0, styles.length - 1)];
-  const randomStyle = styles[0];
-  const imageUrl = randomStyle.photos[0].thumbnail_url;
+  // const itemStyle = styles[getRandomNumber(0, styles.length - 1)];
+  let itemStyle = {};
+  if (styleType === 'related') {
+    itemStyle = styles[0];
+  } else {
+    itemStyle = styles[getRandomNumber(0, styles.length - 1)];
+  }
+
+  const imageUrl = itemStyle.photos[0].thumbnail_url;
 
   if (!productObj) {
     return null;
@@ -162,17 +170,17 @@ function Card({
         <p className="items-comp--card_text-cat">{productObj.category}</p>
         <p className="items-comp--card_text-title">{productObj.name}</p>
         {/* If there is no sales price display normal price */}
-        {!randomStyle.sale_price && (
-          <p className="items-comp--card_text-price">{`$${randomStyle.original_price}`}</p>
+        {!itemStyle.sale_price && (
+          <p className="items-comp--card_text-price">{`$${itemStyle.original_price}`}</p>
         )}
         {/* If there is a sale price, display it and cross out normal price */}
-        {randomStyle.sale_price && (
+        {itemStyle.sale_price && (
           <div className="items-comp--card_text-price__container">
             <p className="items-comp--card_text-price sale">
-              {`$${randomStyle.original_price}`}
+              {`$${itemStyle.original_price}`}
             </p>
             <p className="items-comp--card_text-sale">
-              {`$${randomStyle.sale_price}`}
+              {`$${itemStyle.sale_price}`}
             </p>
           </div>
         )}

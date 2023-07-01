@@ -123,6 +123,13 @@ const RecommendedItems = ({
   ));
   let listWidth = 100;
 
+  if (relatedItems.length < 4) {
+    let totalLength = relatedItems.length;
+    while (totalLength < 4) {
+      cards.push();
+    }
+  }
+
   /// /////////// STYLES //////////////
   if (relatedItems.length > 3) {
     listWidth += (relatedItems.length - 3) * 30;

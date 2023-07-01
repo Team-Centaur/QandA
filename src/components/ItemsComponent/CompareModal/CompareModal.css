@@ -3,7 +3,7 @@
   top: 0; /* adjust this if you want to shift the modal vertically */
   left: 0; /* adjust this if you want to shift the modal horizontally */
   right: 0; /* ensures the modal spans the full width of parent component */
-  width: 75%;
+  width: 60%;
   height: auto;
   margin: 0 auto;
   padding: 30px; /* adjust this if you want to shift the modal vertically */
@@ -31,21 +31,22 @@
   font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0.0938rem;
+  margin-bottom: 2rem;
+}
+.item-comp-modal--features_list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.item-comp-modal--features_item {
+  align-items: center;
 }
 
 .item-comp-modal--features_item span {
   flex: 1;
 }
 
-.item-comp-modal--table {
-  width: 85%;
-  margin: 0 auto;
-  padding: 2rem 0;
-
-  border-collapse: separate;
-  border-spacing: 0 1em; /* First value affects horizontal spacing, second affects vertical */
-}
-
-.item-comp-modal--table_body tr {
-  background-color: #fff;
+.item-comp-modal--features_item--descrip {
 }

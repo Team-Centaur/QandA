@@ -4,7 +4,13 @@ import { FaCheck } from 'react-icons/fa6';
 
 const TableRow = ({ featureObj }) => {
   const getItemDisplay = (item) => {
-    return !item ? <FaXmark /> : featureObj.item === true ? <FaCheck /> : item;
+    return !item ? (
+      <FaXmark />
+    ) : featureObj.item === true ? (
+      <FaCheck />
+    ) : (
+      item.replace(/"/g, '')
+    );
   };
 
   return (
@@ -13,6 +19,7 @@ const TableRow = ({ featureObj }) => {
         {getItemDisplay(featureObj.item1)}
       </span>
       <span
+        className="item-comp-modal--features_item--descrip"
         style={{
           textAlign: 'center',
           margin: '0, auto',
