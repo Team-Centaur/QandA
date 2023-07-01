@@ -1,10 +1,8 @@
 import React from 'react';
 import StarFilter from './StarFilter.jsx';
 
-const RatingBreakdownFilter = ({ ratings, sumOfVotes }) => {
-  const onFilterClick = (e) => {
-    console.log(e.currentTarget.getAttribute('value'));
-  }
+const RatingBreakdownFilter = ({ ratings, sumOfVotes, onFilterClick }) => {
+
   return (
     <div className='ratingBreakdownFilter'>
       <h3>Rating Breakdown</h3>

@@ -4,7 +4,7 @@ import RatingBreakdownFilter from './RatingBreakdownFilter.jsx'
 
 import './RatingBreakdown.css'
 
-const RatingBreakdown = ({ ratings }) => {
+const RatingBreakdown = ({ ratings, onFilterClick }) => {
 
   const numOfStars = Object.keys(ratings);
   const numOfVotes = Object.values(ratings).map((vote) => parseInt(vote));
@@ -22,7 +22,7 @@ const RatingBreakdown = ({ ratings }) => {
     <div className='ratingBreakdown'>
       <h1>Rating Breakdown</h1>
       <RatingSummary average={average}/>
-      <RatingBreakdownFilter ratings={ratings} sumOfVotes={sumOfVotes}/>
+      <RatingBreakdownFilter ratings={ratings} sumOfVotes={sumOfVotes} onFilterClick={onFilterClick}/>
     </div>
   );
 };
