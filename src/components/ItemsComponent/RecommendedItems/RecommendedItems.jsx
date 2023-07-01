@@ -13,9 +13,10 @@ const RecommendedItems = ({
   setCurrId,
   setCurrItem,
   setCurrStyles,
-
+  setRelatedItemData,
   setCurrAvgRating,
   setCurrentStyle,
+  setOpenModal,
 }) => {
   const [relatedItems, setRelatedItems] = useState(null);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -116,6 +117,8 @@ const RecommendedItems = ({
       setCurrStyles={setCurrStyles}
       setCurrAvgRating={setCurrAvgRating}
       setCurrentStyle={setCurrentStyle}
+      setRelatedItemData={setRelatedItemData}
+      setOpenModal={setOpenModal}
     />
   ));
   let listWidth = 100;

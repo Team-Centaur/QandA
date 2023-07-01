@@ -16,8 +16,9 @@ function Card({
   setCurrItem,
   setCurrStyles,
   setCurrAvgRating,
-
+  setRelatedItemData,
   setCurrentStyle,
+  setOpenModal,
 }) {
   const [productObj, setProductObj] = useState(null);
   const [styles, setStyles] = useState(null);
@@ -81,8 +82,14 @@ function Card({
     setCurrStyles(outgoingStyles);
     setCurrAvgRating(avgRating);
     setCurrentStyle(styles[0]);
+    setOpenModal(false);
   };
 
+  const handleActionBtnClick = (e) => {
+    e.stopPropagation();
+    setRelatedItemData(productObj);
+    setOpenModal(true);
+  };
   /// /////////// STYLES //////////////
 
   const starStyle = {
@@ -147,7 +154,7 @@ function Card({
               backgroundPosition: 'center',
             }}
           />
-          <FaRegStar style={starStyle} />
+          <FaRegStar style={starStyle} onClick={handleActionBtnClick} />
           {/* <ActionBtnStar /> */}
         </div>
       )}
@@ -170,7 +177,7 @@ function Card({
           </div>
         )}
         <div className="items-comp--card_text-rating">
-          <Stars avgRating={avgRating} />
+          <Stars avgRating={avgRating} onClick={handleActionBtnClick} />
         </div>
       </div>
     </li>
