@@ -72,20 +72,20 @@ describe('RecommendedItems component', () => {
     });
   });
 
-  test('renders Loading message when fetching data', () => {
+  it('renders Loading message when fetching data', () => {
     render(<RecommendedItems currItem={currItem} setCurrId={setCurrId} />);
     const loadingElement = screen.getByText(/loading.../i);
     expect(loadingElement).toBeInTheDocument();
   });
 
-  test('renders the Cards after fetching data', async () => {
+  it('renders the Cards after fetching data', async () => {
     await act(async () => {
       const cardElements = await screen.findAllByTestId('card');
       expect(cardElements).toHaveLength(5);
     });
   });
 
-  test('calls setCurrId when a Card is clicked', async () => {
+  it('calls setCurrId when a Card is clicked', async () => {
     await act(async () => {
       const card = await screen.findAllByTestId('card');
 
@@ -97,7 +97,7 @@ describe('RecommendedItems component', () => {
     });
   });
 
-  test('renders a right arrow button', async () => {
+  it('renders a right arrow button', async () => {
     await act(async () => {
       const rightButton = await screen.findByRole('button', {
         name: /right-scroll/i,
