@@ -70,7 +70,12 @@ function App() {
     <ReviewIdProvider>
       <div className="app-container">
         <h1>Hello worlds!</h1>
-        <Overview currItem={currItem} currentStyle ={currentStyle} setCurrentStyle ={setCurrentStyle} />
+        <Overview
+          currItem={currItem}
+          currStyles = {currStyles}
+          currentStyle ={currentStyle}
+          setCurrentStyle ={setCurrentStyle}
+        />
         <ItemsComponent
           currItem={currItem}
           currReviewMeta={currReviewMeta}

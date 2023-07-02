@@ -6,10 +6,11 @@ import axios from 'axios';
 import getStylesById from '../../helperFunctions/App/getStylesById.js';
 import getProductById from '../../helperFunctions/App/getProductById.js';
 import ProductOverview from './ProductOverview/ProductOverview.jsx';
+import ImageGallery from './ImageGallery/ImageGallery.jsx';
 
 const apiKey = process.env.REACT_APP_API_KEY;
 
-const Overview = ({ currItem, currentStyle, setCurrentStyle }) => {
+const Overview = ({ currItem, currentStyle, setCurrentStyle, currStyles }) => {
   const [dataObj, setDataObj] = useState(null);
   console.log()
   useEffect(() => {
@@ -47,7 +48,7 @@ const Overview = ({ currItem, currentStyle, setCurrentStyle }) => {
       <section className="overview-section">
         <div className="promotion-container"></div>
         <div className="product-container">
-          <div className="image-gallery-container"></div>
+          <ImageGallery currItem= {currItem} currStyles={currStyles} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} />
           <ProductOverview dataObj={dataObj} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} />
         </div>
         <div className="description-container">
