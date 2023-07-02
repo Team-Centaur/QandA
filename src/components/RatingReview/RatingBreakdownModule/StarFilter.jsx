@@ -1,6 +1,6 @@
 import React from 'react';
 
-const StarFilter = ({ stars, numOfVotes, sumOfVotes, onFilterClick }) => {
+const StarFilter = ({ stars, numOfReviews, sumOfReviews, onFilterClick }) => {
   const starFilterStyles = {
     backgroundColor: 'white',
     borderRadius: '10px',
@@ -19,20 +19,20 @@ const StarFilter = ({ stars, numOfVotes, sumOfVotes, onFilterClick }) => {
 
   const starBarFillStyles = {
     height: '100%',
-    width: (!!numOfVotes ? (numOfVotes / sumOfVotes * 100 + '%') : 0), // do not render if NaN
+    width: (!!numOfReviews ? (numOfReviews / sumOfReviews * 100 + '%') : 0), // do not render if NaN
     backgroundColor: 'MediumSeaGreen',
     borderRadius: 'inherit',
   };
 
 
   return (
-    <div className='starFilter' value={[stars, numOfVotes]} style={starFilterStyles} role='button' onClick={onFilterClick}>
+    <div className='starFilter' value={[stars, numOfReviews]} style={starFilterStyles} role='button' onClick={onFilterClick}>
       <span> {stars} {(stars === '1') ? 'Star' : 'Stars'} </span>
       <div className='starBar' style={starBarStyles}>
         <div className='starBarFill' style={starBarFillStyles}>
         </div>
       </div>
-      <span> {numOfVotes || '0'} </span>
+      <span> {numOfReviews || '0'} </span>
     </div>
   );
 };

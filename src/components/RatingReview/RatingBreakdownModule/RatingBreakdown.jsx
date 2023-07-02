@@ -4,20 +4,20 @@ import RatingBreakdownFilter from './RatingBreakdownFilter.jsx'
 
 import './RatingBreakdown.css'
 
-const RatingBreakdown = ({ ratings, numOfVotes, sumOfVotes, onFilterClick }) => {
+const RatingBreakdown = ({ ratings, numOfReviews, sumOfReviews, onFilterClick }) => {
 
   const numOfStars = Object.keys(ratings);
   const sumOfRatings = (numOfStars.reduce(
     (sum, key, index) => (
-      sum += key * numOfVotes[index]
+      sum += key * numOfReviews[index]
     ), 0));
-  const average = Math.round(sumOfRatings / sumOfVotes * 10) / 10;
+  const average = Math.round(sumOfRatings / sumOfReviews * 10) / 10;
 
   return (
     <div className='ratingBreakdown'>
       <h1>Rating Breakdown</h1>
       <RatingSummary average={average}/>
-      <RatingBreakdownFilter ratings={ratings} sumOfVotes={sumOfVotes} onFilterClick={onFilterClick}/>
+      <RatingBreakdownFilter ratings={ratings} sumOfReviews={sumOfReviews} onFilterClick={onFilterClick}/>
     </div>
   );
 };

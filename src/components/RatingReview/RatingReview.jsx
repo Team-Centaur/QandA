@@ -61,12 +61,12 @@ const RatingReview = ({ currItem, reviewId }) => {
 
   // filter reviews for review list
   const setReviewListFilter = async (e) => {
-    // star and sumOfVotes stored as string in filter element's value attribute
+    // star and sumOfReviews stored as string in filter element's value attribute
     const filterValueAttribute = e.currentTarget.getAttribute('value');
     const stars = filterValueAttribute[0];
-    const sumOfVotes = filterValueAttribute.slice(2);
+    const sumOfReviews = filterValueAttribute.slice(2);
     await setFilter(parseInt(stars));
-    await setFilteredReviewCount(parseInt(sumOfVotes));
+    await setFilteredReviewCount(parseInt(sumOfReviews));
     await setPage(1);
   }
 
@@ -102,8 +102,8 @@ const RatingReview = ({ currItem, reviewId }) => {
   , [filter]);
 
   // get sum of reviews
-  const numOfVotes = Object.values(ratings).map((vote) => parseInt(vote));
-  const sumOfVotes = (numOfVotes.reduce(
+  const numOfReviews = Object.values(ratings).map((vote) => parseInt(vote));
+  const sumOfReviews = (numOfReviews.reduce(
     (sum, val) => (
       sum + val
     ), 0));
@@ -117,7 +117,7 @@ const RatingReview = ({ currItem, reviewId }) => {
         loadMoreReviews={loadMoreReviews}
         allReviewsLoaded={allReviewsLoaded}
       />
-      <RatingBreakdown ratings={ratings} numOfVotes={numOfVotes} sumOfVotes={sumOfVotes} onFilterClick={setReviewListFilter}/>
+      <RatingBreakdown ratings={ratings} numOfReviews={numOfReviews} sumOfReviews={sumOfReviews} onFilterClick={setReviewListFilter}/>
       <ProductBreakdown />
       <WriteReview characteristics={characteristics} />
     </section>
