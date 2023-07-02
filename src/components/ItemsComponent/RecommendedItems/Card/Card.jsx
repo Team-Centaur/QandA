@@ -4,26 +4,29 @@ import { each } from 'underscore';
 import { FaRegStar } from 'react-icons/fa6';
 
 import Stars from '../../../Utilities/Stars/Stars.jsx';
-// import StarRating from '../../Utilities/StarRating.jsx';
 import './Card.css';
 
 import getProductById from '../../../../helperFunctions/App/getProductById.js';
 import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
 import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
-// import getRandomNumber from '../../../helperFunctions/App/getRandomNumber.js';
+import getRandomNumber from '../../../../helperFunctions/App/getRandomNumber.js';
 
 function Card({
   productID,
   setCurrId,
   setCurrItem,
   setCurrStyles,
-  setCurrAvgReview,
-  setCurrReviewMeta,
+  setCurrAvgRating,
+  setRelatedItemData,
+  setCurrentStyle,
+  setOpenModal,
+  styleType,
 }) {
   const [productObj, setProductObj] = useState(null);
   const [styles, setStyles] = useState(null);
+  const [outgoingStyles, setOutgoingStyles] = useState(null);
   const [metaReviewData, setMetaReviewData] = useState(null);
-  const [avgReview, setAvgReview] = useState(0);
+  const [avgRating, setAvgRating] = useState(0);
 
   useEffect(() => {
     getProductById(productID).then((data) => {
@@ -34,6 +37,7 @@ function Card({
   useEffect(() => {
     getStylesById(productID)
       .then((data) => {
+        setOutgoingStyles(data);
         setStyles(data.results);
       })
       .catch((err) => {
@@ -55,9 +59,9 @@ function Card({
         totalRating += keyTotal;
       });
 
-      const avgReview = (totalRating / totalVotes).toFixed(2);
+      const avgRating = (totalRating / totalVotes).toFixed(2);
 
-      setAvgReview(avgReview);
+      setAvgRating(avgRating);
     });
   }, []);
 
@@ -66,9 +70,15 @@ function Card({
     return <div className="items-comp--card">Loading...</div>;
   }
 
-  // const randomStyle = styles[getRandomNumber(0, styles.length - 1)];
-  const randomStyle = styles[0];
-  const imageUrl = randomStyle.photos[0].thumbnail_url;
+  // const itemStyle = styles[getRandomNumber(0, styles.length - 1)];
+  let itemStyle = {};
+  if (styleType === 'related') {
+    itemStyle = styles[0];
+  } else {
+    itemStyle = styles[getRandomNumber(0, styles.length - 1)];
+  }
+
+  const imageUrl = itemStyle.photos[0].thumbnail_url;
 
   if (!productObj) {
     return null;
@@ -77,22 +87,44 @@ function Card({
   /// /////////// EVENT HANDLERS //////////////
   const clickHandler = () => {
     setCurrItem(productObj);
-    setCurrStyles(styles);
-    setCurrAvgReview(avgReview);
-    setCurrReviewMeta(metaReviewData);
+    setCurrStyles(outgoingStyles);
+    setCurrAvgRating(avgRating);
+    setCurrentStyle(styles[0]);
+    setOpenModal(false);
   };
 
+  const handleActionBtnClick = (e) => {
+    e.stopPropagation();
+    setRelatedItemData(productObj);
+    setOpenModal(true);
+  };
   /// /////////// STYLES //////////////
+
   const starStyle = {
-    color: '#000',
+    color: '#f8f8f8', // A light complimentary color
     fontSize: '1.5rem',
     zIndex: '2000',
     position: 'absolute',
     top: '5%',
     right: '5%',
-    // filter: 'drop-shadow(rgba(255, 255, 255, 0.4) 0rem 0rem .3125rem)',
-    filter: 'drop-shadow(rgba(255, 255, 255, 0.5) 0rem 0rem 0.1125rem )',
+    filter: 'drop-shadow(rgba(255, 255, 255, 0.4) 0rem 0rem .3125rem)',
+
+    width: '1.5rem', // Equal width and height
+    height: '1.5rem',
+    display: 'flex', // Center the icon
+    justifyContent: 'center',
+    alignItems: 'center',
   };
+  // const starStyle = {
+  //   color: '#000',
+  //   fontSize: '1.5rem',
+  //   zIndex: '2000',
+  //   position: 'absolute',
+  //   top: '5%',
+  //   right: '5%',
+  //   // filter: 'drop-shadow(rgba(255, 255, 255, 0.4) 0rem 0rem .3125rem)',
+  //   filter: 'drop-shadow(rgba(255, 255, 255, 0.5) 0rem 0rem 0.1125rem )',
+  // };
 
   /// /////////// JSX //////////////
   return (
@@ -130,7 +162,7 @@ function Card({
               backgroundPosition: 'center',
             }}
           />
-          <FaRegStar style={starStyle} />
+          <FaRegStar style={starStyle} onClick={handleActionBtnClick} />
           {/* <ActionBtnStar /> */}
         </div>
       )}
@@ -138,22 +170,22 @@ function Card({
         <p className="items-comp--card_text-cat">{productObj.category}</p>
         <p className="items-comp--card_text-title">{productObj.name}</p>
         {/* If there is no sales price display normal price */}
-        {!randomStyle.sale_price && (
-          <p className="items-comp--card_text-price">{`$${randomStyle.original_price}`}</p>
+        {!itemStyle.sale_price && (
+          <p className="items-comp--card_text-price">{`$${itemStyle.original_price}`}</p>
         )}
         {/* If there is a sale price, display it and cross out normal price */}
-        {randomStyle.sale_price && (
+        {itemStyle.sale_price && (
           <div className="items-comp--card_text-price__container">
             <p className="items-comp--card_text-price sale">
-              {`$${randomStyle.original_price}`}
+              {`$${itemStyle.original_price}`}
             </p>
             <p className="items-comp--card_text-sale">
-              {`$${randomStyle.sale_price}`}
+              {`$${itemStyle.sale_price}`}
             </p>
           </div>
         )}
         <div className="items-comp--card_text-rating">
-          <Stars avgRating={avgReview} />
+          <Stars avgRating={avgRating} onClick={handleActionBtnClick} />
         </div>
       </div>
     </li>

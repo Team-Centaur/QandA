@@ -5,26 +5,25 @@ import Card from './Card/Card.jsx';
 
 import './OutfitItems.css';
 
-const OutfitItems = ({ currItem }) => {
-  const [savedItemsId, setSavedItemsId] = useState([]);
+const OutfitItems = ({ currItem, currStyles, currAvgRating, currentStyle }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [reachMaxScroll, setReachMaxScroll] = useState(false);
-
+  const [fullProds, setFullProds] = useState([]);
   // Load localStorage
   useEffect(() => {
-    const retreivedIds = JSON.parse(localStorage.getItem('outfit'));
-    if (!retreivedIds) {
+    const retreivedOutfit = JSON.parse(localStorage.getItem('outfit'));
+    if (!retreivedOutfit) {
       return;
     }
-    if (retreivedIds.length > 0) {
-      setSavedItemsId(retreivedIds);
+    if (retreivedOutfit.length > 0) {
+      setFullProds(retreivedOutfit);
     }
   }, []);
 
   // Set savedItemsId to localStorage
   useEffect(() => {
-    localStorage.setItem('outfit', JSON.stringify(savedItemsId));
-  }, [savedItemsId]);
+    localStorage.setItem('outfit', JSON.stringify(fullProds));
+  }, [fullProds]);
 
   ////////////////////////////////////////////
   ////////////// CAROUSEL LOGIC //////////////
@@ -70,15 +69,27 @@ const OutfitItems = ({ currItem }) => {
   useEffect(() => {
     const maxScrollReached = hasReachedMaxScroll();
     setReachMaxScroll(maxScrollReached);
-    if (savedItemsId.length <= 2) setScrollPosition(0);
-  }, [scrollPosition, savedItemsId]);
+    if (fullProds.length <= 2) setScrollPosition(0);
+  }, [scrollPosition, fullProds]);
 
   ////////////// ADD OUTFIT HANDLER //////////////
   const handleAddItem = () => {
-    const canAdd = savedItemsId.some((id) => id === currItem.id);
-    (!canAdd || savedItemsId.length === 0) &&
-      currItem.id &&
-      setSavedItemsId((prevState) => [currItem.id, ...prevState]);
+    const cantAdd = fullProds.some((product) => {
+      return product.id == currItem.id;
+    });
+    if (cantAdd) {
+      return;
+    }
+    setFullProds((prevState) => [
+      {
+        id: currItem.id,
+        product: currItem,
+        styles: currStyles,
+        styles: currentStyle,
+        rating: currAvgRating,
+      },
+      ...prevState,
+    ]);
   };
 
   ////////////// RENDER ELEMENTS //////////////
@@ -89,12 +100,12 @@ const OutfitItems = ({ currItem }) => {
   );
 
   const renderCards = () =>
-    savedItemsId.map((product) => (
+    fullProds.map((productData) => (
       <Card
-        productID={product}
-        key={product}
-        savedItemsId={savedItemsId}
-        setSavedItemsId={setSavedItemsId}
+        productData={productData}
+        key={productData.id}
+        fullProds={fullProds}
+        setFullProds={setFullProds}
       />
     ));
 
@@ -111,7 +122,7 @@ const OutfitItems = ({ currItem }) => {
 
   const renderRightArrow = () =>
     !reachMaxScroll &&
-    savedItemsId.length > 2 && (
+    fullProds.length > 2 && (
       <button
         className="items-comp--outfit-list_btn right"
         type="button"
@@ -122,7 +133,7 @@ const OutfitItems = ({ currItem }) => {
     );
 
   ////////////// JSX //////////////
-  if (savedItemsId.length === 0) {
+  if (fullProds.length === 0) {
     return (
       <>
         <h3 className="items-comp--outfit-heading">Outfit</h3>
@@ -139,7 +150,7 @@ const OutfitItems = ({ currItem }) => {
       <h3 className="items-comp--outfit-heading">Outfit</h3>
       <div
         className={`items-comp--outfit-container ${
-          savedItemsId.length > 2 ? 'fade' : ''
+          fullProds.length > 4 && !reachMaxScroll ? 'fade' : ''
         }`}
       >
         {renderLeftArrow()}
