@@ -75,10 +75,10 @@ const RatingReview = ({ currItem, reviewId }) => {
       try {
         // only render first 2 matching reviews, save page
         let { results } = await getReviews(currItem.id, sortOrder, currentPage, 10);
-        console.log(results);
+        // console.log(results);
         let filteredReviews = results.filter(
           (review) => {
-            console.log(`review rating: ${review.rating}`);
+            // console.log(`review rating: ${review.rating}`);
             return (review.rating === filter);
           }
         );
