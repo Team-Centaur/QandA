@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import ThumbNailImage from './ThumbNailImages/ThumbNailImages.jsx';
 import {dummyData} from './dummyData.js';
-import {AiOutlineArrowDown, AiOutlineArrowUp} from 'react-icons/ai';
+import {AiOutlineArrowDown, AiOutlineArrowUp, AiOutlineArrowRight, AiOutlineArrowLeft} from 'react-icons/ai';
 import './imageGallery.css'
 
     const dummyImages = dummyData.results.map(({photos}) => {
@@ -16,6 +16,8 @@ const ImageGallery = ({currItem, currStyles, currentStyle, setCurrentStyle}) => 
   const [currMainImage, setCurrMainImage] = useState(null);
   const [isSelected, setIsSelected] = useState(null);
   const thumbNailContainer = useRef(null);
+  const thumbNailImagesRef = useRef([]);
+  const [currIndex, setCurrIndex] = useState(0);
   // Main img is diff from thumbnail imgs
 
 
@@ -36,7 +38,15 @@ const ImageGallery = ({currItem, currStyles, currentStyle, setCurrentStyle}) => 
     setCurrMainImage(currentStyle.photos[0].url);
     setIsSelected(currentStyle.photos[0].url);
   }, [currentStyle])
+  //////////****FUNCTION HANDLERS***/////////
+  const onThumbnailImageHandler = (image) =>{
+    setCurrMainImage(image);
+    setIsSelected(image);
+  }
 
+  useEffect (() => {
+
+  }, [currIndex])
   const onUpClickHandler = () => {
     const amountToScrollBy= thumbNailContainer.current.scrollTop - 80;
     thumbNailContainer.current.scrollTo({
@@ -46,6 +56,7 @@ const ImageGallery = ({currItem, currStyles, currentStyle, setCurrentStyle}) => 
   }
 
   const onDownClickHandler = () => {
+    console.log('DOWN', thumbNailContainer.current.scrollTop);
     const amountToScrollBy = thumbNailContainer.current.scrollTop + 80;
     // scrollTop give the distance between top of container to current position
     thumbNailContainer.current.scrollTo({
@@ -53,11 +64,49 @@ const ImageGallery = ({currItem, currStyles, currentStyle, setCurrentStyle}) => 
       behavior: 'smooth'
     })
   }
-
-  const onThumbnailImageHandler = (image) =>{
-    setCurrMainImage(image);
-    setIsSelected(image);
+  const onLeftArrowHandler = () => {
+    if(currIndex >0) {
+      const index = currIndex-1;
+      const currImage = thumbNailImages[index];
+      const currRef = thumbNailImagesRef.current[index];
+      const distanceFromParent = currRef.offsetTop; // GIVES THE DISTANCE FROM TOP OF PARENT CONTAINER
+      const containerPreviousPosition = thumbNailContainer.current.scrollTop;
+      const scrollPosition = containerPreviousPosition - 14.090909004211426;
+      console.log('LEFT PREVIOUS POSITION',containerPreviousPosition);
+      console.log('LEFT SCROLL POSITION', scrollPosition);
+      thumbNailContainer.current.scrollTo({
+        top:scrollPosition,
+        behavior:'smooth'
+      })
+      setCurrMainImage(currImage);
+      setIsSelected(currImage);
+      setCurrIndex(index);
+    }
   }
+  const  onRightArrowHandler = () => {
+    if(currIndex < thumbNailImages.length-1) {
+      const index = currIndex+1;
+      const currImage = thumbNailImages[index];
+      const currRef = thumbNailImagesRef.current[index];
+      console.log('REF', currRef);
+      const containerPreviousPosition = thumbNailContainer.current.scrollTop;
+      console.log('PREVIOUS POSITION',containerPreviousPosition);
+      const distanceFromParent = currRef.offsetTop; // GIVES THE DISTANCE FROM TOP OF PARENT CONTAINER
+      console.log('PARENT', currRef.offsetParent);
+      console.log(distanceFromParent);
+      const scrollPosition = containerPreviousPosition + 14.090909004211426;
+      console.log('SCROLL POSITION', scrollPosition);
+      thumbNailContainer.current.scrollTo({
+        top:scrollPosition,
+        behavior:'smooth'
+      })
+      setCurrMainImage(currImage);
+      setIsSelected(currImage);
+      setCurrIndex(index);
+    }
+
+  }
+ ////////*****RENDERING*****/////////
   if(thumbNailImages && currMainImage) {
 
     return (
@@ -67,13 +116,13 @@ const ImageGallery = ({currItem, currStyles, currentStyle, setCurrentStyle}) => 
 
           <div className="thumbnail-images-container" ref = {thumbNailContainer}>
             {thumbNailImages.map((image, index) => {
-              console.log('Key', `${image}-${index}`)
               return(
                 <ThumbNailImage
                   onThumbnailImageHandler ={onThumbnailImageHandler}
                   image ={image}
                   isSelected={isSelected}
                   key = {`${image}-${index}`}
+                  ref = {(el) => (thumbNailImagesRef.current[index] = el)}
                 />
                 )
             })}
@@ -81,7 +130,9 @@ const ImageGallery = ({currItem, currStyles, currentStyle, setCurrentStyle}) => 
           {thumbNailImages.length >=7 &&<AiOutlineArrowDown onClick = {onDownClickHandler}/>}
         </div>
         <div className="main-image-container" >
+          <AiOutlineArrowLeft onClick ={onLeftArrowHandler}  />
           <img src ={currMainImage} className="main-image" />
+          <AiOutlineArrowRight onClick = {onRightArrowHandler}/>
         </div>
 
       </div>

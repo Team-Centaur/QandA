@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, forwardRef} from 'react';
 
-const ThumbNailImage =({image, onThumbnailImageHandler, isSelected}) => {
+const ThumbNailImage =forwardRef(function ThumbNailImage({image, onThumbnailImageHandler, isSelected}, ref) {
   if(image) {
     return (
-      <div onClick={(e) =>onThumbnailImageHandler(image) } className={isSelected ===image? "selected": "individual-thumbnail-image-container"}>
+      <div ref= {ref} onClick={(e) =>onThumbnailImageHandler(image) } className={isSelected ===image? "selected": "individual-thumbnail-image-container"}>
         <img
         className="individual-thumbnail-image"
          src = {image}
@@ -12,6 +12,6 @@ const ThumbNailImage =({image, onThumbnailImageHandler, isSelected}) => {
     )
   }
   return null;
-}
+})
 
 export default ThumbNailImage;

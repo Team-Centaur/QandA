@@ -14,8 +14,10 @@
 
 }
 .main-image-container{
-  padding: .3125rem;
-  padding-bottom:.0625rem;
+  display: inline-flex;
+  align-items: center;
+  padding: .7125rem 0rem .7125rem 0rem;
+
   background: rgb(227, 226, 226);
   border-radius: 0.25rem;
 }
