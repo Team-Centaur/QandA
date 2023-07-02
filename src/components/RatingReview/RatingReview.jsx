@@ -61,10 +61,15 @@ const RatingReview = ({ currItem, reviewId }) => {
 
   // filter reviews for review list
   const setReviewListFilter = async (e) => {
-    const [ stars ] = e.currentTarget.getAttribute('value');
+    // star and sumOfVotes stored as string in filter element's value attribute
+    const filterValueAttribute = e.currentTarget.getAttribute('value');
+    const stars = filterValueAttribute[0];
+    const sumOfVotes = filterValueAttribute.slice(2);
     await setFilter(parseInt(stars));
+    await setFilteredReviewCount(parseInt(sumOfVotes));
     await setPage(1);
   }
+
   useEffect(() => {
     async function getFilteredReviews() {
       try {
@@ -73,7 +78,6 @@ const RatingReview = ({ currItem, reviewId }) => {
         let filteredReviews = results.filter(
           (review) => (review.rating === filter)
         );
-        console.log(filteredReviews);
         if (filteredReviews.length < 2) {
           // if less than 2 reviews, request next page
           // let moreReviews = await getFilteredReviews();
@@ -92,7 +96,6 @@ const RatingReview = ({ currItem, reviewId }) => {
       }
     }
     getFilteredReviews().then((newReviews) => {
-      console.log(newReviews);
       setReviews(newReviews);
     });
   }
