@@ -6,10 +6,10 @@ import Card from './Card/Card.jsx';
 import './RecommendedItems.css';
 
 import getRelatedItemsById from '../../../helperFunctions/App/getRelatedItemsById.js';
-// import getProductById from '../../../helperFunctions/App/getProductById.js';
 
 const RecommendedItems = ({
   currItem,
+  currStyles,
   setCurrId,
   setCurrItem,
   setCurrStyles,
@@ -108,10 +108,10 @@ const RecommendedItems = ({
   }
 
   /// /////////// DISPLAY ELEMENTS CREATION //////////////
-  const cards = relatedItems.map((product) => (
+  const cards = relatedItems.map((productID) => (
     <Card
-      productID={product}
-      key={product}
+      productID={productID}
+      key={productID}
       setCurrId={setCurrId}
       setCurrItem={setCurrItem}
       setCurrStyles={setCurrStyles}
@@ -119,20 +119,31 @@ const RecommendedItems = ({
       setCurrentStyle={setCurrentStyle}
       setRelatedItemData={setRelatedItemData}
       setOpenModal={setOpenModal}
+      styleType={'related'}
     />
   ));
-  let listWidth = 100;
 
-  if (relatedItems.length < 4) {
-    let totalLength = relatedItems.length;
-    while (totalLength < 4) {
-      cards.push();
+  if (cards.length < 4) {
+    if (currStyles.length + relatedItems.slice(1).length < 4) {
+      return;
     }
-  }
-
-  /// /////////// STYLES //////////////
-  if (relatedItems.length > 3) {
-    listWidth += (relatedItems.length - 3) * 30;
+    let styleIndex = 0;
+    while (cards.length < 4) {
+      cards.push(
+        <Card
+          productID={currItem.id}
+          key={currItem.id}
+          setCurrId={setCurrId}
+          setCurrItem={setCurrItem}
+          setCurrStyles={setCurrStyles}
+          setCurrAvgRating={setCurrAvgRating}
+          setCurrentStyle={setCurrentStyle}
+          setRelatedItemData={setRelatedItemData}
+          setOpenModal={setOpenModal}
+        />
+      );
+      styleIndex++;
+    }
   }
 
   // /////////// JSX //////////////
@@ -141,7 +152,7 @@ const RecommendedItems = ({
       <h3 className="items-comp--reco-heading">RELATED PRODUCTS</h3>
       <div
         className={`items-comp--reco-container ${
-          relatedItems.length > 2 ? 'fade' : ''
+          relatedItems.length > 4 && !reachMaxScroll ? 'fade' : ''
         }`}
       >
         {scrollPosition > 0 && (
@@ -155,14 +166,10 @@ const RecommendedItems = ({
           </button>
         )}
 
-        <ul
-          className="items-comp--reco-list"
-          // style={{ width: `${listWidth}%` }}
-          ref={listRef}
-        >
+        <ul className="items-comp--reco-list" ref={listRef}>
           {cards}
         </ul>
-        {!reachMaxScroll && relatedItems.length > 3 && (
+        {!reachMaxScroll && relatedItems.length > 4 && (
           <button
             className="items-comp--reco-list_btn right"
             aria-label="right-scroll"

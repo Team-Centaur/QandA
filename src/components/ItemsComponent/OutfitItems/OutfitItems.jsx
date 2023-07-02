@@ -150,7 +150,7 @@ const OutfitItems = ({ currItem, currStyles, currAvgRating, currentStyle }) => {
       <h3 className="items-comp--outfit-heading">Outfit</h3>
       <div
         className={`items-comp--outfit-container ${
-          fullProds.length > 2 ? 'fade' : ''
+          fullProds.length > 4 && !reachMaxScroll ? 'fade' : ''
         }`}
       >
         {renderLeftArrow()}

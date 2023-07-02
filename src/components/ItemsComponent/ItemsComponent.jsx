@@ -17,19 +17,11 @@ const ItemsComponent = ({
 }) => {
   const [openModal, setOpenModal] = useState(false);
   const [relatedItemData, setRelatedItemData] = useState({});
-  const sectionRef = useRef();
-
-  useEffect(() => {
-    if (sectionRef.current) {
-      let rect = sectionRef.current.getBoundingClientRect();
-      console.log(rect.top); // log the top position
-    }
-  }, [sectionRef]);
-  console.log({ openModal }, relatedItemData.features, currItem.features);
   return (
-    <section className="items-comp--section" ref={sectionRef}>
+    <section className="items-comp--section">
       <RecommendedItems
         currItem={currItem}
+        currStyles={currStyles}
         setCurrId={setCurrId}
         setCurrItem={setCurrItem}
         setCurrStyles={setCurrStyles}

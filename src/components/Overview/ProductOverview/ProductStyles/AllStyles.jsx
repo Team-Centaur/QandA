@@ -9,8 +9,7 @@ const AllStyles = ({ styles, setCurrentStyle, setOnSale }) => {
   useEffect(() => {
     setIsSelected(styles[0]);
   }, [styles]);
-  console.log('ALL STYLES', styles);
-  console.log('SELECTED', isSelected);
+
   const onStyleHandler = (style) => {
     setCurrentStyle(style);
     setIsSelected(style);
