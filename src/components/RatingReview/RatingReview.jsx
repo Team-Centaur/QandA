@@ -20,6 +20,8 @@ const RatingReview = ({ currItem, reviewId }) => {
   const [recommended, setRecommended] = useState({});
   const [sortOrder, setSortOrder] = useState('relevant');
   const [allReviewsLoaded, setAllReviewsLoaded] = useState(false);
+  const [filter, setFilter] = useState(0); // 0 when no filter applied
+  const [filteredReviewCount, setFilteredReviewCount] = useState(0); // tracks number of reviews left to load
 
   // make request to API for reviews, metadata
   useEffect(() => {
@@ -39,45 +41,69 @@ const RatingReview = ({ currItem, reviewId }) => {
     getReviewData();
   }, [currItem]);
 
+  // fetch 2 more reviews for review list
   const loadMoreReviews = () => {
-    getReviews(currItem.id, sortOrder, page + 1, 2).then((reviewsResponse) => {
-      if (reviewsResponse.results.length < 2) {
-        // if API returns less than 2 reviews, all reviews have been loaded
-        setAllReviewsLoaded(true);
-      } else {
-        setReviews([...reviews, ...reviewsResponse.results]);
-        setPage(page + 1);
-      }
-    });
+    console.log(`filter: ${filter}`)
+    if (!filter) {
+      getReviews(currItem.id, sortOrder, page + 1, 2).then((reviewsResponse) => {
+        if (reviewsResponse.results.length < 2) {
+          // if API returns less than 2 reviews, all reviews have been loaded
+          setAllReviewsLoaded(true);
+        } else {
+          setReviews([...reviews, ...reviewsResponse.results]);
+          setPage(page + 1);
+        }
+      });
+    } else {
+      console.log('load more filtered reviews');
+    }
   };
 
-  // Rating Breakdown Filter Tiles
-  const loadFilteredReviews = async (e) => {
-    try {
-    const rating = e.currentTarget.getAttribute('value');
-      setPage(1);
-      setAllReviewsLoaded(false);
-
-      let count = 10;
-      let filteredReviews = [];
-      /* ALL ASYNCRONOUS, THIS MIGHT NOT BE RIGHT */
-      // while ((filteredReviews.length < 2) && !allReviewsLoaded)  {
-      const get2FilteredReviews = async (e) => {
-        let { results } = await getReviews(currItem.id, sortOrder, page, count);
-        return results.filter((review) => (review.rating.toString() === rating));
-        // await setAllReviewsLoaded(!allReviewsLoaded);
-
-        // add filtered reviews, only allow those with rating match
-        // set next page
-        return results;
-      }
-      let results = await get2FilteredReviews();
-      console.log(results);
-    } catch (err) {
-      console.log(err);
-    }
-
+  // filter reviews for review list
+  const setReviewListFilter = async (e) => {
+    const [ stars ] = e.currentTarget.getAttribute('value');
+    await setFilter(parseInt(stars));
+    await setPage(1);
   }
+  useEffect(() => {
+    async function getFilteredReviews() {
+      try {
+        // only render first 2 matching reviews, save page
+        let { results } = await getReviews(currItem.id, sortOrder, page, 10);
+        let filteredReviews = results.filter(
+          (review) => (review.rating === filter)
+        );
+        console.log(filteredReviews);
+        if (filteredReviews.length < 2) {
+          // if less than 2 reviews, request next page
+          // let moreReviews = await getFilteredReviews();
+          // console.log(moreReviews);
+          return filteredReviews;
+        //  // filteredReviews.concat(await getFilteredReviews());
+        } else if (filteredReviews.length > 2) {
+          // if more than 2 reviews, only return first 1
+          return filteredReviews.slice(0, 2);
+        } else {
+          await setPage(page + 1);
+          return filteredReviews;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getFilteredReviews().then((newReviews) => {
+      console.log(newReviews);
+      setReviews(newReviews);
+    });
+  }
+  , [filter]);
+
+  // get sum of reviews
+  const numOfVotes = Object.values(ratings).map((vote) => parseInt(vote));
+  const sumOfVotes = (numOfVotes.reduce(
+    (sum, val) => (
+      sum + val
+    ), 0));
 
   return (
     // supplying Id through custom hook that utilizes useContext
@@ -88,7 +114,7 @@ const RatingReview = ({ currItem, reviewId }) => {
         loadMoreReviews={loadMoreReviews}
         allReviewsLoaded={allReviewsLoaded}
       />
-      <RatingBreakdown ratings={ratings} onFilterClick={loadFilteredReviews}/>
+      <RatingBreakdown ratings={ratings} numOfVotes={numOfVotes} sumOfVotes={sumOfVotes} onFilterClick={setReviewListFilter}/>
       <ProductBreakdown />
       <WriteReview characteristics={characteristics} />
     </section>

@@ -26,7 +26,7 @@ const StarFilter = ({ stars, numOfVotes, sumOfVotes, onFilterClick }) => {
 
 
   return (
-    <div className='starFilter' value={stars} style={starFilterStyles} role='button' onClick={onFilterClick}>
+    <div className='starFilter' value={[stars, numOfVotes]} style={starFilterStyles} role='button' onClick={onFilterClick}>
       <span> {stars} {(stars === '1') ? 'Star' : 'Stars'} </span>
       <div className='starBar' style={starBarStyles}>
         <div className='starBarFill' style={starBarFillStyles}>
