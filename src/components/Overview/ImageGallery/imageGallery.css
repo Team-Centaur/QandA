@@ -4,6 +4,14 @@
   align-items: flex-start;
   gap: 1rem;
   padding-bottom: 40px;
+  padding-top: 40px;
+}
+.arrows-plus-thumbnails{
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  gap:.4125rem;
+
 }
 .main-image-container{
   padding: .3125rem;
@@ -26,7 +34,11 @@
   padding:.1875rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+
+  height:28.125rem;
+  white-space: nowrap;
+  overflow-x: hidden;
+  overflow-y: hidden;
   gap: .625rem;
   background: rgb(227, 226, 226);
 }
@@ -34,9 +46,10 @@
 .individual-thumbnail-image-container,.selected {
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 3.5rem;
-  overflow: hidden;
+  align-items: top;
+  width: 3.9rem;
+
+
 
 }
 /* .individual-thumbnail-image-container{
