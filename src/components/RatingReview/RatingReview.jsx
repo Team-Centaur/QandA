@@ -21,7 +21,7 @@ const RatingReview = ({ currItem, reviewId }) => {
   const [sortOrder, setSortOrder] = useState('relevant');
   const [allReviewsLoaded, setAllReviewsLoaded] = useState(false);
   const [filter, setFilter] = useState(0); // 0 when no filter applied
-  const [filteredReviewCount, setFilteredReviewCount] = useState(0); // tracks number of reviews left to load
+  const [filteredReviewCount, setFilteredReviewCount] = useState(0); // tracks number of filtered reviews left to load
 
   // make request to API for reviews, metadata
   useEffect(() => {
@@ -71,19 +71,25 @@ const RatingReview = ({ currItem, reviewId }) => {
   }
 
   useEffect(() => {
-    async function getFilteredReviews() {
+    async function getFilteredReviews(currentPage) {
       try {
         // only render first 2 matching reviews, save page
-        let { results } = await getReviews(currItem.id, sortOrder, page, 10);
+        let { results } = await getReviews(currItem.id, sortOrder, currentPage, 10);
+        console.log(results);
         let filteredReviews = results.filter(
-          (review) => (review.rating === filter)
+          (review) => {
+            console.log(`review rating: ${review.rating}`);
+            return (review.rating === filter);
+          }
         );
-        if (filteredReviews.length < 2) {
+        // await setPage(currentPage);
+        if ((filteredReviews.length < 2) && (reviews.length < filteredReviewCount)) {
           // if less than 2 reviews, request next page
-          // let moreReviews = await getFilteredReviews();
-          // console.log(moreReviews);
+          // await setPage(page + 1);
+          // let moreReviews = await getFilteredReviews(currentPage + 1);
+          // console.log(filteredReviews.concat(moreReviews));
           return filteredReviews;
-        //  // filteredReviews.concat(await getFilteredReviews());
+          // filteredReviews.concat(await getFilteredReviews());
         } else if (filteredReviews.length > 2) {
           // if more than 2 reviews, only return first 1
           return filteredReviews.slice(0, 2);
@@ -95,7 +101,7 @@ const RatingReview = ({ currItem, reviewId }) => {
         console.error(error);
       }
     }
-    getFilteredReviews().then((newReviews) => {
+    getFilteredReviews(page).then((newReviews) => {
       setReviews(newReviews);
     });
   }
