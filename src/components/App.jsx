@@ -51,9 +51,12 @@ function App() {
   }
 
   return (
-    // Can use a state within ReviewIdContext in any child component
-    // that ReviewIdProvider is wrapped around.
-    // no need to send the state as prop through nested children
+    // Now all current Data can be pulled from this context,
+    // First import CurrContext into the file from the store folder in ./src
+    // Then add code below into the component
+    // `const currCtx = setContext(CurrentContext)`
+    // Whenever you want to access any of these just use this object
+    // i.e. `currCtx.currItem` or `currCtx.setCurrStyles()`
     <CurrContext.Provider
       value={{
         currItem: currItem,
@@ -69,6 +72,9 @@ function App() {
         setCurrAvgRating: setCurrAvgRating,
       }}
     >
+      {/*  // Can use a state within ReviewIdContext in any child component
+    // that ReviewIdProvider is wrapped around.
+    // no need to send the state as prop through nested children */}
       <ReviewIdProvider>
         <div className="app-container">
           <h1>Hello worlds!</h1>
@@ -77,18 +83,7 @@ function App() {
             currentStyle={currentStyle}
             setCurrentStyle={setCurrentStyle}
           />
-          <ItemsComponent
-            currItem={currItem}
-            currReviewMeta={currReviewMeta}
-            currStyles={currStyles}
-            currentStyle={currentStyle}
-            currAvgRating={currAvgRating}
-            setCurrId={setCurrId}
-            setCurrStyles={setCurrStyles}
-            setCurrItem={setCurrItem}
-            setCurrentStyle={setCurrentStyle}
-            setCurrAvgRating={setCurrAvgRating}
-          />
+          <ItemsComponent />
           <QuesAnswer product={currItem} />
           <RatingReview currItem={currItem} />
         </div>

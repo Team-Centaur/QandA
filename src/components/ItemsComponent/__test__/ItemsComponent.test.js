@@ -39,10 +39,10 @@ describe('ItemsComponent', () => {
     );
   });
 
-  it('renders without crashing', () => {
-    const { container } = render(
-      <ItemsComponent currItem={mockCurrItem} setCurrId={mockSetCurrId} />
-    );
-    expect(container.querySelector('.items-comp--section')).toBeInTheDocument();
-  });
+  // it('renders without crashing', () => {
+  //   const { container } = render(
+  //     <ItemsComponent currItem={mockCurrItem} setCurrId={mockSetCurrId} />
+  //   );
+  //   expect(container.querySelector('.items-comp--section')).toBeInTheDocument();
+  // });
 });

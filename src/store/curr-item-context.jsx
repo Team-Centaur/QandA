@@ -1,7 +1,5 @@
 import React, { createContext } from 'react';
 
-const CurrContext = createContext({
-  currItem: null,
-});
+const CurrContext = createContext({});
 
 export default CurrContext;

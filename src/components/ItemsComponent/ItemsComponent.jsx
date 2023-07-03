@@ -4,12 +4,7 @@ import OutfitItems from './OutfitItems/OutfitItems.jsx';
 import CompareModal from './CompareModal/CompareModal.jsx';
 import './ItemsComponent.css';
 
-const ItemsComponent = ({
-  currItem,
-  currStyles,
-  currAvgRating,
-  currentStyle,
-}) => {
+const ItemsComponent = () => {
   const [openModal, setOpenModal] = useState(false);
   const [relatedItemData, setRelatedItemData] = useState({});
   return (
