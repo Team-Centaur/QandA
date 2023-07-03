@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './CharacteristicInput.css'
+import characteristicMeanings from '../characteristicMeanings.js';
+import './CharacteristicInput.css';
 
 const CharacteristicInput = ({chara}) => {
   // create state for current button selected
@@ -8,55 +9,10 @@ const CharacteristicInput = ({chara}) => {
   const [selection, setSelection] = useState(0);
   const [meaning, setMeaning] = useState('none selected');
 
-  const selectionMeanings = {
-    Size: [
-      'A size too small',
-      '1/2 a size too small',
-      'Perfect',
-      '1/2 a size too big',
-      'A size too wide'
-    ],
-    Width: [
-      'Too narrow',
-      'Sligthly narrow',
-      'Perfect',
-      'Slightly wide',
-      'Too wide'
-    ],
-    Comfort: [
-      'Uncomfortable',
-      'Slightly uncomfortable',
-      'Ok',
-      'Comfortable',
-      'Perfect'
-    ],
-    Quality: [
-      'Poor',
-      'Below average',
-      'What I expected',
-      'Pretty great',
-      'Perfect'
-    ],
-    Length: [
-      'Runs short',
-      'Runs slightly short',
-      'Perfect',
-      'Runs slightly long',
-      'Runs long'
-    ],
-    Fit: [
-      'Runs tight',
-      'Runs slightly tight',
-      'Perfect',
-      'Runs slightly long',
-      'Runs long'
-    ]
-  }
-
   const onSelection = (e) => {
     let value = parseInt(e.target.value);
     setSelection(value);
-    let selectionMeaning = selectionMeanings[chara[0]][value - 1];
+    let selectionMeaning = characteristicMeanings[chara[0]][value - 1];
     setMeaning(selectionMeaning);
   };
 

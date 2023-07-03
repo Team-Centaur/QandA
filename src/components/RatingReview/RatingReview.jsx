@@ -145,8 +145,12 @@ const RatingReview = ({ currItem, reviewId }) => {
         sumOfReviews={sumOfReviews}
         onFilterClick={setReviewListFilter}
       />
-      <ProductBreakdown characteristics={characteristics}/>
-      <WriteReview characteristics={characteristics} />
+      <ProductBreakdown
+        characteristics={characteristics}
+      />
+      <WriteReview
+        characteristics={characteristics}
+      />
     </section>
   );
 };
