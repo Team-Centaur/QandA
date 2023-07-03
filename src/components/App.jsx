@@ -49,7 +49,6 @@ function App() {
   if (!currItem) {
     return <div>Loading...</div>;
   }
-
   return (
     // Now all current Data can be pulled from this context,
     // First import CurrContext into the file from the store folder in ./src
