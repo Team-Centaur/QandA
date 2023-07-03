@@ -9,8 +9,6 @@ const ItemsComponent = ({
   currStyles,
   currAvgRating,
   currentStyle,
-  setCurrAvgRating,
-  setCurrentStyle,
 }) => {
   const [openModal, setOpenModal] = useState(false);
   const [relatedItemData, setRelatedItemData] = useState({});
@@ -20,12 +18,7 @@ const ItemsComponent = ({
         setRelatedItemData={setRelatedItemData}
         setOpenModal={setOpenModal}
       />
-      <OutfitItems
-        currItem={currItem}
-        currStyles={currStyles}
-        currentStyle={currentStyle}
-        currAvgRating={currAvgRating}
-      />
+      <OutfitItems />
       {openModal && (
         <CompareModal cardItem={relatedItemData} setOpenModal={setOpenModal} />
       )}

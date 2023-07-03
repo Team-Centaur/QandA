@@ -1,14 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { FaArrowLeft } from 'react-icons/fa';
+import CurrContext from '../../../store/curr-item-context.jsx';
 import Card from './Card/Card.jsx';
 
 import './OutfitItems.css';
 
-const OutfitItems = ({ currItem, currStyles, currAvgRating, currentStyle }) => {
+const OutfitItems = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [reachMaxScroll, setReachMaxScroll] = useState(false);
   const [fullProds, setFullProds] = useState([]);
+  const currCtx = useContext(CurrContext);
   // Load localStorage
   useEffect(() => {
     const retreivedOutfit = JSON.parse(localStorage.getItem('outfit'));
@@ -75,18 +77,18 @@ const OutfitItems = ({ currItem, currStyles, currAvgRating, currentStyle }) => {
   ////////////// ADD OUTFIT HANDLER //////////////
   const handleAddItem = () => {
     const cantAdd = fullProds.some((product) => {
-      return product.id == currItem.id;
+      return product.id == currCtx.currItem.id;
     });
     if (cantAdd) {
       return;
     }
     setFullProds((prevState) => [
       {
-        id: currItem.id,
-        product: currItem,
-        styles: currStyles,
-        styles: currentStyle,
-        rating: currAvgRating,
+        id: currCtx.currItem.id,
+        product: currCtx.currItem,
+        styles: currCtx.currStyles,
+        styles: currCtx.currentStyle,
+        rating: currCtx.currAvgRating,
       },
       ...prevState,
     ]);
