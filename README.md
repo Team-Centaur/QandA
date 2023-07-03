@@ -50,7 +50,7 @@ This application is built using the following technologies:
 - [DayJS](https://day.js.org/): A minimalist JavaScript library for modern browsers with a largely Moment.js-compatible API.
 
 ## Authors
-
+Girijesh Thodupunuri,
 
 ## License
 
