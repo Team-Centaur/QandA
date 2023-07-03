@@ -10,7 +10,6 @@ import './imageGallery.css'
         return url;
       })
 
-
 const ImageGallery = ({currItem, currStyles, currentStyle, setCurrentStyle}) => {
   const [thumbNailImages, setThumbNailImages] = useState(null);
   const [currMainImage, setCurrMainImage] = useState(null);
@@ -18,10 +17,8 @@ const ImageGallery = ({currItem, currStyles, currentStyle, setCurrentStyle}) => 
   const thumbNailContainer = useRef(null);
   const thumbNailImagesRef = useRef([]);
   const [currIndex, setCurrIndex] = useState(0);
-  // Main img is diff from thumbnail imgs
 
-
-
+ ///////********USE EFFECT*****/////////
   useEffect(()=> {
     if(currStyles) {
 
@@ -42,6 +39,9 @@ const ImageGallery = ({currItem, currStyles, currentStyle, setCurrentStyle}) => 
   const onThumbnailImageHandler = (image) =>{
     setCurrMainImage(image);
     setIsSelected(image);
+    const selectedIndex = thumbNailImages.indexOf(image);
+    console.log(selectedIndex);
+    setCurrIndex(selectedIndex)
   }
 
   useEffect (() => {
@@ -56,7 +56,6 @@ const ImageGallery = ({currItem, currStyles, currentStyle, setCurrentStyle}) => 
   }
 
   const onDownClickHandler = () => {
-    console.log('DOWN', thumbNailContainer.current.scrollTop);
     const amountToScrollBy = thumbNailContainer.current.scrollTop + 80;
     // scrollTop give the distance between top of container to current position
     thumbNailContainer.current.scrollTo({
@@ -72,8 +71,6 @@ const ImageGallery = ({currItem, currStyles, currentStyle, setCurrentStyle}) => 
       const distanceFromParent = currRef.offsetTop; // GIVES THE DISTANCE FROM TOP OF PARENT CONTAINER
       const containerPreviousPosition = thumbNailContainer.current.scrollTop;
       const scrollPosition = containerPreviousPosition - 14.090909004211426;
-      console.log('LEFT PREVIOUS POSITION',containerPreviousPosition);
-      console.log('LEFT SCROLL POSITION', scrollPosition);
       thumbNailContainer.current.scrollTo({
         top:scrollPosition,
         behavior:'smooth'
@@ -88,14 +85,8 @@ const ImageGallery = ({currItem, currStyles, currentStyle, setCurrentStyle}) => 
       const index = currIndex+1;
       const currImage = thumbNailImages[index];
       const currRef = thumbNailImagesRef.current[index];
-      console.log('REF', currRef);
       const containerPreviousPosition = thumbNailContainer.current.scrollTop;
-      console.log('PREVIOUS POSITION',containerPreviousPosition);
-      const distanceFromParent = currRef.offsetTop; // GIVES THE DISTANCE FROM TOP OF PARENT CONTAINER
-      console.log('PARENT', currRef.offsetParent);
-      console.log(distanceFromParent);
       const scrollPosition = containerPreviousPosition + 14.090909004211426;
-      console.log('SCROLL POSITION', scrollPosition);
       thumbNailContainer.current.scrollTo({
         top:scrollPosition,
         behavior:'smooth'
