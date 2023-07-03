@@ -9,6 +9,7 @@ import ReviewTile from './ReviewsListModule/ReviewTile.jsx';
 
 import getReviewMetadata from '../../helperFunctions/getReviewMetadata.js';
 import getReviews from '../../helperFunctions/getReviews.js';
+import './RatingReview.css';
 
 import { useReviewId } from '../ReviewIdContext.jsx'; // custom hook to supply id to
 
@@ -84,15 +85,11 @@ const RatingReview = ({ currItem, reviewId }) => {
     const filterValueAttribute = e.currentTarget.getAttribute('value');
     const stars = filterValueAttribute[0];
     console.log(`review filter: ${stars}`)
-    // const sumOfReviews = filterValueAttribute.slice(2);
     await setFilter(parseInt(stars));
-    // await setFilteredReviewCount(parseInt(sumOfReviews));
-    // await setPage(1);
     await setAllReviewsLoaded(false);
   }
   // THIS FUNCTION IS JUST FOR APPLYING A FILTER TO REVIEWS LIST
   // not optimized, requests ALL reviews from API and filters array
-  // renders first 2 reviews from filtered array
   useEffect(() => {
     async function getFilteredReviews() {
       try {
@@ -101,7 +98,7 @@ const RatingReview = ({ currItem, reviewId }) => {
           (review) => (review.rating === filter)
         ));
         await setFilteredReviews(filteredResults);
-        return (filteredResults.slice(0, 2));
+        return (filteredResults.slice(0, 2)); // renders first 2 reviews from filtered array
       } catch (error) {
         console.error(error);
       }
@@ -110,7 +107,7 @@ const RatingReview = ({ currItem, reviewId }) => {
       (first2Reviews) => setReviews(first2Reviews)
     );
   }
-  , [filter]);
+  , [filter, sortOrder]);
 
   // GET SUM OF REVIEWS
   const numOfReviews = Object.values(ratings).map((vote) => parseInt(vote));
@@ -122,13 +119,6 @@ const RatingReview = ({ currItem, reviewId }) => {
   return (
     // supplying Id through custom hook that utilizes useContext
     <section className="ratingReview" id={useReviewId()}>
-      <ReviewsList
-        reviews={reviews}
-        page={page}
-        loadMoreReviews={loadMoreReviews}
-        allReviewsLoaded={allReviewsLoaded}
-        changeSortOrder={changeSortOrder}
-      />
       <RatingBreakdown
         ratings={ratings}
         numOfReviews={numOfReviews}
@@ -138,6 +128,13 @@ const RatingReview = ({ currItem, reviewId }) => {
       <ProductBreakdown
         characteristics={characteristics}
       />
+      <ReviewsList
+        reviews={reviews}
+        page={page}
+        loadMoreReviews={loadMoreReviews}
+        allReviewsLoaded={allReviewsLoaded}
+        changeSortOrder={changeSortOrder}
+      />
       <WriteReview
         characteristics={characteristics}
       />
@@ -146,22 +143,3 @@ const RatingReview = ({ currItem, reviewId }) => {
 };
 
 export default RatingReview;
-
-        /*
-        // THIS SECTION WAS AN ATTEMPT AT LOADING 2 FILTERED REVIEWS AT A TIME
-        // await setPage(currentPage);
-        if ((filteredReviews.length < 2) && (reviews.length < filteredReviewCount)) {
-          // if less than 2 reviews, request next page
-          // await setPage(page + 1);
-          // let moreReviews = await getFilteredReviews(currentPage + 1);
-          // console.log(filteredReviews.concat(moreReviews));
-          return filteredReviews;
-          // filteredReviews.concat(await getFilteredReviews());
-        } else if (filteredReviews.length > 2) {
-          // if more than 2 reviews, only return first 1
-          return filteredReviews.slice(0, 2);
-        } else {
-          await setPage(page + 1);
-          return filteredReviews;
-        }
-        */

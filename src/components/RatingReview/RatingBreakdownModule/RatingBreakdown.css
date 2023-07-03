@@ -1,7 +1,10 @@
 .ratingBreakdown {
   width: 320px;
+  height: 70vh;
   border-radius: 20px;
   padding: 25px;
   background-color: aliceblue;
   margin: 10px;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
 }

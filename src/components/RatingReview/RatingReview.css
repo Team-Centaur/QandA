@@ -1,0 +1,12 @@
+.ratingReview {
+  display: grid;
+  grid-template-rows:
+    [first] 50vh
+    [second] 50vh;
+
+  grid-template-columns:
+    [first-start] 5vw
+    [first-end] 35vw
+    [second-start] -55vw
+    [second-end] -5vw;
+}

@@ -1,0 +1,11 @@
+.reviewsListModule {
+  width: 60vw;
+  max-height: 100vh;
+  overflow-y: auto;
+  border-radius: 20px;
+  padding: 25px;
+  background-color: aliceblue;
+  margin: 10px;
+  grid-column: 2 / 2;
+  grid-row: 1 / span 2;
+}
