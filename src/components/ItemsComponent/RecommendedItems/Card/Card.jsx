@@ -103,23 +103,12 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
     top: '5%',
     right: '5%',
     filter: 'drop-shadow(rgba(255, 255, 255, 0.4) 0rem 0rem .3125rem)',
-
     width: '1.5rem', // Equal width and height
     height: '1.5rem',
     display: 'flex', // Center the icon
     justifyContent: 'center',
     alignItems: 'center',
   };
-  // const starStyle = {
-  //   color: '#000',
-  //   fontSize: '1.5rem',
-  //   zIndex: '2000',
-  //   position: 'absolute',
-  //   top: '5%',
-  //   right: '5%',
-  //   // filter: 'drop-shadow(rgba(255, 255, 255, 0.4) 0rem 0rem .3125rem)',
-  //   filter: 'drop-shadow(rgba(255, 255, 255, 0.5) 0rem 0rem 0.1125rem )',
-  // };
 
   /// /////////// JSX //////////////
   return (
