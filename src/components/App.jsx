@@ -4,6 +4,7 @@ import ItemsComponent from './ItemsComponent/ItemsComponent.jsx';
 import QuesAnswer from './QuesAnswer/QuesAnswer.jsx';
 import RatingReview from './RatingReview/RatingReview.jsx';
 import { ReviewIdProvider } from './ReviewIdContext.jsx'; // context needed for overview scrool feature
+import CurrContext from '../store/curr-item-context.jsx';
 import getProductById from '../helperFunctions/App/getProductById.js';
 import getReviewMetadata from '../helperFunctions/getReviewMetadata.js';
 import getStylesById from '../helperFunctions/App/getStylesById.js';
@@ -52,30 +53,37 @@ function App() {
     // Can use a state within ReviewIdContext in any child component
     // that ReviewIdProvider is wrapped around.
     // no need to send the state as prop through nested children
-    <ReviewIdProvider>
-      <div className="app-container">
-        <h1>Hello worlds!</h1>
-        <Overview
-          currItem={currItem}
-          currentStyle={currentStyle}
-          setCurrentStyle={setCurrentStyle}
-        />
-        <ItemsComponent
-          currItem={currItem}
-          currReviewMeta={currReviewMeta}
-          currStyles={currStyles}
-          currentStyle={currentStyle}
-          currAvgRating={currAvgRating}
-          setCurrId={setCurrId}
-          setCurrStyles={setCurrStyles}
-          setCurrItem={setCurrItem}
-          setCurrentStyle={setCurrentStyle}
-          setCurrAvgRating={setCurrAvgRating}
-        />
-        <QuesAnswer product={currItem} />
-        <RatingReview currItem={currItem} />
-      </div>
-    </ReviewIdProvider>
+    <CurrContext.Provider
+      value={{
+        currItem: currItem,
+        currStyles: currStyles,
+      }}
+    >
+      <ReviewIdProvider>
+        <div className="app-container">
+          <h1>Hello worlds!</h1>
+          <Overview
+            currItem={currItem}
+            currentStyle={currentStyle}
+            setCurrentStyle={setCurrentStyle}
+          />
+          <ItemsComponent
+            currItem={currItem}
+            currReviewMeta={currReviewMeta}
+            currStyles={currStyles}
+            currentStyle={currentStyle}
+            currAvgRating={currAvgRating}
+            setCurrId={setCurrId}
+            setCurrStyles={setCurrStyles}
+            setCurrItem={setCurrItem}
+            setCurrentStyle={setCurrentStyle}
+            setCurrAvgRating={setCurrAvgRating}
+          />
+          <QuesAnswer product={currItem} />
+          <RatingReview currItem={currItem} />
+        </div>
+      </ReviewIdProvider>
+    </CurrContext.Provider>
   );
 }
 

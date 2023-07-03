@@ -1,15 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { FaArrowLeft } from 'react-icons/fa';
 import Card from './Card/Card.jsx';
+import CurrContext from '../../../store/curr-item-context.jsx';
 
 import './RecommendedItems.css';
 
 import getRelatedItemsById from '../../../helperFunctions/App/getRelatedItemsById.js';
 
 const RecommendedItems = ({
-  currItem,
-  currStyles,
   setCurrId,
   setCurrItem,
   setCurrStyles,
@@ -20,9 +19,8 @@ const RecommendedItems = ({
 }) => {
   const [relatedItems, setRelatedItems] = useState(null);
   const [scrollPosition, setScrollPosition] = useState(0);
-  // const [cardsShifted, setCardsShifted] = useState(0);
-  // const [showRightBtn, setShowRightBtn] = useState(true);
   const [reachMaxScroll, setReachMaxScroll] = useState(false);
+  const currCtx = useContext(CurrContext);
 
   useEffect(() => {
     if (
@@ -75,20 +73,20 @@ const RecommendedItems = ({
   // Reset scroll position when currItem changes
   useEffect(() => {
     setScrollPosition(0);
-  }, [currItem]);
+  }, [currCtx.currItem]);
 
   /// /////////// USE EFFECTS //////////////
   useEffect(() => {
     // Reset relateted items each time currItem is changed
     setRelatedItems(null);
-    getRelatedItemsById(currItem.id)
+    getRelatedItemsById(currCtx.currItem.id)
       .then((data) => {
         setRelatedItems(data);
       })
       .catch((err) => {
         console.error(`There was an error: ${err}`);
       });
-  }, [currItem]);
+  }, [currCtx.currItem]);
 
   /// /////////// CONDITIONAL RENDERING & LOADING STATE //////////////
   if (!relatedItems) {
@@ -122,17 +120,17 @@ const RecommendedItems = ({
       styleType={'related'}
     />
   ));
-
+  console.log(currCtx.currStyles);
   if (cards.length < 4) {
-    if (currStyles.length + relatedItems.slice(1).length < 4) {
+    if (currCtx.currStyles.length + relatedItems.slice(1).length < 4) {
       return;
     }
     let styleIndex = 0;
     while (cards.length < 4) {
       cards.push(
         <Card
-          productID={currItem.id}
-          key={currItem.id}
+          productID={currCtx.currItem.id}
+          key={currCtx.currItem.id}
           setCurrId={setCurrId}
           setCurrItem={setCurrItem}
           setCurrStyles={setCurrStyles}
