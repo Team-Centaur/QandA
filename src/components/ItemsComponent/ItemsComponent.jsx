@@ -9,8 +9,6 @@ const ItemsComponent = ({
   currStyles,
   currAvgRating,
   currentStyle,
-  setCurrItem,
-  setCurrStyles,
   setCurrAvgRating,
   setCurrentStyle,
 }) => {
@@ -19,8 +17,6 @@ const ItemsComponent = ({
   return (
     <section className="items-comp--section">
       <RecommendedItems
-        setCurrAvgRating={setCurrAvgRating}
-        setCurrentStyle={setCurrentStyle}
         setRelatedItemData={setRelatedItemData}
         setOpenModal={setOpenModal}
       />
@@ -31,11 +27,7 @@ const ItemsComponent = ({
         currAvgRating={currAvgRating}
       />
       {openModal && (
-        <CompareModal
-          currItem={currItem}
-          cardItem={relatedItemData}
-          setOpenModal={setOpenModal}
-        />
+        <CompareModal cardItem={relatedItemData} setOpenModal={setOpenModal} />
       )}
     </section>
   );
