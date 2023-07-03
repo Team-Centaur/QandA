@@ -9,7 +9,6 @@ const ItemsComponent = ({
   currStyles,
   currAvgRating,
   currentStyle,
-  setCurrId,
   setCurrItem,
   setCurrStyles,
   setCurrAvgRating,
@@ -20,11 +19,6 @@ const ItemsComponent = ({
   return (
     <section className="items-comp--section">
       <RecommendedItems
-        currItem={currItem}
-        currStyles={currStyles}
-        setCurrId={setCurrId}
-        setCurrItem={setCurrItem}
-        setCurrStyles={setCurrStyles}
         setCurrAvgRating={setCurrAvgRating}
         setCurrentStyle={setCurrentStyle}
         setRelatedItemData={setRelatedItemData}

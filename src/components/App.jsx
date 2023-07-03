@@ -20,6 +20,7 @@ function App() {
   const [currStyles, setCurrStyles] = useState(null);
   const [currentStyle, setCurrentStyle] = useState({});
   const [currAvgRating, setCurrAvgRating] = useState(null);
+
   useEffect(() => {
     getRandomProd()
       .then((data) => {
@@ -57,6 +58,15 @@ function App() {
       value={{
         currItem: currItem,
         currStyles: currStyles,
+        currentStyle: currentStyle,
+        currReviewMeta: currReviewMeta,
+        currAvgRating: currAvgRating,
+
+        setCurrItem: setCurrItem,
+        setCurrStyles: setCurrStyles,
+        setCurrentStyle: setCurrentStyle,
+        setCurrReviewMeta: setCurrReviewMeta,
+        setCurrAvgRating: setCurrAvgRating,
       }}
     >
       <ReviewIdProvider>

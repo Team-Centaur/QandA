@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 // import ActionBtnStar from './ActionBtn/ActionBtnStar.jsx';
 import { each } from 'underscore';
 import { FaRegStar } from 'react-icons/fa6';
+
+import CurrContext from '../../../../store/curr-item-context.jsx';
 
 import Stars from '../../../Utilities/Stars/Stars.jsx';
 import './Card.css';
@@ -11,22 +13,13 @@ import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
 import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
 import getRandomNumber from '../../../../helperFunctions/App/getRandomNumber.js';
 
-function Card({
-  productID,
-  setCurrId,
-  setCurrItem,
-  setCurrStyles,
-  setCurrAvgRating,
-  setRelatedItemData,
-  setCurrentStyle,
-  setOpenModal,
-  styleType,
-}) {
+function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
   const [productObj, setProductObj] = useState(null);
   const [styles, setStyles] = useState(null);
   const [outgoingStyles, setOutgoingStyles] = useState(null);
   const [metaReviewData, setMetaReviewData] = useState(null);
   const [avgRating, setAvgRating] = useState(0);
+  const currCtx = useContext(CurrContext);
 
   useEffect(() => {
     getProductById(productID).then((data) => {
@@ -86,10 +79,12 @@ function Card({
 
   /// /////////// EVENT HANDLERS //////////////
   const clickHandler = () => {
-    setCurrItem(productObj);
-    setCurrStyles(outgoingStyles);
-    setCurrAvgRating(avgRating);
-    setCurrentStyle(styles[0]);
+    currCtx.setCurrItem(productObj);
+    // setCurrItem(productObj);
+    currCtx.setCurrStyles(outgoingStyles);
+    currCtx.setCurrReviewMeta(metaReviewData);
+    currCtx.setCurrAvgRating(avgRating);
+    currCtx.setCurrentStyle(styles[0]);
     setOpenModal(false);
   };
 

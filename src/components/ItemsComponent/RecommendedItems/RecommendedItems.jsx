@@ -8,15 +8,7 @@ import './RecommendedItems.css';
 
 import getRelatedItemsById from '../../../helperFunctions/App/getRelatedItemsById.js';
 
-const RecommendedItems = ({
-  setCurrId,
-  setCurrItem,
-  setCurrStyles,
-  setRelatedItemData,
-  setCurrAvgRating,
-  setCurrentStyle,
-  setOpenModal,
-}) => {
+const RecommendedItems = ({ setRelatedItemData, setOpenModal }) => {
   const [relatedItems, setRelatedItems] = useState(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [reachMaxScroll, setReachMaxScroll] = useState(false);
@@ -110,17 +102,12 @@ const RecommendedItems = ({
     <Card
       productID={productID}
       key={productID}
-      setCurrId={setCurrId}
-      setCurrItem={setCurrItem}
-      setCurrStyles={setCurrStyles}
-      setCurrAvgRating={setCurrAvgRating}
-      setCurrentStyle={setCurrentStyle}
       setRelatedItemData={setRelatedItemData}
       setOpenModal={setOpenModal}
       styleType={'related'}
     />
   ));
-  console.log(currCtx.currStyles);
+  ////////////// Create extra cards if less than 4 cards /////////////
   if (cards.length < 4) {
     if (currCtx.currStyles.length + relatedItems.slice(1).length < 4) {
       return;
@@ -131,11 +118,6 @@ const RecommendedItems = ({
         <Card
           productID={currCtx.currItem.id}
           key={currCtx.currItem.id}
-          setCurrId={setCurrId}
-          setCurrItem={setCurrItem}
-          setCurrStyles={setCurrStyles}
-          setCurrAvgRating={setCurrAvgRating}
-          setCurrentStyle={setCurrentStyle}
           setRelatedItemData={setRelatedItemData}
           setOpenModal={setOpenModal}
         />
