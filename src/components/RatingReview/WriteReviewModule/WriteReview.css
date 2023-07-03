@@ -1,0 +1,14 @@
+/* Styles for CharacteristicInput.jsx
+  Positions label and radio buttons for characteristics input in review form */
+.chara {
+  display: inline-block;
+  text-align: center;
+}
+.chara label {
+  display: block;
+}
+
+.writeReview {
+  grid-column: 2 / 2;
+
+}

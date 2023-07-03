@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import characteristicMeanings from '../characteristicMeanings.js';
-import './CharacteristicInput.css';
+import './WriteReview.css';
 
 const CharacteristicInput = ({chara}) => {
   // create state for current button selected

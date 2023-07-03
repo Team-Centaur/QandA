@@ -8,7 +8,7 @@ const ProductBreakdown = ({ characteristics }) => {
   let charas = Object.entries(characteristics);
 
    return (
-    <div className='productBreakdown'>
+    <div className='productBreakdown reviewsComponent'>
       <h1>Product Breakdown</h1>
       {charas.map((chara) => {
         let lowValue = characteristicMeanings[chara[0]][0];

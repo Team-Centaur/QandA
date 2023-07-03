@@ -1,4 +1,5 @@
 import React from 'react';
+import './ProductBreakdown.css'
 
 const BreakdownTile = ({ characteristic, value, lowValue, highValue }) => {
 
@@ -22,7 +23,7 @@ const BreakdownTile = ({ characteristic, value, lowValue, highValue }) => {
   };
 
   return (
-    <div>
+    <div className='breakdownTile'>
       <h4 style={{textAlign:'center'}}>{characteristic}</h4>
       <div className='charBar' style={charBarStyles}>
         <div className='charBarFill' style={charBarFillStyles}>

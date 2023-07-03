@@ -15,7 +15,7 @@ const RatingBreakdown = ({ ratings, numOfReviews, sumOfReviews, onFilterClick })
   var fixed = (sumOfRatings / sumOfReviews).toFixed(1)
 
   return (
-    <div className='ratingBreakdown'>
+    <div className='ratingBreakdown reviewsComponent'>
       <RatingSummary average={fixed}/>
       <RatingBreakdownFilter ratings={ratings} sumOfReviews={sumOfReviews} onFilterClick={onFilterClick}/>
     </div>

@@ -10,6 +10,7 @@ import ReviewTile from './ReviewsListModule/ReviewTile.jsx';
 import getReviewMetadata from '../../helperFunctions/getReviewMetadata.js';
 import getReviews from '../../helperFunctions/getReviews.js';
 import './RatingReview.css';
+//src/components/RatingReview/ReviewsListModule/ReviewsListModule.css
 
 import { useReviewId } from '../ReviewIdContext.jsx'; // custom hook to supply id to
 
@@ -119,25 +120,29 @@ const RatingReview = ({ currItem, reviewId }) => {
   return (
     // supplying Id through custom hook that utilizes useContext
     <section className="ratingReview" id={useReviewId()}>
-      <RatingBreakdown
-        ratings={ratings}
-        numOfReviews={numOfReviews}
-        sumOfReviews={sumOfReviews}
-        onFilterClick={setReviewListFilter}
-      />
-      <ProductBreakdown
-        characteristics={characteristics}
-      />
-      <ReviewsList
-        reviews={reviews}
-        page={page}
-        loadMoreReviews={loadMoreReviews}
-        allReviewsLoaded={allReviewsLoaded}
-        changeSortOrder={changeSortOrder}
-      />
-      <WriteReview
-        characteristics={characteristics}
-      />
+      <div className='breakdownColumn'>
+        <RatingBreakdown
+          ratings={ratings}
+          numOfReviews={numOfReviews}
+          sumOfReviews={sumOfReviews}
+          onFilterClick={setReviewListFilter}
+        />
+        <ProductBreakdown
+          characteristics={characteristics}
+        />
+      </div>
+      <div className='reviewsListColumn'>
+        <ReviewsList
+          reviews={reviews}
+          page={page}
+          loadMoreReviews={loadMoreReviews}
+          allReviewsLoaded={allReviewsLoaded}
+          changeSortOrder={changeSortOrder}
+        />
+        <WriteReview
+          characteristics={characteristics}
+        />
+      </div>
     </section>
   );
 };
