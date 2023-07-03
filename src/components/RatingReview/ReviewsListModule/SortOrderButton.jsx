@@ -1,14 +1,13 @@
 import React from 'react';
 
-const SortOrderButton = ({ sortOrder }) => {
+const SortOrderButton = ({ sortOrder, changeSortOrder }) => {
   return (
     <div className='sortOrderButton'>
-      <span>Sort on </span>
-      <label htmlFor='sortOrderSelect'>{sortOrder}</label>
-      <select id='sortOrderSelect'>
-        <option value='relevant' selected>Relevant</option>
-        <option value='relevant'>Helpful</option>
-        <option value='helpful'>Newest</option>
+      <label htmlFor='sortOrderSelect'>Sort on </label>
+      <select id='sortOrderSelect' onChange={changeSortOrder}>
+        <option value='relevant' defaultValue>Relevant</option>
+        <option value='helpful'>Helpful</option>
+        <option value='newest'>Newest</option>
       </select>
     </div>
   );

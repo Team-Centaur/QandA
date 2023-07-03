@@ -23,10 +23,11 @@ const RatingReview = ({ currItem, reviewId }) => {
   const [filter, setFilter] = useState(0); // 0 when no filter applied
   const [filteredReviewCount, setFilteredReviewCount] = useState(0); // tracks number of filtered reviews left to load
 
-  // make request to API for reviews, metadata
+  // MAKE REQUEST TO API FOR REVIEWS, METADATA
   useEffect(() => {
     async function getReviewData() {
       try {
+        console.log('rendering')
         const metadataResponse = await getReviewMetadata(currItem.id);
         // get reviews sorted by relevance, start at page 1, only 2 reviews per page
         const reviewsResponse = await getReviews(currItem.id, sortOrder, page, 2);
@@ -39,15 +40,18 @@ const RatingReview = ({ currItem, reviewId }) => {
       }
     }
     getReviewData();
-  }, [currItem]);
+  }, [currItem, sortOrder]);
 
-  // fetch 2 more reviews for review list
+  // FETCH 2 MORE REVIEWS FOR REVIEWS LIST
   const loadMoreReviews = () => {
     console.log(`filter: ${filter}`)
+    console.log(sortOrder);
     if (!filter) {
+      // console.log(`sort order: ${sortOrder}`);
       getReviews(currItem.id, sortOrder, page + 1, 2).then((reviewsResponse) => {
         if (reviewsResponse.results.length < 2) {
           // if API returns less than 2 reviews, all reviews have been loaded
+          console.log('setting all reviews loaded');
           setAllReviewsLoaded(true);
         } else {
           setReviews([...reviews, ...reviewsResponse.results]);
@@ -59,7 +63,16 @@ const RatingReview = ({ currItem, reviewId }) => {
     }
   };
 
-  // filter reviews for review list
+  // CHANGE SORT ORDER OF REVIEWS LIST
+  const changeSortOrder = (e) => {
+    const newSortOrder = e.target.value;
+    console.log(newSortOrder);
+    setSortOrder(newSortOrder);
+    setPage(1);
+    setAllReviewsLoaded(false);
+  }
+
+  // FILTER REVIEWS IN REVIEWS LIST
   const setReviewListFilter = async (e) => {
     // star and sumOfReviews stored as string in filter element's value attribute
     const filterValueAttribute = e.currentTarget.getAttribute('value');
@@ -68,8 +81,10 @@ const RatingReview = ({ currItem, reviewId }) => {
     await setFilter(parseInt(stars));
     await setFilteredReviewCount(parseInt(sumOfReviews));
     await setPage(1);
+    await setAllReviewsLoaded(false);
   }
-
+  // THIS FUNCTION IS MESSED UP, NEEDS FIXING
+  // should retrieve 2 reviews that match rating filter
   useEffect(() => {
     async function getFilteredReviews(currentPage) {
       try {
@@ -107,7 +122,7 @@ const RatingReview = ({ currItem, reviewId }) => {
   }
   , [filter]);
 
-  // get sum of reviews
+  // GET SUM OF REVIEWS
   const numOfReviews = Object.values(ratings).map((vote) => parseInt(vote));
   const sumOfReviews = (numOfReviews.reduce(
     (sum, val) => (
@@ -122,9 +137,15 @@ const RatingReview = ({ currItem, reviewId }) => {
         page={page}
         loadMoreReviews={loadMoreReviews}
         allReviewsLoaded={allReviewsLoaded}
+        changeSortOrder={changeSortOrder}
       />
-      <RatingBreakdown ratings={ratings} numOfReviews={numOfReviews} sumOfReviews={sumOfReviews} onFilterClick={setReviewListFilter}/>
-      <ProductBreakdown />
+      <RatingBreakdown
+        ratings={ratings}
+        numOfReviews={numOfReviews}
+        sumOfReviews={sumOfReviews}
+        onFilterClick={setReviewListFilter}
+      />
+      <ProductBreakdown characteristics={characteristics}/>
       <WriteReview characteristics={characteristics} />
     </section>
   );
