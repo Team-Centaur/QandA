@@ -83,7 +83,7 @@ const ProductOverview = ({ dataObj,currentStyle, setCurrentStyle }) => {
             { dataObj.defaultPrice && <div className={onSale ? 'product-on-sale' : 'default-price'}>
               { dataObj.defaultPrice }
             </div>}
-            <div style ={{color:'red'}}className="product-sale-price"> {currentStyle.sale_price}</div>
+           {currentStyle.sale_price && <div style ={{color:'red'}}className="product-sale-price"> {currentStyle.sale_price} </div> }
           </div>
         </div>
         <SocialShare />

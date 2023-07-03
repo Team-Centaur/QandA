@@ -47,7 +47,6 @@ function App() {
   if (!currItem) {
     return <div>Loading...</div>;
   }
-
   return (
     // Can use a state within ReviewIdContext in any child component
     // that ReviewIdProvider is wrapped around.
@@ -57,8 +56,9 @@ function App() {
         <h1>Hello worlds!</h1>
         <Overview
           currItem={currItem}
-          currentStyle={currentStyle}
-          setCurrentStyle={setCurrentStyle}
+          currStyles = {currStyles}
+          currentStyle ={currentStyle}
+          setCurrentStyle ={setCurrentStyle}
         />
         <ItemsComponent
           currItem={currItem}
