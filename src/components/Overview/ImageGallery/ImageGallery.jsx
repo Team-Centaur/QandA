@@ -40,7 +40,6 @@ const ImageGallery = ({currItem, currStyles, currentStyle, setCurrentStyle}) => 
     setCurrMainImage(image);
     setIsSelected(image);
     const selectedIndex = thumbNailImages.indexOf(image);
-    console.log(selectedIndex);
     setCurrIndex(selectedIndex)
   }
 
@@ -70,7 +69,10 @@ const ImageGallery = ({currItem, currStyles, currentStyle, setCurrentStyle}) => 
       const currRef = thumbNailImagesRef.current[index];
       const distanceFromParent = currRef.offsetTop; // GIVES THE DISTANCE FROM TOP OF PARENT CONTAINER
       const containerPreviousPosition = thumbNailContainer.current.scrollTop;
-      const scrollPosition = containerPreviousPosition - 14.090909004211426;
+      let scrollPosition = containerPreviousPosition - 14.090909004211426;
+      if(scrollPosition < 0) {
+        scrollPosition = 0;
+      }
       thumbNailContainer.current.scrollTo({
         top:scrollPosition,
         behavior:'smooth'
@@ -86,7 +88,10 @@ const ImageGallery = ({currItem, currStyles, currentStyle, setCurrentStyle}) => 
       const currImage = thumbNailImages[index];
       const currRef = thumbNailImagesRef.current[index];
       const containerPreviousPosition = thumbNailContainer.current.scrollTop;
-      const scrollPosition = containerPreviousPosition + 14.090909004211426;
+      let scrollPosition = containerPreviousPosition + 14.090909004211426;
+      const scrollHeight = thumbNailContainer.current.scrollHeight - thumbNailContainer.current.clientHeight;
+      // scrollHeight gives height of items in div together, clientHeight only gives heigh of visible including padding.
+      scrollPosition = (scrollPosition> scrollHeight) ? scrollHeight: scrollPosition;
       thumbNailContainer.current.scrollTo({
         top:scrollPosition,
         behavior:'smooth'
