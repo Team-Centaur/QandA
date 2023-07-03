@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaXmark } from 'react-icons/fa6';
-
+import CurrContext from '../../../store/curr-item-context.jsx';
 import TableRow from './TableRow/TableRow.jsx';
 import './CompareModal.css';
 
-const CompareModal = ({ currItem, cardItem, setOpenModal }) => {
+const CompareModal = ({ cardItem, setOpenModal }) => {
   const [comparedFeatures, setComparedFeatures] = useState([]);
+  const currCtx = useContext(CurrContext);
+  const [currItem, setCurrItem] = useState(currCtx.currItem);
 
   // Helper
   const createComparison = () => {

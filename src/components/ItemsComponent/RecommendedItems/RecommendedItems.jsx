@@ -1,53 +1,39 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { FaArrowLeft } from 'react-icons/fa';
 import Card from './Card/Card.jsx';
+import CurrContext from '../../../store/curr-item-context.jsx';
 
 import './RecommendedItems.css';
 
 import getRelatedItemsById from '../../../helperFunctions/App/getRelatedItemsById.js';
 
-const RecommendedItems = ({
-  currItem,
-  currStyles,
-  setCurrId,
-  setCurrItem,
-  setCurrStyles,
-  setRelatedItemData,
-  setCurrAvgRating,
-  setCurrentStyle,
-  setOpenModal,
-}) => {
+const RecommendedItems = ({ setRelatedItemData, setOpenModal }) => {
   const [relatedItems, setRelatedItems] = useState(null);
   const [scrollPosition, setScrollPosition] = useState(0);
-  // const [cardsShifted, setCardsShifted] = useState(0);
-  // const [showRightBtn, setShowRightBtn] = useState(true);
   const [reachMaxScroll, setReachMaxScroll] = useState(false);
+  const currCtx = useContext(CurrContext);
 
-  useEffect(() => {
-    if (
-      listRef.current &&
-      scrollPosition + listRef.current.clientWidth + 100 >=
-        listRef.current.scrollWidth
-    ) {
-      setReachMaxScroll(true);
-    } else {
-      setReachMaxScroll(false);
-    }
-  }, [scrollPosition]);
-  /////////// Set up carousel
+  ////////////////////////////////////////////
+  ////////////// CAROUSEL LOGIC //////////////
+  ////////////////////////////////////////////
   const listRef = useRef(null);
-  // const reachedMaxScrollWidth =
-  //   scrollPosition + listRef.current.clientWidth >= listRef.current.scrollWidth;
 
+  const hasReachedMaxScroll = () =>
+    scrollPosition + listRef.current.clientWidth + 100 >=
+    listRef.current.scrollWidth;
+
+  const scrollTo = (position) => {
+    listRef.current.scrollTo({
+      left: position,
+      behavior: 'smooth',
+    });
+  };
+
+  /// Main functions
   const scrollRight = () => {
-    // Check to see if max scroll
-    if (
-      scrollPosition + listRef.current.clientWidth + 100 >=
-      listRef.current.scrollWidth
-    ) {
+    if (hasReachedMaxScroll()) {
       setReachMaxScroll(true);
-      return;
     }
 
     const newScrollPosition = scrollPosition + 220;
@@ -55,40 +41,35 @@ const RecommendedItems = ({
 
     // Scroll the list to the new position.
     if (listRef.current) {
-      listRef.current.scrollTo({
-        left: newScrollPosition,
-        behavior: 'smooth',
-      });
+      scrollTo(newScrollPosition);
     }
   };
 
   const scrollLeft = () => {
+    setReachMaxScroll(false);
     const newScrollPosition = scrollPosition - 220;
     setScrollPosition(newScrollPosition);
     if (listRef.current) {
-      listRef.current.scrollTo({
-        left: newScrollPosition,
-        behavior: 'smooth',
-      });
+      scrollTo(newScrollPosition);
     }
   };
-  // Reset scroll position when currItem changes
+
   useEffect(() => {
     setScrollPosition(0);
-  }, [currItem]);
+  }, [currCtx.currItem]);
 
   /// /////////// USE EFFECTS //////////////
   useEffect(() => {
     // Reset relateted items each time currItem is changed
     setRelatedItems(null);
-    getRelatedItemsById(currItem.id)
+    getRelatedItemsById(currCtx.currItem.id)
       .then((data) => {
         setRelatedItems(data);
       })
       .catch((err) => {
         console.error(`There was an error: ${err}`);
       });
-  }, [currItem]);
+  }, [currCtx.currItem]);
 
   /// /////////// CONDITIONAL RENDERING & LOADING STATE //////////////
   if (!relatedItems) {
@@ -112,32 +93,22 @@ const RecommendedItems = ({
     <Card
       productID={productID}
       key={productID}
-      setCurrId={setCurrId}
-      setCurrItem={setCurrItem}
-      setCurrStyles={setCurrStyles}
-      setCurrAvgRating={setCurrAvgRating}
-      setCurrentStyle={setCurrentStyle}
       setRelatedItemData={setRelatedItemData}
       setOpenModal={setOpenModal}
       styleType={'related'}
     />
   ));
-
-  if (cards.length < 4) {
-    if (currStyles.length + relatedItems.slice(1).length < 4) {
+  ////////////// Create extra cards if less than 4 cards /////////////
+  if (cards.length < 4 && currCtx.currStyles) {
+    if (currCtx.currStyles.length + relatedItems.slice(1).length < 4) {
       return;
     }
     let styleIndex = 0;
     while (cards.length < 4) {
       cards.push(
         <Card
-          productID={currItem.id}
-          key={currItem.id}
-          setCurrId={setCurrId}
-          setCurrItem={setCurrItem}
-          setCurrStyles={setCurrStyles}
-          setCurrAvgRating={setCurrAvgRating}
-          setCurrentStyle={setCurrentStyle}
+          productID={currCtx.currItem.id}
+          key={currCtx.currItem.id}
           setRelatedItemData={setRelatedItemData}
           setOpenModal={setOpenModal}
         />
@@ -145,6 +116,29 @@ const RecommendedItems = ({
       styleIndex++;
     }
   }
+
+  const renderLeftArrow = () =>
+    scrollPosition > 0 && (
+      <button
+        className="items-comp--reco-list_btn left"
+        type="button"
+        onClick={scrollLeft}
+      >
+        <FaArrowLeft size="1rem" />
+      </button>
+    );
+
+  const renderRightArrow = () =>
+    !reachMaxScroll &&
+    cards.length > 4 && (
+      <button
+        className="items-comp--reco-list_btn right"
+        type="button"
+        onClick={scrollRight}
+      >
+        <FaArrowRight size="1rem" />
+      </button>
+    );
 
   // /////////// JSX //////////////
   return (
@@ -155,30 +149,11 @@ const RecommendedItems = ({
           relatedItems.length > 4 && !reachMaxScroll ? 'fade' : ''
         }`}
       >
-        {scrollPosition > 0 && (
-          <button
-            className="items-comp--reco-list_btn left"
-            type="button"
-            onClick={scrollLeft}
-            aria-label="left-scroll"
-          >
-            <FaArrowLeft size="1rem" />
-          </button>
-        )}
-
+        {renderLeftArrow()}
         <ul className="items-comp--reco-list" ref={listRef}>
           {cards}
         </ul>
-        {!reachMaxScroll && relatedItems.length > 4 && (
-          <button
-            className="items-comp--reco-list_btn right"
-            aria-label="right-scroll"
-            type="button"
-            onClick={scrollRight}
-          >
-            <FaArrowRight size="1rem" />
-          </button>
-        )}
+        {renderRightArrow()}
       </div>
     </>
   );
