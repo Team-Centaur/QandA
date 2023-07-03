@@ -13,7 +13,7 @@ import getReviews from '../../helperFunctions/getReviews.js';
 import { useReviewId } from '../ReviewIdContext.jsx'; // custom hook to supply id to
 
 const RatingReview = ({ currItem, reviewId }) => {
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState([]); // this array of reviews renders on the page
   const [page, setPage] = useState(1); // API set to return 2 reviews per page
   const [characteristics, setCharacteristics] = useState({});
   const [ratings, setRatings] = useState({});
@@ -21,9 +21,9 @@ const RatingReview = ({ currItem, reviewId }) => {
   const [sortOrder, setSortOrder] = useState('relevant');
   const [allReviewsLoaded, setAllReviewsLoaded] = useState(false);
   const [filter, setFilter] = useState(0); // 0 when no filter applied
-  const [filteredReviewCount, setFilteredReviewCount] = useState(0); // tracks number of filtered reviews left to load
+  const [filteredReviews, setFilteredReviews] = useState([]); // *NEEDS OPTIMIZATION* this array holds all reviews, to be used by getFilteredReviews function
 
-  // MAKE REQUEST TO API FOR REVIEWS, METADATA
+  // INITIAL REQUEST TO API FOR REVIEWS + METADATA
   useEffect(() => {
     async function getReviewData() {
       try {
@@ -44,10 +44,9 @@ const RatingReview = ({ currItem, reviewId }) => {
 
   // FETCH 2 MORE REVIEWS FOR REVIEWS LIST
   const loadMoreReviews = () => {
-    console.log(`filter: ${filter}`)
-    console.log(sortOrder);
+    // DEFAULT behavior (no review filtering)
     if (!filter) {
-      // console.log(`sort order: ${sortOrder}`);
+      // call API for 2 reviews at a time and update reviews list
       getReviews(currItem.id, sortOrder, page + 1, 2).then((reviewsResponse) => {
         if (reviewsResponse.results.length < 2) {
           // if API returns less than 2 reviews, all reviews have been loaded
@@ -58,8 +57,15 @@ const RatingReview = ({ currItem, reviewId }) => {
           setPage(page + 1);
         }
       });
+    // behavior if review filter is applied
     } else {
-      console.log('load more filtered reviews');
+      // render next 2 reviews from filteredReviews array
+      let newReviewIndex = reviews.length;
+      let newReviews = filteredReviews.slice(newReviewIndex, newReviewIndex + 1);
+      setReviews([...reviews, ...newReviews])
+      if (reviews.length === filteredReviews.length) {
+        setAllReviewsLoaded(true);
+      }
     }
   };
 
@@ -77,48 +83,32 @@ const RatingReview = ({ currItem, reviewId }) => {
     // star and sumOfReviews stored as string in filter element's value attribute
     const filterValueAttribute = e.currentTarget.getAttribute('value');
     const stars = filterValueAttribute[0];
-    const sumOfReviews = filterValueAttribute.slice(2);
+    console.log(`review filter: ${stars}`)
+    // const sumOfReviews = filterValueAttribute.slice(2);
     await setFilter(parseInt(stars));
-    await setFilteredReviewCount(parseInt(sumOfReviews));
-    await setPage(1);
+    // await setFilteredReviewCount(parseInt(sumOfReviews));
+    // await setPage(1);
     await setAllReviewsLoaded(false);
   }
-  // THIS FUNCTION IS MESSED UP, NEEDS FIXING
-  // should retrieve 2 reviews that match rating filter
+  // THIS FUNCTION IS JUST FOR APPLYING A FILTER TO REVIEWS LIST
+  // not optimized, requests ALL reviews from API and filters array
+  // renders first 2 reviews from filtered array
   useEffect(() => {
-    async function getFilteredReviews(currentPage) {
+    async function getFilteredReviews() {
       try {
-        // only render first 2 matching reviews, save page
-        let { results } = await getReviews(currItem.id, sortOrder, currentPage, 10);
-        // console.log(results);
-        let filteredReviews = results.filter(
-          (review) => {
-            // console.log(`review rating: ${review.rating}`);
-            return (review.rating === filter);
-          }
-        );
-        // await setPage(currentPage);
-        if ((filteredReviews.length < 2) && (reviews.length < filteredReviewCount)) {
-          // if less than 2 reviews, request next page
-          // await setPage(page + 1);
-          // let moreReviews = await getFilteredReviews(currentPage + 1);
-          // console.log(filteredReviews.concat(moreReviews));
-          return filteredReviews;
-          // filteredReviews.concat(await getFilteredReviews());
-        } else if (filteredReviews.length > 2) {
-          // if more than 2 reviews, only return first 1
-          return filteredReviews.slice(0, 2);
-        } else {
-          await setPage(page + 1);
-          return filteredReviews;
-        }
+        let { results } = await getReviews(currItem.id, sortOrder, 1, 10000);
+        let filteredResults = (results.filter(
+          (review) => (review.rating === filter)
+        ));
+        await setFilteredReviews(filteredResults);
+        return (filteredResults.slice(0, 2));
       } catch (error) {
         console.error(error);
       }
     }
-    getFilteredReviews(page).then((newReviews) => {
-      setReviews(newReviews);
-    });
+    getFilteredReviews().then(
+      (first2Reviews) => setReviews(first2Reviews)
+    );
   }
   , [filter]);
 
@@ -156,3 +146,22 @@ const RatingReview = ({ currItem, reviewId }) => {
 };
 
 export default RatingReview;
+
+        /*
+        // THIS SECTION WAS AN ATTEMPT AT LOADING 2 FILTERED REVIEWS AT A TIME
+        // await setPage(currentPage);
+        if ((filteredReviews.length < 2) && (reviews.length < filteredReviewCount)) {
+          // if less than 2 reviews, request next page
+          // await setPage(page + 1);
+          // let moreReviews = await getFilteredReviews(currentPage + 1);
+          // console.log(filteredReviews.concat(moreReviews));
+          return filteredReviews;
+          // filteredReviews.concat(await getFilteredReviews());
+        } else if (filteredReviews.length > 2) {
+          // if more than 2 reviews, only return first 1
+          return filteredReviews.slice(0, 2);
+        } else {
+          await setPage(page + 1);
+          return filteredReviews;
+        }
+        */

@@ -23,12 +23,10 @@ const BreakdownTile = ({ characteristic, value, lowValue, highValue }) => {
     height: '100%',
     width: '8px',
     left: (value / 5 * 100 + '%'),
-    backgroundColor: 'Darkgray',
+    backgroundColor: 'black',
     borderRadius: 'inherit',
   };
 
-
-  console.log(characteristic, value);
   return (
     <div>
       <h4 style={{textAlign:'center'}}>{characteristic}</h4>
