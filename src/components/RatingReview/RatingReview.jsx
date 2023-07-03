@@ -62,7 +62,7 @@ const RatingReview = ({ currItem, reviewId }) => {
     } else {
       // render next 2 reviews from filteredReviews array
       let newReviewIndex = reviews.length;
-      let newReviews = filteredReviews.slice(newReviewIndex, newReviewIndex + 1);
+      let newReviews = filteredReviews.slice(newReviewIndex, newReviewIndex + 2);
       setReviews([...reviews, ...newReviews])
       if (reviews.length === filteredReviews.length) {
         setAllReviewsLoaded(true);

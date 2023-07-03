@@ -1,12 +1,6 @@
 import React from 'react';
 
 const BreakdownTile = ({ characteristic, value, lowValue, highValue }) => {
-  const charFilterStyles = {
-    backgroundColor: 'white',
-    borderRadius: '10px',
-    padding: '10px',
-    margin: '10px'
-  }
 
   const charBarStyles = {
     height: '8px',

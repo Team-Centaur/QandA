@@ -2,10 +2,9 @@ import React from 'react';
 
 const StarFilter = ({ stars, numOfReviews, sumOfReviews, onFilterClick }) => {
   const starFilterStyles = {
-    backgroundColor: 'white',
     borderRadius: '10px',
     padding: '10px',
-    margin: '10px'
+    width: 'auto'
   }
 
   const starBarStyles = {
@@ -32,7 +31,7 @@ const StarFilter = ({ stars, numOfReviews, sumOfReviews, onFilterClick }) => {
         <div className='starBarFill' style={starBarFillStyles}>
         </div>
       </div>
-      <span> {numOfReviews || '0'} </span>
+      <span style={{float: 'right'}}> {numOfReviews || '0'} </span>
     </div>
   );
 };

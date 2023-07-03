@@ -1,5 +1,6 @@
 .productBreakdown {
-  width: 320px;
+  width: auto;
+  height: auto;
   border-radius: 20px;
   padding: 25px;
   background-color: aliceblue;

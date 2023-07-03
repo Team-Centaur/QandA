@@ -1,6 +1,6 @@
 .reviewsListModule {
   width: 60vw;
-  max-height: 100vh;
+  max-height: 90vh;
   overflow-y: auto;
   border-radius: 20px;
   padding: 25px;

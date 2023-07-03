@@ -12,11 +12,11 @@ const RatingBreakdown = ({ ratings, numOfReviews, sumOfReviews, onFilterClick })
       sum += key * numOfReviews[index]
     ), 0));
   const average = Math.round(sumOfRatings / sumOfReviews * 10) / 10;
+  var fixed = (sumOfRatings / sumOfReviews).toFixed(1)
 
   return (
     <div className='ratingBreakdown'>
-      <h1>Rating Breakdown</h1>
-      <RatingSummary average={average}/>
+      <RatingSummary average={fixed}/>
       <RatingBreakdownFilter ratings={ratings} sumOfReviews={sumOfReviews} onFilterClick={onFilterClick}/>
     </div>
   );
