@@ -108,7 +108,7 @@ const RecommendedItems = ({ setRelatedItemData, setOpenModal }) => {
     />
   ));
   ////////////// Create extra cards if less than 4 cards /////////////
-  if (cards.length < 4) {
+  if (cards.length < 4 && currCtx.currStyles) {
     if (currCtx.currStyles.length + relatedItems.slice(1).length < 4) {
       return;
     }
