@@ -51,7 +51,11 @@ This application is built using the following technologies:
 
 ## Authors
 
-Loren Johnson https://github.com/L-ren
+
+[Loren Johnson](https://github.com/L-ren)
+
+
+Girijesh Thodupunuri,
 
 
 ## License
