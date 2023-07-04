@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import axios from 'axios';
+import ImageModal from './ImageModal.jsx';
 import './Answer.css';
 
 const Answer = ({ answer }) => {
   const [answerHelpfulness, setAnswerHelpfulness] = useState(answer.helpfulness);
   const [isAnswerHelpfulClicked, setIsAnswerHelpfulClicked] = useState(false);
   const [isAnswerReportClicked, setIsAnswerReportClicked] = useState(false);
+  const [isImageModal, setIsImageModal] = useState(false);
+  const [currentPhoto, setCurrentPhoto] = useState(null);
   const date = dayjs(answer.date).format('MMMM DD, YYYY')
 
   const options = {
@@ -42,10 +45,21 @@ const Answer = ({ answer }) => {
     }
   };
 
+  const imageOnClickHandler = (photo) => {
+    setCurrentPhoto(photo);
+    setIsImageModal(true);
+    document.body.style.overflow = 'hidden';
+  };
+
   return (
     <div className="answer">
       <p className="answer-body">A: {answer.body}</p>
-      {answer.photos.map((photo) => <img src={photo.url} key={photo.id} />)}
+      {answer.photos.map((photo) => (
+          <>
+            <img className="image-thumbnail" src={photo.url} key={photo.id} onClick={() => imageOnClickHandler(photo)} />
+            <ImageModal isImageModal={isImageModal} setImageModal={setIsImageModal} photo={currentPhoto} />
+          </>
+      ))}
       <div className="answer-info">
         <p className="username">{answer.answerer_name}</p>
         <p className="date">{date}</p>
