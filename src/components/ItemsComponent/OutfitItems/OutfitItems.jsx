@@ -11,6 +11,7 @@ const OutfitItems = () => {
   const [reachMaxScroll, setReachMaxScroll] = useState(false);
   const [fullProds, setFullProds] = useState([]);
   const currCtx = useContext(CurrContext);
+
   // Load localStorage
   useEffect(() => {
     const retreivedOutfit = JSON.parse(localStorage.getItem('outfit'));
@@ -86,7 +87,6 @@ const OutfitItems = () => {
       {
         id: currCtx.currItem.id,
         product: currCtx.currItem,
-        styles: currCtx.currStyles,
         styles: currCtx.currentStyle,
         rating: currCtx.currAvgRating,
       },
@@ -96,7 +96,10 @@ const OutfitItems = () => {
 
   ////////////// RENDER ELEMENTS //////////////
   const renderAddItemButton = () => (
-    <button className="items-comp--outfit-add_btn" onClick={handleAddItem}>
+    <button
+      className={`items-comp--outfit-add_btn ${currCtx.currTheme}`}
+      onClick={handleAddItem}
+    >
       Add Item +
     </button>
   );
@@ -153,7 +156,7 @@ const OutfitItems = () => {
       <div
         className={`items-comp--outfit-container ${
           fullProds.length > 4 && !reachMaxScroll ? 'fade' : ''
-        }`}
+        } ${currCtx.currTheme}`}
       >
         {renderLeftArrow()}
         <ul className="items-comp--outfit-list" ref={outfitListRef}>
