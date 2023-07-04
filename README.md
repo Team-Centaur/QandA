@@ -52,6 +52,12 @@ This application is built using the following technologies:
 ## Authors
 
 
+[Loren Johnson](https://github.com/L-ren)
+
+
+Girijesh Thodupunuri,
+
+
 ## License
 
 This project is licensed under the ISC License.

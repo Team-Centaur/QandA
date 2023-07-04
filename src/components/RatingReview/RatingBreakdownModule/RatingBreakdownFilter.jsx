@@ -1,12 +1,12 @@
 import React from 'react';
 import StarFilter from './StarFilter.jsx';
 
-const RatingBreakdownFilter = ({ ratings, sumOfVotes }) => {
+const RatingBreakdownFilter = ({ ratings, sumOfReviews, onFilterClick }) => {
+
   return (
     <div className='ratingBreakdownFilter'>
-      <h3>Rating Breakdown</h3>
-      {['1', '2', '3', '4', '5'].map((stars) =>
-        <StarFilter stars={stars} numOfVotes={ratings[stars]} sumOfVotes= {sumOfVotes} key={stars}/>
+      {['5', '4', '3', '2', '1'].map((stars) =>
+        <StarFilter stars={stars} numOfReviews={ratings[stars]} sumOfReviews= {sumOfReviews} key={stars} onFilterClick={onFilterClick}/>
       )}
     </div>
   );

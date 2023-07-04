@@ -5,7 +5,7 @@
   transform: 'translate(-50%, -50%)';
   background-color: 'white';
   padding: '10px';
-  z-index: 1000;
+  z-index: 2001;
 };
 
 .reviewModalOverlay {
@@ -16,3 +16,10 @@
   bottom: 0;
   background-color: 'rgba(0, 0, 0, 0.9)';
 };
+
+.reviewImageModal-img {
+  width: 100%;
+  max-width: 80vw;
+  height: auto;
+  max-height: 80vh;
+}
