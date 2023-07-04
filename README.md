@@ -53,6 +53,7 @@ This application is built using the following technologies:
 
 Loren Johnson https://github.com/L-ren
 
+Girijesh Thodupunuri,
 
 ## License
 
