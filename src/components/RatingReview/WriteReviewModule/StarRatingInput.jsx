@@ -15,10 +15,10 @@ const StarRatingInput = () => {
   return (
     <div className='starRatingInput'>
       {stars.map((star, index) => (
-        <span value={index} onClick={onStarClick}>
+        <span value={index} key={index} onClick={onStarClick}>
           {star ?
-            <Star24Filled key={index} /> :
-            <Star24Regular key={index}/>}
+            <Star24Filled /> :
+            <Star24Regular />}
         </span>
       ))}
     </div>
