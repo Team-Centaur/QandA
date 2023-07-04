@@ -7,8 +7,9 @@ const RatingSummary = ({ average }) => {
   // So the average score is rendered on the condition that it is a number
   return (
     <div className='ratingSummary'>
-      <h3>Rating Summary</h3>
-      <h1>{(typeof average === 'number') && String(average)}</h1>
+      <h1 style={{fontSize: '45px'}}>
+        {(average !== NaN) && String(average)}
+      </h1>
       *** Render stars here
     </div>
   );

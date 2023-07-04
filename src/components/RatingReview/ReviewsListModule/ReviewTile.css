@@ -1,0 +1,8 @@
+.reviewTile {
+  background-color: white;
+  width: 70%;
+  overflow: wrap;
+  border-radius: 15px;
+  margin: 25px;
+  padding: 25px;
+}

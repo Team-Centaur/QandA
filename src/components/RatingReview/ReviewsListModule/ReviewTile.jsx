@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import StarRating from '../../Utilities/StarRating.jsx';
 import ImageThumbnail from './ImageThumbnail.jsx';
 import ReviewHelpfulness from './ReviewHelpfulness.jsx';
+import './ReviewTile.css';
 
 const apiKey = process.env.REACT_APP_API_KEY;
 
@@ -57,7 +58,6 @@ const ReviewTile = ({ review }) => {
 
   return (
     <div className="reviewTile">
-      --------------------------------
       <h3>{StarRating({ rating })}</h3>
       <div className="reviewDate">{formattedDate}</div>
       <div className="reviewSummary">
@@ -98,7 +98,6 @@ const ReviewTile = ({ review }) => {
         reviewHelpfulness={reviewHelpfulness}
         updateHelpfulness={updateHelpfulness}
       />
-      --------------------------------
     </div>
   );
 };
