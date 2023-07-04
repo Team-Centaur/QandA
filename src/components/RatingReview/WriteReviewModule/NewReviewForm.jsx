@@ -5,7 +5,8 @@ import RecommendInput from './RecommendInput.jsx';
 import ReviewerInfoInput from './ReviewerInfoInput.jsx';
 import ReviewBodyInput from './ReviewBodyInput.jsx';
 import PhotoUpload from './PhotoUpload.jsx';
-import './NewReviewForm.css'
+import StarRatingInput from './StarRatingInput.jsx';
+import './NewReviewForm.css';
 
 const ReviewFormStyles = {
   position: 'fixed',
@@ -52,7 +53,7 @@ const NewReviewForm = ({ onClose, characteristics }) => {
 
         <div className='ratingInput'>
           <h4>Overall rating</h4>
-          (stars)
+          <StarRatingInput />
         </div>
 
         <div className='recommendInput'>

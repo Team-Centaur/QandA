@@ -9,10 +9,11 @@ const ReviewImageModal = ({ onClose, photo }) => {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     backgroundColor: 'white',
-    width: '50vw',
-    height: '50vh',
+    maxHeight:'90vh',
+    maxWidth:'90vw',
     padding: '10px',
-    zIndex: 2001
+    zIndex: 2001,
+    overflowY: 'auto'
   };
 
   const overlayStyle = {
