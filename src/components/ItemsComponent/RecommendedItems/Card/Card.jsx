@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 // import ActionBtnStar from './ActionBtn/ActionBtnStar.jsx';
 import { each } from 'underscore';
 import { FaRegStar } from 'react-icons/fa6';
+
+import CurrContext from '../../../../store/curr-item-context.jsx';
 
 import Stars from '../../../Utilities/Stars/Stars.jsx';
 import './Card.css';
@@ -11,22 +13,13 @@ import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
 import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
 import getRandomNumber from '../../../../helperFunctions/App/getRandomNumber.js';
 
-function Card({
-  productID,
-  setCurrId,
-  setCurrItem,
-  setCurrStyles,
-  setCurrAvgRating,
-  setRelatedItemData,
-  setCurrentStyle,
-  setOpenModal,
-  styleType,
-}) {
+function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
   const [productObj, setProductObj] = useState(null);
   const [styles, setStyles] = useState(null);
   const [outgoingStyles, setOutgoingStyles] = useState(null);
   const [metaReviewData, setMetaReviewData] = useState(null);
   const [avgRating, setAvgRating] = useState(0);
+  const currCtx = useContext(CurrContext);
 
   useEffect(() => {
     getProductById(productID).then((data) => {
@@ -86,10 +79,12 @@ function Card({
 
   /// /////////// EVENT HANDLERS //////////////
   const clickHandler = () => {
-    setCurrItem(productObj);
-    setCurrStyles(outgoingStyles);
-    setCurrAvgRating(avgRating);
-    setCurrentStyle(styles[0]);
+    currCtx.setCurrItem(productObj);
+    // setCurrItem(productObj);
+    currCtx.setCurrStyles(outgoingStyles);
+    currCtx.setCurrReviewMeta(metaReviewData);
+    currCtx.setCurrAvgRating(avgRating);
+    currCtx.setCurrentStyle(styles[0]);
     setOpenModal(false);
   };
 
@@ -108,23 +103,12 @@ function Card({
     top: '5%',
     right: '5%',
     filter: 'drop-shadow(rgba(255, 255, 255, 0.4) 0rem 0rem .3125rem)',
-
     width: '1.5rem', // Equal width and height
     height: '1.5rem',
     display: 'flex', // Center the icon
     justifyContent: 'center',
     alignItems: 'center',
   };
-  // const starStyle = {
-  //   color: '#000',
-  //   fontSize: '1.5rem',
-  //   zIndex: '2000',
-  //   position: 'absolute',
-  //   top: '5%',
-  //   right: '5%',
-  //   // filter: 'drop-shadow(rgba(255, 255, 255, 0.4) 0rem 0rem .3125rem)',
-  //   filter: 'drop-shadow(rgba(255, 255, 255, 0.5) 0rem 0rem 0.1125rem )',
-  // };
 
   /// /////////// JSX //////////////
   return (
