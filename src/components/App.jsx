@@ -5,7 +5,6 @@ import QuesAnswer from './QuesAnswer/QuesAnswer.jsx';
 import RatingReview from './RatingReview/RatingReview.jsx';
 import { ReviewIdProvider } from './ReviewIdContext.jsx'; // context needed for overview scrool feature
 import CurrContext from '../store/curr-item-context.jsx';
-import getProductById from '../helperFunctions/App/getProductById.js';
 import getReviewMetadata from '../helperFunctions/getReviewMetadata.js';
 import getStylesById from '../helperFunctions/App/getStylesById.js';
 import getRandomProd from '../helperFunctions/App/getRandomProd.js';
@@ -15,7 +14,7 @@ import './App.css';
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
 
-  const [currTheme, setCurrTheme] = useState('light');
+  const [currTheme, setCurrTheme] = useState('dark');
   const [currItem, setCurrItem] = useState(null);
   const [currReviewMeta, setCurrReviewMeta] = useState(null);
   const [currStyles, setCurrStyles] = useState(null);
@@ -80,18 +79,20 @@ function App() {
     // that ReviewIdProvider is wrapped around.
     // no need to send the state as prop through nested children */}
       <ReviewIdProvider>
-        <div className="app-container">
-          <h1>Hello worlds!</h1>
-          <Overview
-            currStyles={currStyles}
-            currItem={currItem}
-            currentStyle={currentStyle}
-            setCurrentStyle={setCurrentStyle}
-          />
-          <ItemsComponent />
-          <QuesAnswer product={currItem} />
-          <RatingReview currItem={currItem} />
-        </div>
+        <main className={currTheme}>
+          <div className="app-container">
+            <h1>Hello worlds!</h1>
+            <Overview
+              currStyles={currStyles}
+              currItem={currItem}
+              currentStyle={currentStyle}
+              setCurrentStyle={setCurrentStyle}
+            />
+            <ItemsComponent />
+            <QuesAnswer product={currItem} />
+            <RatingReview currItem={currItem} />
+          </div>
+        </main>
       </ReviewIdProvider>
     </CurrContext.Provider>
   );
