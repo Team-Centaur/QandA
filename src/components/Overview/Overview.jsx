@@ -52,10 +52,10 @@ const Overview = ({ currItem, currentStyle, setCurrentStyle, currStyles }) => {
       setExpandedView(true);
     }
   }
-  console.log('currStyles', currStyles);
+
   ////////***RENDERING***//////
   if(dataObj) {
-    console.log('DATA OBJ', dataObj);
+
 
     return (
       <section className="overview-section">

@@ -19,8 +19,7 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles
   const thumbNailContainer = useRef(null);
   const thumbNailImagesRef = useRef([]);
   const [currIndex, setCurrIndex] = useState(0);
-  console.log('hI');
-  console.log(currStyles);
+
  ///////********USE EFFECT*****/////////
   useEffect(()=> {
     if(currStyles) {
