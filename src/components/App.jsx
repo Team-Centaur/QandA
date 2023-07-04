@@ -4,6 +4,7 @@ import ItemsComponent from './ItemsComponent/ItemsComponent.jsx';
 import QuesAnswer from './QuesAnswer/QuesAnswer.jsx';
 import RatingReview from './RatingReview/RatingReview.jsx';
 import { ReviewIdProvider } from './ReviewIdContext.jsx'; // context needed for overview scrool feature
+import CurrContext from '../store/curr-item-context.jsx';
 import getProductById from '../helperFunctions/App/getProductById.js';
 import getReviewMetadata from '../helperFunctions/getReviewMetadata.js';
 import getStylesById from '../helperFunctions/App/getStylesById.js';
@@ -19,6 +20,7 @@ function App() {
   const [currStyles, setCurrStyles] = useState(null);
   const [currentStyle, setCurrentStyle] = useState({});
   const [currAvgRating, setCurrAvgRating] = useState(null);
+
   useEffect(() => {
     getRandomProd()
       .then((data) => {
@@ -48,34 +50,44 @@ function App() {
     return <div>Loading...</div>;
   }
   return (
-    // Can use a state within ReviewIdContext in any child component
+    // Now all current Data can be pulled from this context,
+    // First import CurrContext into the file from the store folder in ./src
+    // Then add code below into the component
+    // `const currCtx = setContext(CurrentContext)`
+    // Whenever you want to access any of these just use this object
+    // i.e. `currCtx.currItem` or `currCtx.setCurrStyles()`
+    <CurrContext.Provider
+      value={{
+        currItem: currItem,
+        currStyles: currStyles,
+        currentStyle: currentStyle,
+        currReviewMeta: currReviewMeta,
+        currAvgRating: currAvgRating,
+
+        setCurrItem: setCurrItem,
+        setCurrStyles: setCurrStyles,
+        setCurrentStyle: setCurrentStyle,
+        setCurrReviewMeta: setCurrReviewMeta,
+        setCurrAvgRating: setCurrAvgRating,
+      }}
+    >
+      {/*  // Can use a state within ReviewIdContext in any child component
     // that ReviewIdProvider is wrapped around.
-    // no need to send the state as prop through nested children
-    <ReviewIdProvider>
-      <div className="app-container">
-        <h1>Hello worlds!</h1>
-        <Overview
-          currItem={currItem}
-          currStyles = {currStyles}
-          currentStyle ={currentStyle}
-          setCurrentStyle ={setCurrentStyle}
-        />
-        <ItemsComponent
-          currItem={currItem}
-          currReviewMeta={currReviewMeta}
-          currStyles={currStyles}
-          currentStyle={currentStyle}
-          currAvgRating={currAvgRating}
-          setCurrId={setCurrId}
-          setCurrStyles={setCurrStyles}
-          setCurrItem={setCurrItem}
-          setCurrentStyle={setCurrentStyle}
-          setCurrAvgRating={setCurrAvgRating}
-        />
-        <QuesAnswer product={currItem} />
-        <RatingReview currItem={currItem} />
-      </div>
-    </ReviewIdProvider>
+    // no need to send the state as prop through nested children */}
+      <ReviewIdProvider>
+        <div className="app-container">
+          <h1>Hello worlds!</h1>
+          <Overview
+            currItem={currItem}
+            currentStyle={currentStyle}
+            setCurrentStyle={setCurrentStyle}
+          />
+          <ItemsComponent />
+          <QuesAnswer product={currItem} />
+          <RatingReview currItem={currItem} />
+        </div>
+      </ReviewIdProvider>
+    </CurrContext.Provider>
   );
 }
 
