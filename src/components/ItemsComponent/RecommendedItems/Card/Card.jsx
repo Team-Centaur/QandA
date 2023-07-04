@@ -169,7 +169,11 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
           </div>
         )}
         <div className="items-comp--card_text-rating">
-          <Stars avgRating={avgRating} onClick={handleActionBtnClick} />
+          <Stars
+            avgRating={avgRating}
+            theme={currCtx.currTheme}
+            onClick={handleActionBtnClick}
+          />
         </div>
       </div>
     </li>

@@ -14,7 +14,8 @@ import './App.css';
 
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
-  const [currId, setCurrId] = useState(40400); // 40400
+
+  const [currTheme, setCurrTheme] = useState('light');
   const [currItem, setCurrItem] = useState(null);
   const [currReviewMeta, setCurrReviewMeta] = useState(null);
   const [currStyles, setCurrStyles] = useState(null);
@@ -58,12 +59,14 @@ function App() {
     // i.e. `currCtx.currItem` or `currCtx.setCurrStyles()`
     <CurrContext.Provider
       value={{
+        currTheme: currTheme,
         currItem: currItem,
         currStyles: currStyles,
         currentStyle: currentStyle,
         currReviewMeta: currReviewMeta,
         currAvgRating: currAvgRating,
 
+        setCurrTheme: setCurrTheme,
         setCurrItem: setCurrItem,
         setCurrStyles: setCurrStyles,
         setCurrentStyle: setCurrentStyle,
@@ -75,17 +78,19 @@ function App() {
     // that ReviewIdProvider is wrapped around.
     // no need to send the state as prop through nested children */}
       <ReviewIdProvider>
-        <div className="app-container">
-          <h1>Hello worlds!</h1>
-          <Overview
-            currItem={currItem}
-            currentStyle={currentStyle}
-            setCurrentStyle={setCurrentStyle}
-          />
-          <ItemsComponent />
-          <QuesAnswer product={currItem} />
-          <RatingReview currItem={currItem} />
-        </div>
+        <main className={`${currTheme}`}>
+          <div className="app-container">
+            <h1>Hello worlds!</h1>
+            <Overview
+              currItem={currItem}
+              currentStyle={currentStyle}
+              setCurrentStyle={setCurrentStyle}
+            />
+            <ItemsComponent />
+            <QuesAnswer product={currItem} />
+            <RatingReview currItem={currItem} />
+          </div>
+        </main>
       </ReviewIdProvider>
     </CurrContext.Provider>
   );
