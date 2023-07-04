@@ -14,7 +14,6 @@ const apiKey = process.env.REACT_APP_API_KEY;
 const Overview = ({ currItem, currentStyle, setCurrentStyle, currStyles }) => {
   const [dataObj, setDataObj] = useState(null);
   const [expandedView, setExpandedView] = useState(false);
-  console.log()
   useEffect(() => {
     let obj = {};
     getStylesById(currItem.id)
@@ -53,9 +52,11 @@ const Overview = ({ currItem, currentStyle, setCurrentStyle, currStyles }) => {
       setExpandedView(true);
     }
   }
-
+  console.log('currStyles', currStyles);
   ////////***RENDERING***//////
   if(dataObj) {
+    console.log('DATA OBJ', dataObj);
+
     return (
       <section className="overview-section">
         <div className="promotion-container"></div>
