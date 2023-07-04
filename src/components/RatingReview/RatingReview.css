@@ -1,0 +1,41 @@
+/* STYLES FOR ENTIRE REVIEW WIDGET */
+
+.ratingReview {
+  max-height: 100vh;
+  display: grid;
+  grid-template-rows: auto;
+
+  grid-template-columns:
+    [first-start] 5vw
+    [first-end] 35vw
+    [second-start] -55vw
+    [second-end] -5vw;
+}
+
+/* button styles in rating review section */
+.ratingReview button {
+  background-color: dodgerblue;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 20px;
+  border:none;
+}
+
+.reviewsComponent {
+  border-radius: 20px;
+  padding: 5px;
+  border-width: 20px;
+  border-style: solid;
+  border-color: aliceblue;
+  background-color: aliceblue;
+  margin: 5px;
+  overflow: hidden;
+}
+
+.reviewsListColumn {
+  width: 60vw;
+  max-height: 90vh;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+

@@ -39,6 +39,7 @@ function App() {
       .then((data) => {
         getStylesById(data.id).then((stylesData) => {
           setCurrStyles(stylesData);
+
           setCurrentStyle(stylesData.results[0]);
         });
       })
@@ -50,6 +51,7 @@ function App() {
   if (!currItem) {
     return <div>Loading...</div>;
   }
+
   return (
     // Now all current Data can be pulled from this context,
     // First import CurrContext into the file from the store folder in ./src
@@ -78,19 +80,18 @@ function App() {
     // that ReviewIdProvider is wrapped around.
     // no need to send the state as prop through nested children */}
       <ReviewIdProvider>
-        <main className={`${currTheme}`}>
-          <div className="app-container">
-            <h1>Hello worlds!</h1>
-            <Overview
-              currItem={currItem}
-              currentStyle={currentStyle}
-              setCurrentStyle={setCurrentStyle}
-            />
-            <ItemsComponent />
-            <QuesAnswer product={currItem} />
-            <RatingReview currItem={currItem} />
-          </div>
-        </main>
+        <div className="app-container">
+          <h1>Hello worlds!</h1>
+          <Overview
+            currStyles={currStyles}
+            currItem={currItem}
+            currentStyle={currentStyle}
+            setCurrentStyle={setCurrentStyle}
+          />
+          <ItemsComponent />
+          <QuesAnswer product={currItem} />
+          <RatingReview currItem={currItem} />
+        </div>
       </ReviewIdProvider>
     </CurrContext.Provider>
   );

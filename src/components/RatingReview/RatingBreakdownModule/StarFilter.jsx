@@ -1,16 +1,20 @@
+/* Renders each Star Rating, Bar Graph Visual, and Count in RatingBreakdownFilter Tile*/
+
 import React from 'react';
 
-const StarFilter = ({ stars, numOfVotes, sumOfVotes }) => {
+const StarFilter = ({ stars, numOfReviews, sumOfReviews, onFilterClick }) => {
   const starFilterStyles = {
-    backgroundColor: 'white',
     borderRadius: '10px',
     padding: '10px',
-    margin: '10px'
+    backgroundColor: 'white',
+    margin: '10px',
+    width: 'auto',
+    textAlign: 'center'
   }
 
   const starBarStyles = {
     height: '8px',
-    width: '70%',
+    width: '50%',
     backgroundColor: 'LightGray',
     borderRadius: '50px',
     margin: '0px',
@@ -19,20 +23,20 @@ const StarFilter = ({ stars, numOfVotes, sumOfVotes }) => {
 
   const starBarFillStyles = {
     height: '100%',
-    width: (!!numOfVotes ? (numOfVotes / sumOfVotes * 100 + '%') : 0), // do not render if NaN
+    width: (!!numOfReviews ? (numOfReviews / sumOfReviews * 100 + '%') : 0), // do not render if NaN
     backgroundColor: 'MediumSeaGreen',
     borderRadius: 'inherit',
   };
 
 
   return (
-    <div className='starFilter' style={starFilterStyles}>
-      <span> {stars} Stars </span>
+    <div className='starFilter' value={[stars, numOfReviews]} style={starFilterStyles} role='button' onClick={onFilterClick}>
+      <span style={{float: 'left'}}> {stars} {(stars === '1') ? 'Star' : 'Stars'} </span>
       <div className='starBar' style={starBarStyles}>
         <div className='starBarFill' style={starBarFillStyles}>
         </div>
       </div>
-      <span> {numOfVotes || '0'} </span>
+      <span style={{float: 'right'}}> {numOfReviews || '0'} </span>
     </div>
   );
 };

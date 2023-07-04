@@ -5,6 +5,7 @@ import RecommendInput from './RecommendInput.jsx';
 import ReviewerInfoInput from './ReviewerInfoInput.jsx';
 import ReviewBodyInput from './ReviewBodyInput.jsx';
 import PhotoUpload from './PhotoUpload.jsx';
+import './NewReviewForm.css'
 
 const ReviewFormStyles = {
   position: 'fixed',
@@ -13,6 +14,14 @@ const ReviewFormStyles = {
   transform: 'translate(-50%, 50%)',
   backgroundColor: '#FFF',
   padding: '50px',
+  width: '50vw',
+  height: '90vh',
+  overflowY: 'auto',
+  textAlign: 'center',
+  borderRadius: '20px',
+  borderStyle: 'solid',
+  borderColor: 'white',
+  borderWidth: '10px',
   zIndex:  2001
 };
 
@@ -29,9 +38,15 @@ const FormOverlayStyles = {
 const NewReviewForm = ({ onClose, characteristics }) => {
   let charaList = Object.entries(characteristics);
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(e.target)
+    onClose();
+  };
+
   return ReactDom.createPortal(
     <div style={FormOverlayStyles}>
-      <form style={ReviewFormStyles}>
+      <form style={ReviewFormStyles} onSubmit={onSubmit}>
         <button onClick={onClose}>X</button>
         <h3>Write a new review</h3>
 
@@ -50,7 +65,7 @@ const NewReviewForm = ({ onClose, characteristics }) => {
 
         <div className='summaryInput'>
           <h4>Review Summary</h4>
-          <textarea maxLength='60' placeholder='Example: Best purchase ever!'></textarea>
+          <textarea maxLength='60' style={{width: '300px', height: '50px'}} placeholder='Example: Best purchase ever!'></textarea>
         </div>
 
         <div className='bodyInput'>

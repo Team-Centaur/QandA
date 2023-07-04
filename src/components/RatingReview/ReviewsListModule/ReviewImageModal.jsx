@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import './ReviewImageModal.css';
 
 const ReviewImageModal = ({ onClose, photo }) => {
   const modalStyle = {
@@ -8,6 +9,8 @@ const ReviewImageModal = ({ onClose, photo }) => {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     backgroundColor: 'white',
+    width: '50vw',
+    height: '50vh',
     padding: '10px',
     zIndex: 2001
   };
@@ -24,7 +27,7 @@ const ReviewImageModal = ({ onClose, photo }) => {
   return ReactDom.createPortal(
     <>
       <div style={overlayStyle} onClick={onClose} />
-      <div onClick={onClose} style={modalStyle}>
+      <div onClick={onClose} style={modalStyle} className='reviewImageModal'>
         <img
           src={photo}
           alt='review image'
