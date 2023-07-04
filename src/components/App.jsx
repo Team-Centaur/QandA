@@ -14,7 +14,7 @@ import './App.css';
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
 
-  const [currTheme, setCurrTheme] = useState('dark');
+  const [currTheme, setCurrTheme] = useState('light');
   const [currItem, setCurrItem] = useState(null);
   const [currReviewMeta, setCurrReviewMeta] = useState(null);
   const [currStyles, setCurrStyles] = useState(null);
