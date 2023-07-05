@@ -14,7 +14,7 @@
 }
 
 .item-comp-modal.dark {
-  background-color: var();
+  background-color: var(--dark-secondary);
 }
 
 .item-comp-modal--close_btn {
