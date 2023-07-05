@@ -13,13 +13,12 @@ const PhotoUpload = () => {
       <h4>Upload photos</h4>
       {uploadInputVisibility.map((uploadInput, index) => {
          return (
-            <div>
+            <div key={index}>
               <input
                 type='file'
                 className='reviewPhoto'
                 accept='image/*'
                 onChange={onLoad}
-                key={index}
               >
               </input>
             </div>

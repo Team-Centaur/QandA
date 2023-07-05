@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Star from '../../Overview/ProductOverview/Stars/Star.jsx';
 import { Star24Filled, Star24Regular } from '@fluentui/react-icons';
 
-const StarRatingInput = () => {
+const StarRatingInput = ({ setStarRating }) => {
   const [stars, setStars] = useState([0, 0, 0, 0, 0]);
 
   const onStarClick = (e) => {
@@ -10,6 +10,7 @@ const StarRatingInput = () => {
     setStars(stars.map(
       (star, index) => ((index <= rating) ? 1 : 0))
     );
+    setStarRating(rating);
   };
 
   return (

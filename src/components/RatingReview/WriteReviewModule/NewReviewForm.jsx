@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDom from 'react-dom';
 import CharacteristicInput from './CharacteristicInput.jsx';
 import RecommendInput from './RecommendInput.jsx';
@@ -38,10 +38,20 @@ const FormOverlayStyles = {
 
 const NewReviewForm = ({ onClose, characteristics }) => {
   let charaList = Object.entries(characteristics);
+  const [starRating, setStarRating] = useState(0);
+  const [recommendInput, setRecommendInput] = useState(true);
+  console.log(characteristics);
+  const [characteristicsInput, setCharacteristicsInput] = useState({});
+
+  const onCharacteristicInput = (e) => {
+    console.log(e.target);
+  }
+
 
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(e.target)
+    console.log(starRating, recommendInput);
     onClose();
   };
 
@@ -53,20 +63,31 @@ const NewReviewForm = ({ onClose, characteristics }) => {
 
         <div className='ratingInput'>
           <h4>Overall rating</h4>
-          <StarRatingInput />
+          <StarRatingInput setStarRating={setStarRating} />
         </div>
 
         <div className='recommendInput'>
-          <RecommendInput />
+          <RecommendInput setRecommendInput={setRecommendInput}/>
         </div>
 
         <div className='characteristicsInput'>
-          {charaList.map((chara) => <CharacteristicInput chara={chara} key={chara} />)}
+          {charaList.map((chara) =>
+            <CharacteristicInput
+              chara={chara}
+              key={chara}
+              characteristicsInput={characteristicsInput}
+              setCharacteristicsInput={setCharacteristicsInput}
+            />)}
         </div>
 
         <div className='summaryInput'>
           <h4>Review Summary</h4>
-          <textarea maxLength='60' style={{width: '300px', height: '50px'}} placeholder='Example: Best purchase ever!'></textarea>
+          <textarea
+            maxLength='60'
+            style={{width: '300px', height: '50px'}}
+            placeholder='Example: Best purchase ever!'
+          >
+          </textarea>
         </div>
 
         <div className='bodyInput'>
