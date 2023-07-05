@@ -71,5 +71,6 @@ main.dark {
 .app-container {
   max-width: 75rem;
   margin: 0 auto;
+  padding: 2rem 0;
   font-family: sans-serif;
 }
