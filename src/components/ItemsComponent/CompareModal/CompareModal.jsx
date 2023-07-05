@@ -57,7 +57,7 @@ const CompareModal = ({ cardItem, setOpenModal }) => {
   };
 
   return (
-    <div className="item-comp-modal">
+    <div className={`item-comp-modal ${currCtx.currTheme}`}>
       <FaXmark
         className="item-comp-modal--close_btn"
         onClick={handleCloseModal}
