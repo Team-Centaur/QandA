@@ -14,7 +14,9 @@ import './App.css';
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
 
-  const [currTheme, setCurrTheme] = useState('light');
+  const [overviewRendered, setOverviewRendered] = useState(false);
+
+  const [currTheme, setCurrTheme] = useState('dark');
   const [currItem, setCurrItem] = useState(null);
   const [currReviewMeta, setCurrReviewMeta] = useState(null);
   const [currStyles, setCurrStyles] = useState(null);
@@ -81,16 +83,17 @@ function App() {
       <ReviewIdProvider>
         <main className={currTheme}>
           <div className="app-container">
-            <h1>Hello worlds!</h1>
             <Overview
+              setOverviewRendered={setOverviewRendered}
               currStyles={currStyles}
               currItem={currItem}
               currentStyle={currentStyle}
               setCurrentStyle={setCurrentStyle}
             />
-            <ItemsComponent />
-            <QuesAnswer product={currItem} />
-            <RatingReview currItem={currItem} />
+            {!overviewRendered && <div>Loading...</div>}
+            {overviewRendered && <ItemsComponent />}
+            {overviewRendered && <QuesAnswer product={currItem} />}
+            {overviewRendered && <RatingReview currItem={currItem} />}
           </div>
         </main>
       </ReviewIdProvider>
