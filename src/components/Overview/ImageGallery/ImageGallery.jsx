@@ -18,30 +18,33 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles
   const [isSelected, setIsSelected] = useState(null);
   const thumbNailContainer = useRef(null);
   const thumbNailImagesRef = useRef([]);
+  const [stylesIdArray, setStylesIdArray] = useState(null);
   const [currIndex, setCurrIndex] = useState(0);
 
  ///////********USE EFFECT*****/////////
+
   useEffect(()=> {
     if(currStyles) {
-      const images = currStyles.results.map(({photos}) => {
-        const obj = photos[0]; // as the object of images
-        const{url} = obj;
-        return url;
-      })
-      setThumbNailImages(images);
-    }
-  }, [currStyles])
 
-  useEffect(() => {
-    setCurrMainImage(currentStyle.photos[0].url);
-    setIsSelected(currentStyle.photos[0].url);
-    if(thumbNailImages) {
-      console.log('here');
-      const index = thumbNailImages.indexOf(currentStyle.photos[0].url);
-      console.log(index);
-      setCurrIndex(index);
+      // find the index of current style
+      const idArray = currStyles.results.map((style) => {
+        return style.style_id
+      })
+      setStylesIdArray(idArray);
+      const index = idArray.indexOf(currentStyle.style_id);
+      const {photos} = currStyles.results[index]
+      const urls = photos.map((photo) => {
+        return photo.url
+      })
+      setThumbNailImages(urls);
+      setCurrMainImage(urls[0]);
+      setIsSelected(urls[0]);
+      setCurrIndex(0);
     }
-  }, [currentStyle])
+  }, [currStyles, currentStyle])
+
+
+
   //////////****FUNCTION HANDLERS***/////////
   const onThumbnailImageHandler = (image) =>{
     setCurrMainImage(image);
@@ -69,15 +72,12 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles
   }
   const onLeftArrowHandler = () => {
     if(currIndex >0) {
-      console.log(currIndex);
       const index = currIndex-1;
       const currImage = thumbNailImages[index];
       const currRef = thumbNailImagesRef.current[index];
       const distanceFromParent = currRef.offsetTop; // GIVES THE DISTANCE FROM TOP OF PARENT CONTAINER
       const containerPreviousPosition = thumbNailContainer.current.scrollTop;
-      console.log('containerPreviousPosition', containerPreviousPosition);
       let scrollPosition = containerPreviousPosition - 40.090909004211426;
-      console.log('scrollPosition', scrollPosition);
       if(scrollPosition < 0) {
         scrollPosition = 0;
       }
@@ -92,20 +92,15 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles
   }
   const  onRightArrowHandler = () => {
     if(currIndex < thumbNailImages.length-1) {
-      console.log(currIndex);
+
       const index = currIndex+1;
       const currImage = thumbNailImages[index];
       const currRef = thumbNailImagesRef.current[index];
       const containerPreviousPosition = thumbNailContainer.current.scrollTop;
       let scrollPosition = containerPreviousPosition + 40.090909004211426;
       const scrollHeight = thumbNailContainer.current.scrollHeight - (thumbNailContainer.current.clientHeight - 20);
-      console.log('CLIENT HEIGHT', thumbNailContainer.current.clientHeight);
-      console.log('Actual SCROLL HEIGHT', thumbNailContainer.current.scrollHeight );
-      console.log('scroll height', scrollHeight);
-      console.log('PRE', scrollPosition);
       // scrollHeight gives height of items in div together, clientHeight only gives heigh of visible including padding.
       scrollPosition = (scrollPosition> scrollHeight) ? scrollHeight: scrollPosition;
-      console.log('scroll position', scrollPosition)
       thumbNailContainer.current.scrollTo({
         top:scrollPosition,
         behavior:'smooth'
@@ -116,9 +111,9 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles
     }
 
   }
+
  ////////*****RENDERING*****/////////
   if(thumbNailImages && currMainImage) {
-    console.log(expandedView);
     return (
       <>
         <div className={expandedView? "expanded-view" :"image-gallery-container"} >
@@ -142,7 +137,7 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles
           </div>
           <div className="main-image-container" >
             <AiOutlineArrowLeft className ="left-arrow"  onClick ={onLeftArrowHandler}  />
-            <img src ={currMainImage} className={expandedView? "expanded-main-image":"main-image"} />
+            <img src ={currMainImage} className={expandedView? "expanded-main-image":"main-image"} loading ="lazy" />
             <AiOutlineArrowRight className= "right-arrow" onClick = {onRightArrowHandler}/>
           </div>
           <BsFullscreen onClick={onExpandedViewHandler} className = "fullscreen-icon"/>
