@@ -43,12 +43,14 @@ const NewReviewForm = ({ onClose, characteristics }) => {
   const [characteristicsInput, setCharacteristicsInput] = useState({});
   const [summaryInput, setSummaryInput] = useState('');
   const [bodyInput, setBodyInput] = useState('');
-
+  const [photos, setPhotos] = useState([]);
+  const [nickname, setNickname] = useState('');
+  const [email, setEmail] = useState('');
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target)
-    console.log(starRating, recommendInput, characteristicsInput);
+    console.log(photos);
+    // make axios request
     onClose();
   };
 
@@ -93,11 +95,11 @@ const NewReviewForm = ({ onClose, characteristics }) => {
         </div>
 
         <div className='photoUpload'>
-          <PhotoUpload />
+          <PhotoUpload setPhotos={setPhotos} photos={photos}/>
         </div>
 
         <div className='reviewerInfo'>
-          <ReviewerInfoInput />
+          <ReviewerInfoInput setNickname={setNickname} setEmail={setEmail} />
         </div>
 
         <input type='submit' value='Submit'></input>
