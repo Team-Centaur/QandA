@@ -50,6 +50,10 @@ const AnswerQuestion = ({ isAnswerQuestion, setIsAnswerQuestion, questionId, ans
             answerQuestionCloseHandler();
           })
       })
+      .then(response => {
+        setAddImagesCount(0);
+        setAnswerImages({});
+      })
       .catch((err) => console.error(err));
   };
 
