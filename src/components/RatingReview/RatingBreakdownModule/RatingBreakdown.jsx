@@ -15,7 +15,7 @@ const RatingBreakdown = ({ ratings, numOfReviews, sumOfReviews, onFilterClick })
   var floatAverage = (sumOfRatings / sumOfReviews).toFixed(1)
 
   return (
-    <div className='ratingBreakdown reviewsComponent'>
+    <div className='ratingBreakdown reviewsComponent' data-testid='ratingBreakdown'>
       <RatingSummary average={floatAverage} sumOfReviews={sumOfReviews}/>
       <RatingBreakdownFilter ratings={ratings} sumOfReviews={sumOfReviews} onFilterClick={onFilterClick}/>
     </div>
