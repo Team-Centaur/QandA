@@ -60,7 +60,6 @@ const Overview = ({
         obj.ratings = data.ratings;
         setDataObj(obj);
       })
-      .then(() => setOverviewRendered(true))
       .catch((err) => {
         setOverviewRendered(true);
         throw err;

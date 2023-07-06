@@ -147,7 +147,7 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles
           </div>
           <div className="main-image-container" >
             <AiOutlineArrowLeft className ="left-arrow"  onClick ={onLeftArrowHandler}  />
-            <img src ={currMainImage} className={expandedView? "expanded-main-image":"main-image"} />
+            <img src ={currMainImage} className={expandedView? "expanded-main-image":"main-image"} loading ="lazy" />
             <AiOutlineArrowRight className= "right-arrow" onClick = {onRightArrowHandler}/>
           </div>
           <BsFullscreen onClick={onExpandedViewHandler} className = "fullscreen-icon"/>
