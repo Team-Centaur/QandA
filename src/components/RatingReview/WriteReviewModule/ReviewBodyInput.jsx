@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const ReviewBodyInput = () => {
-  const [body, setBody] = useState('');
-
-  const onType = (e) => setBody(e.target.value);
+const ReviewBodyInput = ({ setBodyInput, bodyInput }) => {
 
   return (
     <>
@@ -14,11 +11,11 @@ const ReviewBodyInput = () => {
         minLength='50'
         maxLength='1000'
         placeholder='Why did you like the product or not?'
-        onChange={onType}
+        onChange={(e) => setBodyInput(e.target.value)}
         required
       ></textarea>
-      { (body.length < 50) ?
-        <div>Minimum required characters left: {50 - body.length}</div> :
+      { (bodyInput.length < 50) ?
+        <div>Minimum required characters left: {50 - bodyInput.length}</div> :
         <div>Minimum reached</div> }
     </>
   );

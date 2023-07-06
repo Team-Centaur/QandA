@@ -23,7 +23,7 @@ const BreakdownTile = ({ characteristic, value, lowValue, highValue }) => {
   };
 
   return (
-    <div className='breakdownTile'>
+    <div className='breakdownTile' data-testid='productBreakdownTile'>
       <h4 style={{textAlign:'center'}}>{characteristic}</h4>
       <div className='charBar' style={charBarStyles}>
         <div className='charBarFill' style={charBarFillStyles}>

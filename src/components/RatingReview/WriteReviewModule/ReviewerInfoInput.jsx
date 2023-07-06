@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 
-const ReviewerInfoInput = () => {
+const ReviewerInfoInput = ({ setNickname, setEmail }) => {
   const [emailMessage, setEmailMessage] = useState(false);
   const [nicknameMessage, setNicknameMessage] = useState(false);
 
-  const onEmailEntry = () => setEmailMessage(true);
-  const onNicknameEntry = () => setNicknameMessage(true);
+  const onEmailEntry = (e) => {
+    setEmailMessage(true);
+    setEmail(e.target.value);
+  };
+  const onNicknameEntry = (e) => {
+    setNicknameMessage(true);
+    setNickname(e.target.value);
+  };
 
   return (
     <>
