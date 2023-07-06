@@ -25,7 +25,7 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles
 
   useEffect(()=> {
     if(currStyles) {
-      console.log(currStyles);
+
       // find the index of current style
       const idArray = currStyles.results.map((style) => {
         return style.style_id
@@ -36,7 +36,6 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles
       const urls = photos.map((photo) => {
         return photo.url
       })
-      console.log('ARRAY', urls)
       setThumbNailImages(urls);
       setCurrMainImage(urls[0]);
       setIsSelected(urls[0]);
@@ -73,15 +72,12 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles
   }
   const onLeftArrowHandler = () => {
     if(currIndex >0) {
-      console.log(currIndex);
       const index = currIndex-1;
       const currImage = thumbNailImages[index];
       const currRef = thumbNailImagesRef.current[index];
       const distanceFromParent = currRef.offsetTop; // GIVES THE DISTANCE FROM TOP OF PARENT CONTAINER
       const containerPreviousPosition = thumbNailContainer.current.scrollTop;
-      console.log('containerPreviousPosition', containerPreviousPosition);
       let scrollPosition = containerPreviousPosition - 40.090909004211426;
-      console.log('scrollPosition', scrollPosition);
       if(scrollPosition < 0) {
         scrollPosition = 0;
       }
@@ -96,20 +92,15 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles
   }
   const  onRightArrowHandler = () => {
     if(currIndex < thumbNailImages.length-1) {
-      console.log(currIndex);
+
       const index = currIndex+1;
       const currImage = thumbNailImages[index];
       const currRef = thumbNailImagesRef.current[index];
       const containerPreviousPosition = thumbNailContainer.current.scrollTop;
       let scrollPosition = containerPreviousPosition + 40.090909004211426;
       const scrollHeight = thumbNailContainer.current.scrollHeight - (thumbNailContainer.current.clientHeight - 20);
-      console.log('CLIENT HEIGHT', thumbNailContainer.current.clientHeight);
-      console.log('Actual SCROLL HEIGHT', thumbNailContainer.current.scrollHeight );
-      console.log('scroll height', scrollHeight);
-      console.log('PRE', scrollPosition);
       // scrollHeight gives height of items in div together, clientHeight only gives heigh of visible including padding.
       scrollPosition = (scrollPosition> scrollHeight) ? scrollHeight: scrollPosition;
-      console.log('scroll position', scrollPosition)
       thumbNailContainer.current.scrollTo({
         top:scrollPosition,
         behavior:'smooth'
@@ -123,7 +114,6 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles
 
  ////////*****RENDERING*****/////////
   if(thumbNailImages && currMainImage) {
-    console.log(expandedView);
     return (
       <>
         <div className={expandedView? "expanded-view" :"image-gallery-container"} >

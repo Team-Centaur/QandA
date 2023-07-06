@@ -44,7 +44,6 @@ const ProductOverview = ({ dataObj,currentStyle, setCurrentStyle }) => {
 
   const onAddToCart = (style, count) => {
     const sku_id = style[0];
-    console.log(sku_id)
     if(sku_id) {
       // Create a post call with body
         // {'sku_id' : sku_id, 'count':count}
