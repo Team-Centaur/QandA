@@ -31,7 +31,7 @@ describe('Review Image Modal', () => {
     await act(async () => {
       const image = await screen.findByRole('img');
       expect(image).toBeInTheDocument();
-    })
-  })
+    });
+  });
 
 });

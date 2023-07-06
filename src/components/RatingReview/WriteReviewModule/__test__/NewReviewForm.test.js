@@ -30,7 +30,15 @@ describe('New Review Form', () => {
     await act(async() => {
       const form = await screen.findByTestId('newReviewForm');
       expect(form).toBeInTheDocument();
-    })
-  })
+    });
+  });
+
+
+  it('renders radio button input for each characteristic of product', async () => {
+    await act(async () => {
+      const characteristicElements = await screen.findAllByTestId('characteristicInput');
+      expect(characteristicElements).toHaveLength(Object.keys(characteristics).length);
+    });
+  });
 
 });

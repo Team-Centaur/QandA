@@ -86,7 +86,7 @@ const NewReviewForm = ({ onClose, characteristics, product_id }) => {
         <button onClick={onClose}>X</button>
         <h3>Write a new review</h3>
 
-        <div className='ratingInput'>
+        <div className='ratingInput' >
           <h4>Overall rating</h4>
           <StarRatingInput setStarRating={setStarRating} />
         </div>
