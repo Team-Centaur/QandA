@@ -32,6 +32,7 @@ const ProductOverview = ({ dataObj,currentStyle, setCurrentStyle }) => {
     setAvgRating(sumRatings/reviewTotal);
     // setCurrStyle(dataObj.styles[0]);
     setStyles(dataObj.styles);
+    console.log('USE EFFECT', dataObj.styles[0].sale_price);
     dataObj.styles[0].sale_price? setOnSale(true) : setOnSale(false);
     };
   },[dataObj]);
@@ -43,7 +44,6 @@ const ProductOverview = ({ dataObj,currentStyle, setCurrentStyle }) => {
 
   const onAddToCart = (style, count) => {
     const sku_id = style[0];
-    console.log(sku_id)
     if(sku_id) {
       // Create a post call with body
         // {'sku_id' : sku_id, 'count':count}

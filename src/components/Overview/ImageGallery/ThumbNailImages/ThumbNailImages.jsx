@@ -7,6 +7,7 @@ const ThumbNailImage =forwardRef(function ThumbNailImage({image, onThumbnailImag
         <img
         className="individual-thumbnail-image"
          src = {image}
+         loading = "lazy"
         />
       </li>
     )

@@ -15,7 +15,7 @@ import './App.css';
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
 
-  const [overviewRendered, setOverviewRendered] = useState(false);
+  const [overviewRendered, setOverviewRendered] = useState(true);
 
   const [currTheme, setCurrTheme] = useState('light');
   const [currItem, setCurrItem] = useState(null);
@@ -93,6 +93,8 @@ function App() {
               currItem={currItem}
               currentStyle={currentStyle}
               setCurrentStyle={setCurrentStyle}
+              currAvgRating={currAvgRating}
+              currReviewMeta = {currReviewMeta}
             />
             {!overviewRendered && <div>Loading...</div>}
             {overviewRendered && <ItemsComponent />}

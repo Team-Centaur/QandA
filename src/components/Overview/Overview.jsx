@@ -17,56 +17,27 @@ const Overview = ({
   setCurrentStyle,
   currStyles,
   setOverviewRendered,
+  currAvgRating,
+  currReviewMeta
 }) => {
   const [dataObj, setDataObj] = useState(null);
   const [expandedView, setExpandedView] = useState(false);
 
   useEffect(() => {
-    let obj = {};
-    getStylesById(currItem.id)
-      .then((response) => {
-        obj.styles = response.results;
-      })
-      .then(() => getProductById(currItem.id))
-      .then((response) => {
-        const {
-          // eslint-disable-next-line camelcase
-          id,
-          name,
-          slogan,
-          description,
-          category,
-          default_price,
-        } = response;
-        obj = {
-          ...obj,
-          id,
-          name,
-          slogan,
-          defaultPrice: default_price,
-          description,
-          category,
-        };
-      })
-      .then(() =>
-        axios.get(
-          `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta/?product_id=${currItem.id}`,
-          {
-            headers: { Authorization: apiKey },
-          }
-        )
-      )
-      .then(({ data }) => {
-        obj.ratings = data.ratings;
-        setDataObj(obj);
-      })
-      .then(() => setOverviewRendered(true))
-      .catch((err) => {
-        setOverviewRendered(true);
-        throw err;
-      });
-  }, [currItem]);
-
+    if (currStyles && currStyles.results && currReviewMeta) {
+      const obj = {
+        id: currItem.id,
+        name: currItem.name,
+        slogan: currItem.slogan,
+        defaultPrice: currItem.default_price,
+        description: currItem.description,
+        category: currItem.category,
+        styles: currStyles.results,
+        ratings: currReviewMeta.ratings
+      };
+      setDataObj(obj);
+    }
+  }, [currItem, currStyles, currReviewMeta]);
   const onExpandedViewHandler = () => {
     if (expandedView) {
       setExpandedView(false);
