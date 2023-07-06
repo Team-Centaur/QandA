@@ -14,6 +14,7 @@ import './imageGallery.css'
 
 const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentStyle}) => {
   const [thumbNailImages, setThumbNailImages] = useState(null);
+  const [mainImages, setMainImages] = useState(null);
   const [currMainImage, setCurrMainImage] = useState(null);
   const [isSelected, setIsSelected] = useState(null);
   const thumbNailContainer = useRef(null);
@@ -30,12 +31,17 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
         return style.style_id
       })
       setStylesIdArray(idArray);
+      console.log('Current Style',currentStyle);
       const index = idArray.indexOf(currentStyle.style_id);
       const {photos} = currStyles.results[index]
       const urls = photos.map((photo) => {
-        return photo.url
+        return photo.url;
       })
-      setThumbNailImages(urls);
+      const thumbnailUrls = photos.map((photo) => {
+        return photo.thumbnail_url;
+      })
+      setThumbNailImages(thumbnailUrls);
+      setMainImages(urls);
       setCurrMainImage(urls[0]);
       setIsSelected(urls[0]);
       setCurrIndex(0);
@@ -46,9 +52,9 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
 
   //////////****FUNCTION HANDLERS***/////////
   const onThumbnailImageHandler = (image) =>{
-    setCurrMainImage(image);
+    const selectedIndex = thumbNailImages.indexOf(image)
+    setCurrMainImage(mainImages[selectedIndex]);
     setIsSelected(image);
-    const selectedIndex = thumbNailImages.indexOf(image);
     setCurrIndex(selectedIndex)
   }
 
@@ -72,7 +78,8 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
   const onLeftArrowHandler = () => {
     if(currIndex >0) {
       const index = currIndex-1;
-      const currImage = thumbNailImages[index];
+      const currThumbnailImage = thumbNailImages[index];
+      const currentMainImage = mainImages[index];
       const currRef = thumbNailImagesRef.current[index];
       const container = thumbNailContainer.current;
       if(container && container.scrollTo) {
@@ -87,8 +94,8 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
           behavior:'smooth'
         })
       }
-      setCurrMainImage(currImage);
-      setIsSelected(currImage);
+      setCurrMainImage(currentMainImage);
+      setIsSelected(currThumbnailImage);
       setCurrIndex(index);
     }
   }
@@ -96,7 +103,8 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
     if(currIndex < thumbNailImages.length-1) {
 
       const index = currIndex+1;
-      const currImage = thumbNailImages[index];
+      const currThumbnailImage = thumbNailImages[index];
+      const currentMainImage = mainImages[index];
       const currRef = thumbNailImagesRef.current[index];
       const container = thumbNailContainer.current;
       if(container && container.scrollTo) {
@@ -110,8 +118,8 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
           behavior:'smooth'
         })
       }
-      setCurrMainImage(currImage);
-      setIsSelected(currImage);
+      setCurrMainImage(currentMainImage);
+      setIsSelected(currThumbnailImage);
       setCurrIndex(index);
     }
 
