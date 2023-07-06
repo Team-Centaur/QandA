@@ -35,6 +35,10 @@ const QuesAnswer = ({ product }) => {
           );
           setQuestions(sortedResults);
           setDisplayQuestions([...sortedResults.slice(0, 4)]);
+          if (response.data.results.length <= 4) {
+            console.log(questions.length)
+            setIsNoMoreQuestions(true);
+          }
         }
       })
       .catch((err) => console.log(err));
@@ -42,6 +46,7 @@ const QuesAnswer = ({ product }) => {
 
   // expand more questions on button click
   const moreQuestionsButtonClickHandler = () => {
+    console.log(questions.length)
     const NUMBER_OF_QUESTIONS_LEFT = 3;
     const NUMBER_OF_QUESTIONS_TO_LOAD = 2;
     if (questions.length - displayQuestions.length < NUMBER_OF_QUESTIONS_LEFT) {
