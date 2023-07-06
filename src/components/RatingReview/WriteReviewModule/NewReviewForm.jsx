@@ -8,6 +8,9 @@ import PhotoUpload from './PhotoUpload.jsx';
 import StarRatingInput from './StarRatingInput.jsx';
 import './NewReviewForm.css';
 
+import axios from 'axios';
+const apiKey = process.env.REACT_APP_API_KEY;
+
 const ReviewFormStyles = {
   position: 'fixed',
   bottom: '50%',
@@ -36,7 +39,7 @@ const FormOverlayStyles = {
   zIndex: 2001
 };
 
-const NewReviewForm = ({ onClose, characteristics }) => {
+const NewReviewForm = ({ onClose, characteristics, product_id }) => {
   let charaList = Object.entries(characteristics);
   const [starRating, setStarRating] = useState(0);
   const [recommendInput, setRecommendInput] = useState(true);
@@ -47,11 +50,34 @@ const NewReviewForm = ({ onClose, characteristics }) => {
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(photos);
-    // make axios request
-    onClose();
+  const onSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      console.log(photos);
+      // make axios request
+      const response = await axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`,
+      {
+        params: {
+          product_id,
+          rating: starRating,
+          summary: summaryInput,
+          body: bodyInput,
+          recommend: recommendInput,
+          name: nickname,
+          email: email,
+          photos: photos,
+          characteristics: characteristicsInput
+        },
+        headers: {
+          Authorization: apiKey
+        }
+
+      })
+      console.log(response.data);
+      onClose();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return ReactDom.createPortal(

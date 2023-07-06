@@ -140,6 +140,7 @@ const RatingReview = ({ currItem, reviewId }) => {
         />
         <WriteReview
           characteristics={characteristics}
+          product_id={currItem.id}
         />
       </div>
     </section>
