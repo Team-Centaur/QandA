@@ -6,12 +6,11 @@ import { FaRegStar } from 'react-icons/fa6';
 import CurrContext from '../../../../store/curr-item-context.jsx';
 
 import Stars from '../../../Utilities/Stars/Stars.jsx';
-import './Card.css';
+import '../../Card.css';
 
 import getProductById from '../../../../helperFunctions/App/getProductById.js';
 import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
 import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
-import getRandomNumber from '../../../../helperFunctions/App/getRandomNumber.js';
 
 function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
   const [productObj, setProductObj] = useState(null);
@@ -19,6 +18,7 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
   const [outgoingStyles, setOutgoingStyles] = useState(null);
   const [metaReviewData, setMetaReviewData] = useState(null);
   const [avgRating, setAvgRating] = useState(0);
+
   const currCtx = useContext(CurrContext);
 
   useEffect(() => {
@@ -63,12 +63,11 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
     return <div className="items-comp--card">Loading...</div>;
   }
 
-  // const itemStyle = styles[getRandomNumber(0, styles.length - 1)];
   let itemStyle = {};
   if (styleType === 'related') {
     itemStyle = styles[0];
   } else {
-    itemStyle = styles[getRandomNumber(0, styles.length - 1)];
+    itemStyle = styles[1];
   }
 
   const imageUrl = itemStyle.photos[0].thumbnail_url;
@@ -80,7 +79,6 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
   /// /////////// EVENT HANDLERS //////////////
   const clickHandler = () => {
     currCtx.setCurrItem(productObj);
-    // setCurrItem(productObj);
     currCtx.setCurrStyles(outgoingStyles);
     currCtx.setCurrReviewMeta(metaReviewData);
     currCtx.setCurrAvgRating(avgRating);
@@ -96,28 +94,28 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
   /// /////////// STYLES //////////////
 
   const starStyle = {
-    color: '#f8f8f8', // A light complimentary color
+    color: '#f8f8f8',
     fontSize: '1.5rem',
     zIndex: '2000',
     position: 'absolute',
     top: '5%',
     right: '5%',
     filter: 'drop-shadow(rgba(255, 255, 255, 0.4) 0rem 0rem .3125rem)',
-    width: '1.5rem', // Equal width and height
+    width: '1.5rem',
     height: '1.5rem',
-    display: 'flex', // Center the icon
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   };
 
   /// /////////// JSX //////////////
   return (
-    <li className="items-comp--card" onClick={clickHandler}>
+    <li className={`items--card ${currCtx.currTheme}`} onClick={clickHandler}>
       {/* If there is no photo url, display gray background with text */}
       {!imageUrl && (
-        <div className="items-comp--card_img">
+        <div className="items--card_img">
           <div
-            className="items-comp--card_img-img"
+            className="items--card_img-img"
             style={{
               display: 'flex',
               justifyContent: 'center',
@@ -136,9 +134,9 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
       )}
       {/* If there is a photo url, display photo */}
       {imageUrl && (
-        <div className="items-comp--card_img">
+        <div className="items--card_img">
           <div
-            className="items-comp--card_img-img"
+            className="items--card_img-img"
             style={{
               backgroundImage: `url(${imageUrl})`,
               backgroundSize: 'cover',
@@ -150,26 +148,30 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
           {/* <ActionBtnStar /> */}
         </div>
       )}
-      <div className="items-comp--card_text">
-        <p className="items-comp--card_text-cat">{productObj.category}</p>
-        <p className="items-comp--card_text-title">{productObj.name}</p>
+      <div className={`items--card_text ${currCtx.currTheme}`}>
+        <p className="items--card_text-cat">{productObj.category}</p>
+        <p className="items--card_text-title">{productObj.name}</p>
         {/* If there is no sales price display normal price */}
         {!itemStyle.sale_price && (
-          <p className="items-comp--card_text-price">{`$${itemStyle.original_price}`}</p>
+          <p className="items--card_text-price">{`$${itemStyle.original_price}`}</p>
         )}
         {/* If there is a sale price, display it and cross out normal price */}
         {itemStyle.sale_price && (
-          <div className="items-comp--card_text-price__container">
-            <p className="items-comp--card_text-price sale">
+          <div className="items--card_text-price__container">
+            <p className="items--card_text-price sale">
               {`$${itemStyle.original_price}`}
             </p>
-            <p className="items-comp--card_text-sale">
+            <p className="items--card_text-sale">
               {`$${itemStyle.sale_price}`}
             </p>
           </div>
         )}
-        <div className="items-comp--card_text-rating">
-          <Stars avgRating={avgRating} onClick={handleActionBtnClick} />
+        <div className="items--card_text-rating">
+          <Stars
+            avgRating={avgRating}
+            theme={currCtx.currTheme}
+            onClick={handleActionBtnClick}
+          />
         </div>
       </div>
     </li>

@@ -1,0 +1,58 @@
+.toggle-switch {
+  position: absolute;
+  right: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 6.25rem;
+  padding: 0.625rem;
+  border-radius: 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-switch.light {
+  background-color: var(--light-main);
+  color: var(--light-text);
+}
+
+.toggle-switch.dark {
+  background-color: var(--dark-main);
+  color: var(--dark-text);
+}
+
+.toggle-switch .icons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.toggle-switch .switch {
+  position: relative;
+  width: 1.875rem;
+  height: 0.9375rem;
+  background-color: var(--light-secondary);
+  border-radius: 0.9375rem;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-switch.dark .switch {
+  background-color: var(--dark-secondary);
+}
+
+.toggle-switch .switch-handle {
+  position: absolute;
+  top: 0.125rem;
+  left: 0.125rem;
+  width: 0.6875rem;
+  height: 0.6875rem;
+  background-color: var(--light-primary);
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  transform: translateX(0);
+}
+
+.toggle-switch.dark .switch-handle {
+  transform: translateX(0.9375rem);
+  background-color: var(--dark-primary);
+}

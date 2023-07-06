@@ -1,11 +1,11 @@
 import React, { Component, useEffect, useState } from 'react';
+import ThemeToggleSwitch from './Utilities/ThemeToggleSwitch/ThemeToggleSwitch.jsx';
 import Overview from './Overview/Overview.jsx';
 import ItemsComponent from './ItemsComponent/ItemsComponent.jsx';
 import QuesAnswer from './QuesAnswer/QuesAnswer.jsx';
 import RatingReview from './RatingReview/RatingReview.jsx';
 import { ReviewIdProvider } from './ReviewIdContext.jsx'; // context needed for overview scrool feature
 import CurrContext from '../store/curr-item-context.jsx';
-import getProductById from '../helperFunctions/App/getProductById.js';
 import getReviewMetadata from '../helperFunctions/getReviewMetadata.js';
 import getStylesById from '../helperFunctions/App/getStylesById.js';
 import getRandomProd from '../helperFunctions/App/getRandomProd.js';
@@ -14,7 +14,10 @@ import './App.css';
 
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
-  const [currId, setCurrId] = useState(40400); // 40400
+
+  const [overviewRendered, setOverviewRendered] = useState(false);
+
+  const [currTheme, setCurrTheme] = useState('light');
   const [currItem, setCurrItem] = useState(null);
   const [currReviewMeta, setCurrReviewMeta] = useState(null);
   const [currStyles, setCurrStyles] = useState(null);
@@ -60,12 +63,14 @@ function App() {
     // i.e. `currCtx.currItem` or `currCtx.setCurrStyles()`
     <CurrContext.Provider
       value={{
+        currTheme: currTheme,
         currItem: currItem,
         currStyles: currStyles,
         currentStyle: currentStyle,
         currReviewMeta: currReviewMeta,
         currAvgRating: currAvgRating,
 
+        setCurrTheme: setCurrTheme,
         setCurrItem: setCurrItem,
         setCurrStyles: setCurrStyles,
         setCurrentStyle: setCurrentStyle,
@@ -77,18 +82,24 @@ function App() {
     // that ReviewIdProvider is wrapped around.
     // no need to send the state as prop through nested children */}
       <ReviewIdProvider>
-        <div className="app-container">
-          <h1>Hello worlds!</h1>
-          <Overview
-            currStyles={currStyles}
-            currItem={currItem}
-            currentStyle={currentStyle}
-            setCurrentStyle={setCurrentStyle}
-          />
-          <ItemsComponent />
-          <QuesAnswer product={currItem} />
-          <RatingReview currItem={currItem} />
-        </div>
+        <main className={currTheme}>
+          {overviewRendered && (
+            <ThemeToggleSwitch setCurrTheme={setCurrTheme} />
+          )}
+          <div className="app-container">
+            <Overview
+              setOverviewRendered={setOverviewRendered}
+              currStyles={currStyles}
+              currItem={currItem}
+              currentStyle={currentStyle}
+              setCurrentStyle={setCurrentStyle}
+            />
+            {!overviewRendered && <div>Loading...</div>}
+            {overviewRendered && <ItemsComponent />}
+            {overviewRendered && <QuesAnswer product={currItem} />}
+            {overviewRendered && <RatingReview currItem={currItem} />}
+          </div>
+        </main>
       </ReviewIdProvider>
     </CurrContext.Provider>
   );

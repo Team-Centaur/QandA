@@ -12,23 +12,8 @@
   margin: 0 auto;
   margin-bottom: 1rem;
   overflow: hidden;
-  position: relative; /* Add this */
+  position: relative;
 }
-
-/* .items-comp--outfit-container.fade.left::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 50%; 
-    background: linear-gradient(
-      to left,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 1) 100%
-    );
-    pointer-events: none;
-  } */
 
 .items-comp--outfit-container.fade::after {
   content: '';
@@ -36,13 +21,21 @@
   top: 0;
   right: 0;
   bottom: 0;
-  width: 30%; /* Increase this value to spread the fade effect further */
+  width: 30%;
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 1) 100%
+    var(--light-overlay) 100%
   );
   pointer-events: none;
+}
+
+.items-comp--outfit-container.fade.dark::after {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    var(--dark-overlay) 100%
+  );
 }
 
 .items-comp--outfit-list {
@@ -99,8 +92,17 @@
   transition-duration: 300ms;
 }
 
+.items-comp--outfit-add_btn.dark {
+  background-color: var(--dark-secondary);
+  color: var(--dark-secondary-text);
+}
+
 .items-comp--outfit-add_btn:hover {
   background-color: #b3b3b3;
+}
+
+.items-comp--outfit-add_btn.dark:hover {
+  background-color: var(--dark-secondary-hover);
 }
 
 .items-comp--outfit-add_btn:active {
@@ -108,4 +110,8 @@
   box-shadow: rgba(60, 64, 67, 0.3) 0rem 0.03125rem 0.0625rem 0rem,
     rgba(60, 64, 67, 0.15) 0rem 0.0625rem 0.1875rem 0.0625rem;
   transform: translateY(2px);
+}
+
+.items-comp--outfit-add_btn.dark:active {
+  background-color: var(--dark-secondary-active);
 }

@@ -1,0 +1,23 @@
+.star-themed svg {
+  fill: #000; /* Default color for fully filled stars */
+}
+
+.star-themed.partial svg {
+  fill: #000; /* Default color for partially filled stars */
+}
+
+.star-themed.dark svg {
+  fill: #f3f3f3; /* Color for fully filled stars in dark theme */
+}
+
+.star-themed.partial.dark svg {
+  fill: #f3f3f3; /* Color for partially filled stars in dark theme */
+}
+
+.star-themed.light svg {
+  fill: #000; /* Color for fully filled stars in light theme */
+}
+
+.star-themed.partial.light svg {
+  fill: #000; /* Color for partially filled stars in light theme */
+}
