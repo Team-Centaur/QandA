@@ -17,17 +17,15 @@ describe('Reviews list', () => {
   const changeSortOrder = jest.fn();
 
   beforeEach(async () => {
-    await act(async () => {
-      render(
-        <ReviewsList
-          reviews={reviews}
-          page={page}
-          allReviewsLoaded={allReviewsLoaded}
-          loadMoreReviews={loadMoreReviews}
-          changeSortOrder={changeSortOrder}
-        />
-      )
-    });
+    render(
+      <ReviewsList
+        reviews={reviews}
+        page={page}
+        allReviewsLoaded={allReviewsLoaded}
+        loadMoreReviews={loadMoreReviews}
+        changeSortOrder={changeSortOrder}
+      />
+    )
   });
 
   it('renders two reviews in list module', async () => {
@@ -41,7 +39,7 @@ describe('Reviews list', () => {
     await act(async () => {
       const showMoreButton = await screen.findByRole('button', {name: 'Show more reviews'});
       expect(showMoreButton).toBeInTheDocument()
-      fireEvent.click(showMoreButton)
+      fireEvent.click(showMoreButton);
       const reviewTiles = await screen.findAllByTestId('reviewTile');
       expect(loadMoreReviews).toHaveBeenCalled();
     });

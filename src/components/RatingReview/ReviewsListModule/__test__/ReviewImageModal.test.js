@@ -10,7 +10,6 @@ describe('Review Image Modal', () => {
   const reviews = results[0]
   const onClose = jest.fn();
   const photoMock = "https://images.unsplash.com/photo-1534481909716-9a482087f27d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80";
-  console.log(reviews.photos);
 
   beforeEach(async () => {
     await act(async () => {
