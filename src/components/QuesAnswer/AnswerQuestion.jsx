@@ -7,6 +7,8 @@ const AnswerQuestion = ({ isAnswerQuestion, setIsAnswerQuestion, questionId, ans
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [answerBody, setAnswerBody] = useState('');
+  const [addImagesCount, setAddImagesCount] = useState(0);
+  const [answerImages, setAnswerImages] = useState({});
 
   const usernameOnChangeHandler = (event) => {
     setUsername(event.target.value);
@@ -33,7 +35,7 @@ const AnswerQuestion = ({ isAnswerQuestion, setIsAnswerQuestion, questionId, ans
       body: answerBody,
       name: username,
       email: email,
-      photos: [], // TODO: set up photos
+      photos: Object.values(answerImages),
     };
 
     axios.post(
@@ -56,6 +58,18 @@ const AnswerQuestion = ({ isAnswerQuestion, setIsAnswerQuestion, questionId, ans
     document.body.style.overflow = 'auto';
   };
 
+  const addFileButtonOnClickHandler = (event) => {
+    event.preventDefault();
+
+    addImagesCount < 5 ? setAddImagesCount(addImagesCount+1) : null;
+  };
+
+  const addImageOnChangeHandler = (event, num) => {
+    let temp = {...answerImages};
+    temp[num] = event.target.value;
+    setAnswerImages(temp);
+  }
+
   return !isAnswerQuestion && ReactDom.createPortal(
     <>
       <div className="overlay" />
@@ -72,7 +86,8 @@ const AnswerQuestion = ({ isAnswerQuestion, setIsAnswerQuestion, questionId, ans
             placeholder="answer"
             onChange={answerBodyOnChangeHandler}
           />
-          {/* TODO: figure out photos */}
+          {Array.from({length: addImagesCount}, (v, i) => i).map(num => <input placeholder="Enter an image url" type="text" onChange={(event) => addImageOnChangeHandler(event, num)} />)}
+          <button type="submit" onClick={addFileButtonOnClickHandler}>Add File</button>
           <button className="answerQuestionSubmit" type="submit" onClick={createAnswerHandler}>
             Submit
           </button>
