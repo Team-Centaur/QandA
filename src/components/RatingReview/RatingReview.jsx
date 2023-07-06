@@ -29,7 +29,6 @@ const RatingReview = ({ currItem, reviewId }) => {
   useEffect(() => {
     async function getReviewData() {
       try {
-        console.log('rendering')
         const metadataResponse = await getReviewMetadata(currItem.id);
         // get reviews sorted by relevance, start at page 1, only 2 reviews per page
         const reviewsResponse = await getReviews(currItem.id, sortOrder, page, 2);
@@ -50,9 +49,9 @@ const RatingReview = ({ currItem, reviewId }) => {
     if (!filter) {
       // call API for 2 reviews at a time and update reviews list
       getReviews(currItem.id, sortOrder, page + 1, 2).then((reviewsResponse) => {
+        console.log(reviewsResponse)
         if (reviewsResponse.results.length < 2) {
           // if API returns less than 2 reviews, all reviews have been loaded
-          console.log('setting all reviews loaded');
           setAllReviewsLoaded(true);
         } else {
           setReviews([...reviews, ...reviewsResponse.results]);

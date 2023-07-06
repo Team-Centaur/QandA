@@ -57,7 +57,7 @@ const ReviewTile = ({ review }) => {
   };
 
   return (
-    <div className="reviewTile">
+    <div className="reviewTile" data-testid='reviewTile'>
       <h3>{StarRating({ rating })}</h3>
       <div className="reviewDate">{formattedDate}</div>
       <div className="reviewSummary">
