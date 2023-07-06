@@ -32,6 +32,7 @@ const ProductOverview = ({ dataObj,currentStyle, setCurrentStyle }) => {
     setAvgRating(sumRatings/reviewTotal);
     // setCurrStyle(dataObj.styles[0]);
     setStyles(dataObj.styles);
+    console.log('USE EFFECT', dataObj.styles[0].sale_price);
     dataObj.styles[0].sale_price? setOnSale(true) : setOnSale(false);
     };
   },[dataObj]);

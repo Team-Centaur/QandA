@@ -7,7 +7,7 @@ const IndividualStyleComponent = ({style, onStyleHandler, isSelected}) => {
 
   if(style) {
     return (
-      <div className={isSelected === style? 'test': ''} onClick={(e) => onStyleHandler(style)}>
+      <div data-testid ="individual-style-component" className={isSelected === style? 'style-selected': 'normal'} onClick={(e) => onStyleHandler(style)}>
         <img
           src = {thumbnailPhoto}
           className = "thumbnail-img"

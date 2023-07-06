@@ -10,7 +10,7 @@ const QuantityMenu = ({currentStyle, sizeSelected, setQuantitySelected, quantity
       const optionsArray = [];
       for(let i = 1; i <= quantity; i++) {
         optionsArray.push(
-          <option key ={i} value={i}>{i}</option>
+          <option data-testid = "quantity-option" key ={i} value={i}>{i}</option>
         )
       }
       setQuantityArray(optionsArray);
@@ -22,6 +22,7 @@ const QuantityMenu = ({currentStyle, sizeSelected, setQuantitySelected, quantity
       <select
         onChange={(e) => {setQuantitySelected(selectRef.current.value)}}
         ref={selectRef}
+        data-testid = "quantity-selector"
       >
         {quantityArray}
       </select>

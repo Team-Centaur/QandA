@@ -25,6 +25,7 @@ const AllStyles = ({ styles, setCurrentStyle, setOnSale }) => {
               style={style}
               onStyleHandler={onStyleHandler}
               isSelected={isSelected}
+
             />
           );
         })}
