@@ -5,6 +5,7 @@ const SizeMenu = ({currentStyle, setSizeSelected}) =>{
   const [sizesArray, setSizesArray] = useState(null);
   useEffect(() => {
     if(currentStyle.skus) {
+
       setSizesArray(Object.entries(currentStyle.skus)); // returns an array of subarray of key-value
     }
   }, [currentStyle])
@@ -20,14 +21,14 @@ const SizeMenu = ({currentStyle, setSizeSelected}) =>{
   }
   if(sizesArray) {
     return (
-      <select name="Select Size" onChange ={(e) => onSizeSelect(e)}>
-        <option value="Select Size">Select Size</option>
+      <select data-testid ="sizes-selector" name="Select Size" onChange ={(e) => onSizeSelect(e)}>
+        <option data-testid = "select-option" value="Select Size">Select Size</option>
         {sizesArray.map((size) =>{
           const sku = size[0]
           const info = size[1];
           if(info.quantity > 0) {
             return (
-                <option key ={sku} value={sku}> {info.size}</option>
+                <option data-testid = "select-option" key ={sku} value={sku}> {info.size}</option>
             )
           }
         })}
