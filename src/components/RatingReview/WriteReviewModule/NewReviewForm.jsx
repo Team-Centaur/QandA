@@ -8,6 +8,9 @@ import PhotoUpload from './PhotoUpload.jsx';
 import StarRatingInput from './StarRatingInput.jsx';
 import './NewReviewForm.css';
 
+import axios from 'axios';
+const apiKey = process.env.REACT_APP_API_KEY;
+
 const ReviewFormStyles = {
   position: 'fixed',
   bottom: '50%',
@@ -36,32 +39,54 @@ const FormOverlayStyles = {
   zIndex: 2001
 };
 
-const NewReviewForm = ({ onClose, characteristics }) => {
+const NewReviewForm = ({ onClose, characteristics, product_id }) => {
   let charaList = Object.entries(characteristics);
   const [starRating, setStarRating] = useState(0);
   const [recommendInput, setRecommendInput] = useState(true);
-  console.log(characteristics);
   const [characteristicsInput, setCharacteristicsInput] = useState({});
+  const [summaryInput, setSummaryInput] = useState('');
+  const [bodyInput, setBodyInput] = useState('');
+  const [photos, setPhotos] = useState([]);
+  const [nickname, setNickname] = useState('');
+  const [email, setEmail] = useState('');
 
-  const onCharacteristicInput = (e) => {
-    console.log(e.target);
-  }
+  const onSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      console.log(photos);
+      // make axios request
+      const response = await axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`,
+      {
+        params: {
+          product_id,
+          rating: starRating,
+          summary: summaryInput,
+          body: bodyInput,
+          recommend: recommendInput,
+          name: nickname,
+          email: email,
+          photos: photos,
+          characteristics: characteristicsInput
+        },
+        headers: {
+          Authorization: apiKey
+        }
 
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(e.target)
-    console.log(starRating, recommendInput);
-    onClose();
+      })
+      console.log(response.data);
+      onClose();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return ReactDom.createPortal(
     <div style={FormOverlayStyles}>
-      <form style={ReviewFormStyles} onSubmit={onSubmit}>
+      <form style={ReviewFormStyles} onSubmit={onSubmit} data-testid='newReviewForm' >
         <button onClick={onClose}>X</button>
         <h3>Write a new review</h3>
 
-        <div className='ratingInput'>
+        <div className='ratingInput' >
           <h4>Overall rating</h4>
           <StarRatingInput setStarRating={setStarRating} />
         </div>
@@ -86,20 +111,21 @@ const NewReviewForm = ({ onClose, characteristics }) => {
             maxLength='60'
             style={{width: '300px', height: '50px'}}
             placeholder='Example: Best purchase ever!'
+            onChange={(e) => setSummaryInput(e.target.value)}
           >
           </textarea>
         </div>
 
         <div className='bodyInput'>
-          <ReviewBodyInput />
+          <ReviewBodyInput setBodyInput={setBodyInput} bodyInput={bodyInput} />
         </div>
 
         <div className='photoUpload'>
-          <PhotoUpload />
+          <PhotoUpload setPhotos={setPhotos} photos={photos}/>
         </div>
 
         <div className='reviewerInfo'>
-          <ReviewerInfoInput />
+          <ReviewerInfoInput setNickname={setNickname} setEmail={setEmail} />
         </div>
 
         <input type='submit' value='Submit'></input>

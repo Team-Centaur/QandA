@@ -14,12 +14,11 @@ const CharacteristicInput = ({ chara, characteristicsInput, setCharacteristicsIn
     setSelection(value);
     let selectionMeaning = characteristicMeanings[chara[0]][value - 1];
     setMeaning(selectionMeaning);
-    console.log(...characteristicsInput)
-    // setCharacteristicsInput({...characteristicsInput, (chara[0]):value});
+    setCharacteristicsInput(Object.defineProperty(characteristicsInput, chara[1].id, {value, configurable: true}));
   };
 
   return (
-    <div className={chara[0]} key={chara[0]}>
+    <div className={chara[0]} key={chara[0]} data-testid='characteristicInput'>
       <h4>{chara[0]}</h4>
       <div>{meaning}</div>
       <div className='chara'>

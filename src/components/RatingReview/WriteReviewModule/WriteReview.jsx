@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, product_id } from 'react';
 import NewReviewForm from './NewReviewForm.jsx';
 import './WriteReview.css';
 
@@ -9,9 +9,9 @@ const WriteReview = ({ characteristics }) => {
   const onClose = () => setWriteReview(false);
 
   return (
-    <div className='writeReview'>
+    <div className='writeReview' data-testid='writeReview'>
       <button onClick={onWriteReview} id='writeReviewButton'>Write a review</button>
-      {writeReview && <NewReviewForm onClose={onClose} characteristics={characteristics}/>}
+      {writeReview && <NewReviewForm onClose={onClose} characteristics={characteristics} product_id={product_id} />}
     </div>
   );
 };
