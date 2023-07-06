@@ -32,7 +32,7 @@ const ProductOverview = ({ dataObj,currentStyle, setCurrentStyle }) => {
     setAvgRating(sumRatings/reviewTotal);
     // setCurrStyle(dataObj.styles[0]);
     setStyles(dataObj.styles);
-    console.log('USE EFFECT', dataObj.styles[0].sale_price);
+    //[0].sale_price
     dataObj.styles[0].sale_price? setOnSale(true) : setOnSale(false);
     };
   },[dataObj]);
@@ -80,10 +80,14 @@ const ProductOverview = ({ dataObj,currentStyle, setCurrentStyle }) => {
             { dataObj.name}
           </h2>
           <div className="price-container">
-            { dataObj.defaultPrice && <div className={onSale ? 'product-on-sale' : 'default-price'}>
+            { dataObj.defaultPrice && (<div className={onSale ? 'product-on-sale' : 'default-price'}>
               { dataObj.defaultPrice }
-            </div>}
-           {currentStyle.sale_price && <div style ={{color:'red'}}className="product-sale-price"> {currentStyle.sale_price} </div> }
+            </div>)}
+            {currentStyle.sale_price && (
+              <div style={{ color: 'red' }} className="product-sale-price">
+              {currentStyle.sale_price}
+             </div>
+            )}
           </div>
         </div>
         <SocialShare />
