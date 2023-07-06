@@ -9,7 +9,7 @@ const WriteReview = ({ characteristics }) => {
   const onClose = () => setWriteReview(false);
 
   return (
-    <div className='writeReview'>
+    <div className='writeReview' data-testid='writeReview'>
       <button onClick={onWriteReview} id='writeReviewButton'>Write a review</button>
       {writeReview && <NewReviewForm onClose={onClose} characteristics={characteristics} product_id={product_id} />}
     </div>
