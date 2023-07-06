@@ -82,7 +82,7 @@ const NewReviewForm = ({ onClose, characteristics, product_id }) => {
 
   return ReactDom.createPortal(
     <div style={FormOverlayStyles}>
-      <form style={ReviewFormStyles} onSubmit={onSubmit}>
+      <form style={ReviewFormStyles} onSubmit={onSubmit} data-testid='newReviewForm' >
         <button onClick={onClose}>X</button>
         <h3>Write a new review</h3>
 
