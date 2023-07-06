@@ -3,8 +3,9 @@ import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect';
 
 import ReviewsList from '../ReviewsList';
-import * as metadataObjMock from '../../../../../__mocks__/reviewMetadataMock';
-import * as reviewsObjMock from '../../../../../__mocks__/reviewsMock';
+
+import * as metadataObjMock from '../../../../../__mocks__/reviewMetadataMock.js';
+import * as reviewsObjMock from '../../../../../__mocks__/reviewsMock.js';
 
 
 describe('Reviews list', () => {
