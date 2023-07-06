@@ -55,11 +55,9 @@ const Answer = ({ answer }) => {
     <div className="answer">
       <p className="answer-body">A: {answer.body}</p>
       {answer.photos.map((photo) => (
-          <>
-            <img className="image-thumbnail" src={photo.url} key={photo.id} onClick={() => imageOnClickHandler(photo)} />
-            <ImageModal isImageModal={isImageModal} setImageModal={setIsImageModal} photo={currentPhoto} />
-          </>
+          <img className="image-thumbnail" src={photo.url} key={photo.id} onClick={() => imageOnClickHandler(photo)} />
       ))}
+      {isImageModal && <ImageModal isImageModal={isImageModal} setImageModal={setIsImageModal} photo={currentPhoto} />}
       <div className="answer-info">
         <p className="username">{answer.answerer_name}</p>
         <p className="date">{date}</p>

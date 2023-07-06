@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { v4 } from 'uuid';
 import Answer from './Answer.jsx';
 import AnswerQuestion from './AnswerQuestion.jsx';
 import './Question.css';
@@ -88,7 +89,7 @@ const Question = ({ question }) => {
           </button>
         </div>
       </div>
-      {displayAnswers.map((answer) => <Answer answer={answer} key={answer.id} />)}
+      {displayAnswers.map((answer) => <Answer answer={answer} key={v4()} />)}
       <button type="submit" onClick={moreAnswersButtonClickHandler} hidden={isNoMoreAnswers}>
         See More Answers
         {` (${answers.length - displayAnswers.length})`}
