@@ -40,18 +40,12 @@ const NewReviewForm = ({ onClose, characteristics }) => {
   let charaList = Object.entries(characteristics);
   const [starRating, setStarRating] = useState(0);
   const [recommendInput, setRecommendInput] = useState(true);
-  console.log(characteristics);
   const [characteristicsInput, setCharacteristicsInput] = useState({});
-
-  const onCharacteristicInput = (e) => {
-    console.log(e.target);
-  }
-
 
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(e.target)
-    console.log(starRating, recommendInput);
+    console.log(starRating, recommendInput, characteristicsInput);
     onClose();
   };
 

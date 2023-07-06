@@ -14,8 +14,7 @@ const CharacteristicInput = ({ chara, characteristicsInput, setCharacteristicsIn
     setSelection(value);
     let selectionMeaning = characteristicMeanings[chara[0]][value - 1];
     setMeaning(selectionMeaning);
-    console.log(...characteristicsInput)
-    // setCharacteristicsInput({...characteristicsInput, (chara[0]):value});
+    setCharacteristicsInput(Object.defineProperty(characteristicsInput, chara[1].id, {value, configurable: true}));
   };
 
   return (
