@@ -18,30 +18,34 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles
   const [isSelected, setIsSelected] = useState(null);
   const thumbNailContainer = useRef(null);
   const thumbNailImagesRef = useRef([]);
+  const [stylesIdArray, setStylesIdArray] = useState(null);
   const [currIndex, setCurrIndex] = useState(0);
 
  ///////********USE EFFECT*****/////////
+
   useEffect(()=> {
     if(currStyles) {
-      const images = currStyles.results.map(({photos}) => {
-        const obj = photos[0]; // as the object of images
-        const{url} = obj;
-        return url;
+      console.log(currStyles);
+      // find the index of current style
+      const idArray = currStyles.results.map((style) => {
+        return style.style_id
       })
-      setThumbNailImages(images);
+      setStylesIdArray(idArray);
+      const index = idArray.indexOf(currentStyle.style_id);
+      const {photos} = currStyles.results[index]
+      const urls = photos.map((photo) => {
+        return photo.url
+      })
+      console.log('ARRAY', urls)
+      setThumbNailImages(urls);
+      setCurrMainImage(urls[0]);
+      setIsSelected(urls[0]);
+      setCurrIndex(0);
     }
-  }, [currStyles])
+  }, [currStyles, currentStyle])
 
-  useEffect(() => {
-    setCurrMainImage(currentStyle.photos[0].url);
-    setIsSelected(currentStyle.photos[0].url);
-    if(thumbNailImages) {
-      console.log('here');
-      const index = thumbNailImages.indexOf(currentStyle.photos[0].url);
-      console.log(index);
-      setCurrIndex(index);
-    }
-  }, [currentStyle])
+
+
   //////////****FUNCTION HANDLERS***/////////
   const onThumbnailImageHandler = (image) =>{
     setCurrMainImage(image);
@@ -116,6 +120,7 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles
     }
 
   }
+
  ////////*****RENDERING*****/////////
   if(thumbNailImages && currMainImage) {
     console.log(expandedView);
