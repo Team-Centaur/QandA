@@ -21,6 +21,12 @@
   border:none;
 }
 
+.breakdownColumn {
+  width: 25vw;
+  max-width: 450px;
+}
+
+
 .reviewsComponent {
   border-radius: 20px;
   padding: 5px;
@@ -33,7 +39,8 @@
 }
 
 .reviewsListColumn {
-  width: 60vw;
+  width: 50vw;
+  max-width: 900px;
   max-height: 90vh;
   grid-column: 2;
   grid-row: 1 / span 2;

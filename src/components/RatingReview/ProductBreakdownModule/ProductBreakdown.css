@@ -1,6 +1,5 @@
 .productBreakdown {
-  width: auto;
-  height: auto;
+  height: 45vh;
   grid-column: 1;
   grid-row: 2;
 }

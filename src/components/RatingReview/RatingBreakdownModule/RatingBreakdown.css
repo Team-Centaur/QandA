@@ -1,6 +1,5 @@
 .ratingBreakdown {
-  width: auto;
-  height: 50vh;
+  height: 45vh;
   grid-column: 1;
   grid-row: 1;
 }
