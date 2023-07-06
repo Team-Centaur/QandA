@@ -41,6 +41,9 @@ const NewReviewForm = ({ onClose, characteristics }) => {
   const [starRating, setStarRating] = useState(0);
   const [recommendInput, setRecommendInput] = useState(true);
   const [characteristicsInput, setCharacteristicsInput] = useState({});
+  const [summaryInput, setSummaryInput] = useState('');
+  const [bodyInput, setBodyInput] = useState('');
+
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -80,12 +83,13 @@ const NewReviewForm = ({ onClose, characteristics }) => {
             maxLength='60'
             style={{width: '300px', height: '50px'}}
             placeholder='Example: Best purchase ever!'
+            onChange={(e) => setSummaryInput(e.target.value)}
           >
           </textarea>
         </div>
 
         <div className='bodyInput'>
-          <ReviewBodyInput />
+          <ReviewBodyInput setBodyInput={setBodyInput} bodyInput={bodyInput} />
         </div>
 
         <div className='photoUpload'>
