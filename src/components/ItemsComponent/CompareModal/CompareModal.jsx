@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { FaXmark } from 'react-icons/fa6';
 import CurrContext from '../../../store/curr-item-context.jsx';
 import TableRow from './TableRow/TableRow.jsx';
+import { v4 } from 'uuid';
 import './CompareModal.css';
 
 const CompareModal = ({ cardItem, setOpenModal }) => {
@@ -47,9 +48,10 @@ const CompareModal = ({ cardItem, setOpenModal }) => {
   }, [currItem, cardItem]);
 
   ///// Dynamic elements
-  const tableRowElements = comparedFeatures.map((item) => (
-    <TableRow featureObj={item} />
-  ));
+  const tableRowElements = comparedFeatures.map((item) => {
+    const newKey = v4();
+    return <TableRow featureObj={item} key={newKey} />;
+  });
 
   // Event Handlers
   const handleCloseModal = (e) => {

@@ -1,4 +1,5 @@
 import React, { Component, useEffect, useState } from 'react';
+import ThemeToggleSwitch from './Utilities/ThemeToggleSwitch/ThemeToggleSwitch.jsx';
 import Overview from './Overview/Overview.jsx';
 import ItemsComponent from './ItemsComponent/ItemsComponent.jsx';
 import QuesAnswer from './QuesAnswer/QuesAnswer.jsx';
@@ -13,6 +14,8 @@ import './App.css';
 
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
+
+  const [overviewRendered, setOverviewRendered] = useState(false);
 
   const [currTheme, setCurrTheme] = useState('light');
   const [currItem, setCurrItem] = useState(null);
@@ -80,17 +83,21 @@ function App() {
     // no need to send the state as prop through nested children */}
       <ReviewIdProvider>
         <main className={currTheme}>
+          {overviewRendered && (
+            <ThemeToggleSwitch setCurrTheme={setCurrTheme} />
+          )}
           <div className="app-container">
-            <h1>Hello worlds!</h1>
             <Overview
+              setOverviewRendered={setOverviewRendered}
               currStyles={currStyles}
               currItem={currItem}
               currentStyle={currentStyle}
               setCurrentStyle={setCurrentStyle}
             />
-            <ItemsComponent />
-            <QuesAnswer product={currItem} />
-            <RatingReview currItem={currItem} />
+            {!overviewRendered && <div>Loading...</div>}
+            {overviewRendered && <ItemsComponent />}
+            {overviewRendered && <QuesAnswer product={currItem} />}
+            {overviewRendered && <RatingReview currItem={currItem} />}
           </div>
         </main>
       </ReviewIdProvider>
