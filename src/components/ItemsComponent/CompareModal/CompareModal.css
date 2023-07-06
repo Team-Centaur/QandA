@@ -1,16 +1,20 @@
 .item-comp-modal {
   position: absolute;
-  top: 0; /* adjust this if you want to shift the modal vertically */
-  left: 0; /* adjust this if you want to shift the modal horizontally */
-  right: 0; /* ensures the modal spans the full width of parent component */
+  top: 0;
+  left: 0;
+  right: 0;
   width: 60%;
   height: auto;
   margin: 0 auto;
-  padding: 30px; /* adjust this if you want to shift the modal vertically */
+  padding: 30px;
   border: 0.0625rem solid black;
   background: #fff;
   z-index: 2000;
   font-size: 1rem;
+}
+
+.item-comp-modal.dark {
+  background-color: var(--dark-secondary);
 }
 
 .item-comp-modal--close_btn {

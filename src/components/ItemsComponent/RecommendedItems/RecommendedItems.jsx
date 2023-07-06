@@ -147,7 +147,7 @@ const RecommendedItems = ({ setRelatedItemData, setOpenModal }) => {
       <div
         className={`items-comp--reco-container ${
           relatedItems.length > 4 && !reachMaxScroll ? 'fade' : ''
-        }`}
+        } ${currCtx.currTheme}`}
       >
         {renderLeftArrow()}
         <ul className="items-comp--reco-list" ref={listRef}>

@@ -7,13 +7,20 @@ import getStylesById from '../../helperFunctions/App/getStylesById.js';
 import getProductById from '../../helperFunctions/App/getProductById.js';
 import ProductOverview from './ProductOverview/ProductOverview.jsx';
 import ImageGallery from './ImageGallery/ImageGallery.jsx';
-import './OverviewCompStyles/Overview.css'
+import './OverviewCompStyles/Overview.css';
 
 const apiKey = process.env.REACT_APP_API_KEY;
 
-const Overview = ({ currItem, currentStyle, setCurrentStyle, currStyles }) => {
+const Overview = ({
+  currItem,
+  currentStyle,
+  setCurrentStyle,
+  currStyles,
+  setOverviewRendered,
+}) => {
   const [dataObj, setDataObj] = useState(null);
   const [expandedView, setExpandedView] = useState(false);
+
   useEffect(() => {
     let obj = {};
     getStylesById(currItem.id)
@@ -24,56 +31,73 @@ const Overview = ({ currItem, currentStyle, setCurrentStyle, currStyles }) => {
       .then((response) => {
         const {
           // eslint-disable-next-line camelcase
-          id, name, slogan, description, category, default_price,
+          id,
+          name,
+          slogan,
+          description,
+          category,
+          default_price,
         } = response;
         obj = {
-          ...obj, id, name, slogan, defaultPrice: default_price, description, category,
+          ...obj,
+          id,
+          name,
+          slogan,
+          defaultPrice: default_price,
+          description,
+          category,
         };
       })
-      .then(() => axios.get(
-        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta/?product_id=${currItem.id}`,
-        {
-          headers: { Authorization: apiKey },
-        },
-      ))
+      .then(() =>
+        axios.get(
+          `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta/?product_id=${currItem.id}`,
+          {
+            headers: { Authorization: apiKey },
+          }
+        )
+      )
       .then(({ data }) => {
         obj.ratings = data.ratings;
         setDataObj(obj);
       })
+      .then(() => setOverviewRendered(true))
       .catch((err) => {
+        setOverviewRendered(true);
         throw err;
       });
   }, [currItem]);
 
   const onExpandedViewHandler = () => {
-    if(expandedView) {
+    if (expandedView) {
       setExpandedView(false);
     } else {
       setExpandedView(true);
     }
-  }
+  };
 
   ////////***RENDERING***//////
-  if(dataObj) {
-
-
+  if (dataObj) {
     return (
       <section className="overview-section">
         <div className="promotion-container"></div>
         <div className="product-container">
           <ImageGallery
-            expandedView ={expandedView}
-            onExpandedViewHandler ={onExpandedViewHandler}
-            currItem= {currItem}
+            expandedView={expandedView}
+            onExpandedViewHandler={onExpandedViewHandler}
+            currItem={currItem}
             currStyles={currStyles}
             currentStyle={currentStyle}
             setCurrentStyle={setCurrentStyle}
           />
-          {!expandedView && <ProductOverview dataObj={dataObj} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} />}
+          {!expandedView && (
+            <ProductOverview
+              dataObj={dataObj}
+              currentStyle={currentStyle}
+              setCurrentStyle={setCurrentStyle}
+            />
+          )}
         </div>
-        <div className="description-container">
-
-        </div>
+        <div className="description-container"></div>
       </section>
     );
   }
@@ -81,6 +105,5 @@ const Overview = ({ currItem, currentStyle, setCurrentStyle, currStyles }) => {
 };
 
 export default Overview;
-
 
 // Gonna try implementing the scroll feature.
