@@ -5,9 +5,9 @@ import { FaCheck } from 'react-icons/fa6';
 const TableRow = ({ featureObj }) => {
   const getItemDisplay = (item) => {
     return !item ? (
-      <FaXmark />
+      <FaXmark data-testid="no-feature" />
     ) : featureObj.item === true ? (
-      <FaCheck />
+      <FaCheck data-testid="no-feature" />
     ) : (
       item.replace(/"/g, '')
     );

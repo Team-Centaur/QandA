@@ -12,7 +12,19 @@ const RecommendedItems = ({ setRelatedItemData, setOpenModal }) => {
   const [relatedItems, setRelatedItems] = useState(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [reachMaxScroll, setReachMaxScroll] = useState(false);
+  const [loadedCards, setLoadedCards] = useState([]);
+  const [renderCards, setRenderCards] = useState(false);
   const currCtx = useContext(CurrContext);
+
+  console.log(loadedCards);
+
+  ///////////////// Set up array for `loadedCards` ///////
+
+  // Check if cards are ready to render
+  useEffect(() => {
+    const canRenderCards = loadedCards.every((card) => card === true);
+    setRenderCards(canRenderCards);
+  }, [loadedCards]);
 
   ////////////////////////////////////////////
   ////////////// CAROUSEL LOGIC //////////////
@@ -117,6 +129,7 @@ const RecommendedItems = ({ setRelatedItemData, setOpenModal }) => {
     }
   }
 
+  ////////////////////// Element Renderers ////////////////
   const renderLeftArrow = () =>
     scrollPosition > 0 && (
       <button

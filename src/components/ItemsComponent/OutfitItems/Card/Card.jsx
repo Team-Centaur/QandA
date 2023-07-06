@@ -70,7 +70,11 @@ function Card({ productData, fullProds, setFullProds }) {
           >
             No Photo Available
           </div>
-          <FaRegCircleXmark color="black" className="items--card_img-icon" />
+          <FaRegCircleXmark
+            color="black"
+            className="items--card_img-icon"
+            role="close"
+          />
 
           {/* <ActionBtnStar /> */}
         </div>
@@ -90,6 +94,7 @@ function Card({ productData, fullProds, setFullProds }) {
           <FaRegCircleXmark
             style={starStyle}
             onClick={handleRemoveItem}
+            role="close"
             className="items-outfit--card_img-icon"
           />
           {/* <ActionBtnStar /> */}
