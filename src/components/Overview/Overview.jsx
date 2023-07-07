@@ -1,8 +1,9 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import axios from 'axios';
+import CurrContext from '../../store/curr-item-context.jsx';
 import getStylesById from '../../helperFunctions/App/getStylesById.js';
 import getProductById from '../../helperFunctions/App/getProductById.js';
 import ProductOverview from './ProductOverview/ProductOverview.jsx';
@@ -22,6 +23,8 @@ const Overview = ({
 }) => {
   const [dataObj, setDataObj] = useState(null);
   const [expandedView, setExpandedView] = useState(false);
+
+  const currCtx = useContext(CurrContext);
 
   useEffect(() => {
     if (currStyles && currStyles.results && currReviewMeta) {
@@ -50,8 +53,8 @@ const Overview = ({
   if (dataObj) {
     return (
       <section className="overview-section">
-        <div className="promotion-container"></div>
-        <div className="product-container">
+        <div className= {`promotion-container ${currCtx.currTheme}`}></div>
+        <div className={`product-container ${currCtx.currTheme}`}>
           <ImageGallery
             expandedView={expandedView}
             onExpandedViewHandler={onExpandedViewHandler}
@@ -66,7 +69,15 @@ const Overview = ({
             />
           )}
         </div>
-        <div className="description-container"></div>
+        <div className={`description-container ${currCtx.currTheme}`}>
+        <span className="span">
+            Product Description:
+            </span>
+          <p className='description'>
+            {dataObj.description}
+          </p>
+
+        </div>
       </section>
     );
   }

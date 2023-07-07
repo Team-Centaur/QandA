@@ -1,8 +1,12 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import '../styles/DropDownMenus.css';
+import CurrContext from '../../../../../store/curr-item-context.jsx';
 
 const SizeMenu = ({currentStyle, setSizeSelected}) =>{
   const [sizesArray, setSizesArray] = useState(null);
+  const currCtx = useContext(CurrContext);
+
   useEffect(() => {
     if(currentStyle.skus) {
 
@@ -21,7 +25,7 @@ const SizeMenu = ({currentStyle, setSizeSelected}) =>{
   }
   if(sizesArray) {
     return (
-      <select data-testid ="sizes-selector" name="Select Size" onChange ={(e) => onSizeSelect(e)}>
+      <select className={`sizes-selector ${currCtx.currTheme}`} data-testid ="sizes-selector" name="Select Size" onChange ={(e) => onSizeSelect(e)}>
         <option data-testid = "select-option" value="Select Size">Select Size</option>
         {sizesArray.map((size) =>{
           const sku = size[0]

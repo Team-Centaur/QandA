@@ -1,7 +1,33 @@
+.overview-section{
+  margin:0 auto;
+}
+
 .product-container{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-evenly;
+}
+.product-container.dark{
+  background-color: var(--dark-secondary);
+}
 
+.description-container{
+  max-width:80rem;
+  margin: 0 auto;
+  margin-top:30px;
+  align-items: center;
+  border-style: solid;
+  border-width: 1px;
+  height:200px;
+  padding: 20px;
+}
+.description-container.dark {
+  background-color: var(--dark-secondary);
+}
+.description{
+  line-height: 40px;
+}
+
+.span{
+  font-weight: bold;
 }

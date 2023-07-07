@@ -3,13 +3,24 @@
   grid-template-columns: repeat(4, 50px);
   gap: 20px;
 }
-.thumbnail-img {
-  width:50px;
-  height:50px;
-  border-radius: 25px;
+.thumbnail-img, .img-selected {
+  width:60px;
+  height:60px;
+  border-radius: 30px;
   object-fit: cover;
   object-position: center;
+
 }
 .style-selected{
-  background-color: red;
+  position: relative;
+}
+.img-selected{
+  box-shadow: 5px 7px 4px 0px rgba(7, 0, 0, 0.5);
+}
+.checkmark-icon {
+  position: absolute;
+  top:5px;
+  right:-4px;
+  color:white;
+  font-size:23px;
 }

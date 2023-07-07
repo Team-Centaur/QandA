@@ -1,0 +1,10 @@
+.stars-container {
+  display:flex;
+  flex-direction: row;
+}
+.read-reviews{
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  font-weight: 550;
+}

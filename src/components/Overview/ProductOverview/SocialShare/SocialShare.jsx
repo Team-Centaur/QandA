@@ -4,7 +4,7 @@ import { FacebookShareButton,TwitterShareButton, FacebookIcon , TwitterIcon} fro
 const SocialShare = () => {
   return (
     // the button is one with the ability to share, the icon is only a svg
-    <>
+    <div className="social-share">
       <FacebookShareButton url={`https://github.com/nygardk/react-share#readme`} title={`Test`}>
         <FacebookIcon round={true} size={24}>
         </FacebookIcon>
@@ -13,7 +13,7 @@ const SocialShare = () => {
       <TwitterShareButton url={`https://github.com/nygardk/react-share#readme`}>
         <TwitterIcon round ={true} size={24}></TwitterIcon>
       </TwitterShareButton>
-    </>
+    </div>
   )
 }
 

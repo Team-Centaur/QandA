@@ -1,8 +1,9 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
 import ThumbNailImage from './ThumbNailImages/ThumbNailImages.jsx';
 import {dummyData} from './dummyData.js';
 import {AiOutlineArrowDown, AiOutlineArrowUp, AiOutlineArrowRight, AiOutlineArrowLeft} from 'react-icons/ai';
-import { BsFullscreen } from 'react-icons/bs'
+import { BsFullscreen } from 'react-icons/bs';
+import CurrContext from '../../../store/curr-item-context.jsx';
 import './imageGallery.css'
 
 
@@ -21,7 +22,7 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
   const thumbNailImagesRef = useRef([]);
   const [stylesIdArray, setStylesIdArray] = useState(null);
   const [currIndex, setCurrIndex] = useState(0);
-
+  const currCtx = useContext(CurrContext);
  ///////********USE EFFECT*****/////////
 
   useEffect(()=> {
@@ -43,7 +44,7 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
       setThumbNailImages(thumbnailUrls);
       setMainImages(urls);
       setCurrMainImage(urls[0]);
-      setIsSelected(urls[0]);
+      setIsSelected(thumbnailUrls[0]);
       setCurrIndex(0);
     }
   }, [currStyles, currentStyle])
@@ -127,9 +128,10 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
 
  ////////*****RENDERING*****/////////
   if(thumbNailImages && currMainImage) {
+    console.log()
     return (
       <>
-        <div data-testid= "image-gallery-container" className={expandedView? "expanded-view" :"image-gallery-container"} >
+        <div data-testid= "image-gallery-container" className={expandedView? `expanded-view ${currCtx.currTheme}` :`image-gallery-container ${currCtx.currTheme} `} >
           <div className ={expandedView? "expanded-arrows-plus-container": "arrows-plus-thumbnails"}>
             {thumbNailImages.length >=7 && <AiOutlineArrowUp data-testid = 'up-arrow' onClick = {onUpClickHandler} /> }
 
