@@ -119,7 +119,7 @@ const RatingReview = ({ currItem, reviewId }) => {
 
   return (
     // supplying Id through custom hook that utilizes useContext
-    <section className={`ratingReview ${currCtx.currTheme}`} id={useReviewId()}>
+    <section className={`ratingReview`} id={useReviewId()}>
       <div className='breakdownColumn'>
         <RatingBreakdown
           ratings={ratings}

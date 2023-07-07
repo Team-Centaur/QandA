@@ -4,3 +4,14 @@
   grid-column: 1;
   grid-row: 1;
 }
+.starFilter {
+  background-color: var(--light-main);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  width: auto;
+  text-align: center;
+}
+.starFilter.dark {
+  background-color: var(--dark-main);
+}
