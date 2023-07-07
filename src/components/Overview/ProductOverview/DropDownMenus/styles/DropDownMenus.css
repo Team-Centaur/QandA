@@ -1,0 +1,12 @@
+.sizes-selector, .quantity-selector{
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(117, 117, 241);
+  margin-bottom: 20px;
+}
+.sizes-selector.dark, .quantity-selector.dark {
+  background-color: var(--dark-secondary);
+  border-color: white;
+  color:white
+}

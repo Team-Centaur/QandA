@@ -1,9 +1,11 @@
 import React from 'react';
-import {useState, useEffect , useRef} from 'react';
+import {useState, useEffect , useRef, useContext} from 'react';
+import CurrContext from '../../../../../store/curr-item-context.jsx';
 
 const QuantityMenu = ({currentStyle, sizeSelected, setQuantitySelected, quantitySelected}) => {
   const [quantityArray, setQuantityArray] = useState(null);
-  const selectRef = useRef(null)
+  const selectRef = useRef(null);
+  const currCtx = useContext(CurrContext)
   useEffect(()=> {
     if(sizeSelected) {
       const quantity = sizeSelected[1].quantity >=15? 15: sizeSelected[1].quantity;
@@ -23,6 +25,7 @@ const QuantityMenu = ({currentStyle, sizeSelected, setQuantitySelected, quantity
         onChange={(e) => {setQuantitySelected(selectRef.current.value)}}
         ref={selectRef}
         data-testid = "quantity-selector"
+        className={`quantity-selector ${currCtx.currTheme}`}
       >
         {quantityArray}
       </select>

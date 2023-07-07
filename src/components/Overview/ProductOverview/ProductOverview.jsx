@@ -1,12 +1,13 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Stars from './Stars/Stars.jsx';
 import SocialShare from './SocialShare/SocialShare.jsx';
 import AllStyles from './ProductStyles/AllStyles.jsx';
 import SizeMenu from './DropDownMenus/SizeSelectorComponent/SizeMenu.jsx';
 import QuantityMenu from './DropDownMenus/QuantitySelectorComponent/QuantityMenu.jsx';
 import axios from 'axios';
+import CurrContext from '../../../store/curr-item-context.jsx';
 import './ProductOverviewCompStyles/styles.css'
 
 const ProductOverview = ({ dataObj,currentStyle, setCurrentStyle }) => {
@@ -17,6 +18,7 @@ const ProductOverview = ({ dataObj,currentStyle, setCurrentStyle }) => {
   const [onSale, setOnSale] = useState(false); // an object withe size and its quantity
   const [sizeSelected, setSizeSelected ] = useState(null); // an array of sku and total quantity
   const [quantitySelected, setQuantitySelected] = useState(1); // int
+  const currCtx = useContext(CurrContext);
 
   useEffect(() => {
     if(dataObj) {
@@ -66,46 +68,52 @@ const ProductOverview = ({ dataObj,currentStyle, setCurrentStyle }) => {
     }
   }
   if (dataObj) {
+    console.log(dataObj);
     return (
-      <div className="product-overview-container">
-        <Stars
-          avgRating={avgRating}
-          totalReviews= {totalReviews}
-        />
-        <div className="product-details-container">
-          <div className="product-category">
-            { dataObj.category }
+      <>
+        <div className="product-overview-container">
+          <div className="product-details-container">
+              <Stars
+                avgRating={avgRating}
+                totalReviews= {totalReviews}
+              />
+            <div className="product-category">
+              { dataObj.category }
+            </div>
+            <h2 className="product-name">
+              { dataObj.name}
+            </h2>
+            <div className="price-container">
+              { dataObj.defaultPrice && (<div className={onSale ? 'product-on-sale' : 'default-price'}>
+                { dataObj.defaultPrice }
+              </div>)}
+              {currentStyle.sale_price && (
+                <div style={{ color: 'red' }} className="product-sale-price">
+                {currentStyle.sale_price}
+              </div>
+              )}
+            </div>
           </div>
-          <h2 className="product-name">
-            { dataObj.name}
-          </h2>
-          <div className="price-container">
-            { dataObj.defaultPrice && (<div className={onSale ? 'product-on-sale' : 'default-price'}>
-              { dataObj.defaultPrice }
-            </div>)}
-            {currentStyle.sale_price && (
-              <div style={{ color: 'red' }} className="product-sale-price">
-              {currentStyle.sale_price}
-             </div>
-            )}
+          <SocialShare  />
+          <div className="styles-container">
+            <p><span className='style'>{`Styles >`}</span> {currentStyle.name}</p>
+            <AllStyles styles={styles} setCurrentStyle = {setCurrentStyle} setOnSale = {setOnSale}/>
+
+          <div className = "dropdown-menus-container">
+            <SizeMenu currentStyle={currentStyle} setSizeSelected={setSizeSelected} />
+            <QuantityMenu
+              currStyle={currentStyle}
+              sizeSelected={sizeSelected}
+              quantitySelected={quantitySelected}
+              setQuantitySelected={setQuantitySelected}
+            />
           </div>
+          </div>
+          {sizeSelected && <button className ={`add-to-cart ${currCtx.currTheme}`} onClick={(e) => onAddToCart(sizeSelected, quantitySelected)}>Add To Cart</button>}
         </div>
-        <SocialShare />
-        <div className="styles-container">
-          <p><span>{`Styles >`}</span> {currentStyle.name}</p>
-          <AllStyles styles={styles} setCurrentStyle = {setCurrentStyle} setOnSale = {setOnSale}/>
-        </div>
-        <div className = "dropdown-menus-container">
-          <SizeMenu currentStyle={currentStyle} setSizeSelected={setSizeSelected} />
-          <QuantityMenu
-            currStyle={currentStyle}
-            sizeSelected={sizeSelected}
-            quantitySelected={quantitySelected}
-            setQuantitySelected={setQuantitySelected}
-          />
-        </div>
-        {sizeSelected && <button onClick={(e) => onAddToCart(sizeSelected, quantitySelected)}>Add To Cart</button>}
-      </div>
+
+
+      </>
 
     );
   }

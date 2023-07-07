@@ -9,6 +9,9 @@
   padding:50px;
   background: rgb(227, 226, 226);
 }
+.image-gallery-container.dark, .expanded-view.dark {
+  background-color: var(--dark-secondary);
+}
 .expanded-view{
   width:100vw;
   justify-content: center;
