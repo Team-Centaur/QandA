@@ -16,11 +16,11 @@
 }
 
 .answer.light {
-  background-color: var(--light-primary);
+  background-color: var(--light-main);
 }
 
 .answer.dark {
-  background-color: var(--dark-secondary);
+  background-color: var(--dark-main);
 }
 
 .answer-info {
