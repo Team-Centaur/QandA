@@ -21,19 +21,29 @@
   border:none;
 }
 
+.breakdownColumn {
+  width: 25vw;
+  max-width: 450px;
+}
+
+
 .reviewsComponent {
   border-radius: 20px;
-  padding: 5px;
-  border-width: 20px;
-  border-style: solid;
-  border-color: aliceblue;
-  background-color: aliceblue;
+  padding: 25px;
+  background-color: var(--light-secondary);
+  color: var(--light-text);
   margin: 5px;
   overflow: hidden;
 }
 
+.reviewsComponent.dark {
+  background-color: var(--dark-secondary-hover);
+  color: var(--dark-text);
+}
+
 .reviewsListColumn {
   width: 60vw;
+  max-width: 900px;
   max-height: 90vh;
   grid-column: 2;
   grid-row: 1 / span 2;

@@ -19,7 +19,7 @@ const Overview = ({
   currStyles,
   setOverviewRendered,
   currAvgRating,
-  currReviewMeta
+  currReviewMeta,
 }) => {
   const [dataObj, setDataObj] = useState(null);
   const [expandedView, setExpandedView] = useState(false);
@@ -36,9 +36,10 @@ const Overview = ({
         description: currItem.description,
         category: currItem.category,
         styles: currStyles.results,
-        ratings: currReviewMeta.ratings
+        ratings: currReviewMeta.ratings,
       };
       setDataObj(obj);
+      setOverviewRendered(true);
     }
   }, [currItem, currStyles, currReviewMeta]);
   const onExpandedViewHandler = () => {

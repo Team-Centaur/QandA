@@ -26,7 +26,8 @@ const ReviewFormStyles = {
   borderStyle: 'solid',
   borderColor: 'white',
   borderWidth: '10px',
-  zIndex:  2001
+  zIndex:  '2001',
+  fontFamily: 'sans-serif'
 };
 
 const FormOverlayStyles = {
@@ -53,8 +54,6 @@ const NewReviewForm = ({ onClose, characteristics, product_id }) => {
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
-      console.log(photos);
-      // make axios request
       const response = await axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`,
       {
         params: {
@@ -86,12 +85,12 @@ const NewReviewForm = ({ onClose, characteristics, product_id }) => {
         <button onClick={onClose}>X</button>
         <h3>Write a new review</h3>
 
-        <div className='ratingInput' >
+        <div className='ratingInput formContent' >
           <h4>Overall rating</h4>
           <StarRatingInput setStarRating={setStarRating} />
         </div>
 
-        <div className='recommendInput'>
+        <div className='recommendInput formContent'>
           <RecommendInput setRecommendInput={setRecommendInput}/>
         </div>
 
@@ -105,7 +104,7 @@ const NewReviewForm = ({ onClose, characteristics, product_id }) => {
             />)}
         </div>
 
-        <div className='summaryInput'>
+        <div className='summaryInput formContent'>
           <h4>Review Summary</h4>
           <textarea
             maxLength='60'
@@ -116,15 +115,15 @@ const NewReviewForm = ({ onClose, characteristics, product_id }) => {
           </textarea>
         </div>
 
-        <div className='bodyInput'>
+        <div className='bodyInput formContent'>
           <ReviewBodyInput setBodyInput={setBodyInput} bodyInput={bodyInput} />
         </div>
 
-        <div className='photoUpload'>
+        <div className='photoUpload formContent'>
           <PhotoUpload setPhotos={setPhotos} photos={photos}/>
         </div>
 
-        <div className='reviewerInfo'>
+        <div className='reviewerInfo formContent'>
           <ReviewerInfoInput setNickname={setNickname} setEmail={setEmail} />
         </div>
 

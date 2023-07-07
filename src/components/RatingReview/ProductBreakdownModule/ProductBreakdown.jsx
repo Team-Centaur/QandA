@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import BreakdownTile from './BreakdownTile.jsx';
+import CurrContext from '../../../store/curr-item-context.jsx';
 import characteristicMeanings from '../characteristicMeanings.js';
 
 import './ProductBreakdown.css';
 
 const ProductBreakdown = ({ characteristics }) => {
+  const currCtx = useContext(CurrContext);
   let charas = Object.entries(characteristics);
 
    return (
-    <div className='productBreakdown reviewsComponent' data-testid='productBreakdown'>
+    <div className={`productBreakdown reviewsComponent ${currCtx.currTheme}`}data-testid='productBreakdown'>
       <h1>Product Breakdown</h1>
       {charas.map((chara) => {
         let lowValue = characteristicMeanings[chara[0]][0];

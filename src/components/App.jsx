@@ -11,11 +11,12 @@ import getStylesById from '../helperFunctions/App/getStylesById.js';
 import getRandomProd from '../helperFunctions/App/getRandomProd.js';
 import getAvgRating from '../helperFunctions/App/getAvgRating.js';
 import './App.css';
+import getProductById from '../helperFunctions/App/getProductById.js';
 
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
 
-  const [overviewRendered, setOverviewRendered] = useState(true);
+  const [overviewRendered, setOverviewRendered] = useState(false);
 
   const [currTheme, setCurrTheme] = useState('light');
   const [currItem, setCurrItem] = useState(null);
@@ -25,7 +26,7 @@ function App() {
   const [currAvgRating, setCurrAvgRating] = useState(null);
 
   useEffect(() => {
-    getRandomProd()
+    getProductById(40351)
       .then((data) => {
         setCurrItem(data);
         return data;
@@ -94,7 +95,7 @@ function App() {
               currentStyle={currentStyle}
               setCurrentStyle={setCurrentStyle}
               currAvgRating={currAvgRating}
-              currReviewMeta = {currReviewMeta}
+              currReviewMeta={currReviewMeta}
             />
             {!overviewRendered && <div>Loading...</div>}
             {overviewRendered && <ItemsComponent />}

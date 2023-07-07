@@ -21,6 +21,10 @@
   z-index: 1000;
 }
 
+.answerQuestionModal h3 {
+  align-self: center;
+}
+
 .answerQuestionClose {
   align-self: flex-end;
 }

@@ -6,7 +6,7 @@ const Search = ({ setDisplayQuestions, questions }) => {
   const searchOnChangeHandler = (event) => {
     setSearch(event.target.value);
 
-    if (event.target.value.length > 0) {
+    if (event.target.value.length >= 3) {
       const filteredQuestions = questions.filter((question) => {
         if (question.question_body.includes(event.target.value)) {
           return question.question_body;
@@ -20,7 +20,7 @@ const Search = ({ setDisplayQuestions, questions }) => {
 
   return (
     <>
-      <input type='search' placeholder='Search for a question' onChange={searchOnChangeHandler} />
+      <input type='search' placeholder='Search for a question' className="questionSearchBox" data-testid="qaSearchTest" onChange={searchOnChangeHandler} />
     </>
   )
 };
