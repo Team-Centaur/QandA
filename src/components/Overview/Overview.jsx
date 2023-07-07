@@ -56,10 +56,8 @@ const Overview = ({
           <ImageGallery
             expandedView={expandedView}
             onExpandedViewHandler={onExpandedViewHandler}
-            currItem={currItem}
             currStyles={currStyles}
             currentStyle={currentStyle}
-            setCurrentStyle={setCurrentStyle}
           />
           {!expandedView && (
             <ProductOverview
