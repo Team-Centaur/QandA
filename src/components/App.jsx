@@ -1,4 +1,6 @@
 import React, { Component, useEffect, useState } from 'react';
+import { Grid } from 'react-loader-spinner';
+
 import ThemeToggleSwitch from './Utilities/ThemeToggleSwitch/ThemeToggleSwitch.jsx';
 import Overview from './Overview/Overview.jsx';
 import ItemsComponent from './ItemsComponent/ItemsComponent.jsx';
@@ -51,8 +53,30 @@ function App() {
       );
   }, []);
 
+  const loadingElement = (
+    <div
+      style={{
+        width: '100vh',
+        height: '100vw',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Grid
+        height="60"
+        width="60"
+        color={currTheme === 'dark' ? '#fff' : '#000'}
+        ariaLabel="grid-loading"
+        radius="12.5"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
+      />
+    </div>
+  );
   if (!currItem) {
-    return <div>Loading...</div>;
+    return loadingElement;
   }
 
   return (
@@ -97,7 +121,7 @@ function App() {
               currAvgRating={currAvgRating}
               currReviewMeta={currReviewMeta}
             />
-            {!overviewRendered && <div>Loading...</div>}
+            {!overviewRendered && loadingElement}
             {overviewRendered && <ItemsComponent />}
             {overviewRendered && <QuesAnswer product={currItem} />}
             {overviewRendered && <RatingReview currItem={currItem} />}
