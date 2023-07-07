@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 // import ActionBtnStar from './ActionBtn/ActionBtnStar.jsx';
 import CardCarousel from './CardCarousel/CardCarousel.jsx';
 import { each } from 'underscore';
@@ -16,12 +16,14 @@ import { transform } from '@babel/core';
 
 function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
   const [productObj, setProductObj] = useState(null);
+  const [productImg, setProductImg] = useState();
   const [styles, setStyles] = useState(null);
   const [outgoingStyles, setOutgoingStyles] = useState(null);
   const [metaReviewData, setMetaReviewData] = useState(null);
   const [avgRating, setAvgRating] = useState(0);
   const [mouseHover, setMouseHover] = useState(false);
-  console.log(styles);
+  const [alternativeStyle, setAlternativeStyle] = useState(false);
+
   const currCtx = useContext(CurrContext);
 
   useEffect(() => {
@@ -118,6 +120,21 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
     alignItems: 'center',
   };
 
+  const defaultImgStyle = {
+    backgroundImage: `url(${imageUrl})`,
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+  };
+
+  const carouselImgHoverStyle = {
+    backgroundImage: `linear-gradient(180deg, rgba(255,255,255,0) 35%, rgba(66,66,66,1) 100%),
+    url(${alternativeStyle})`,
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+  };
+
   /// /////////// JSX //////////////
   return (
     <li
@@ -154,20 +171,24 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
         >
           <div
             className="items--card_img-img"
-            style={{
-              /////////////////// TODO ////////////
-              // Add gradient when mouseHover is true
-              backgroundImage: `url(${imageUrl})`,
-              backgroundSize: 'cover',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-            }}
+            style={!alternativeStyle ? defaultImgStyle : carouselImgHoverStyle}
+            // style={{
+            //   /////////////////// TODO ////////////
+            //   // Add gradient when mouseHover is true
+
+            //   backgroundImage: `url(${imageUrl})`,
+
+            //   backgroundSize: 'cover',
+            //   backgroundRepeat: 'no-repeat',
+            //   backgroundPosition: 'center',
+            // }}
           />
           <FaRegStar style={starStyle} onClick={handleActionBtnClick} />
           <CardCarousel
             productStyles={styles}
             mouseHover={mouseHover}
-            style={{ position: 'relative', bottom: '3.125rem' }}
+            setAlternativeStyle={setAlternativeStyle}
+            setProductObj={setProductObj}
           />
           {/* <ActionBtnStar /> */}
         </div>
