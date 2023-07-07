@@ -2,11 +2,24 @@
   height: auto;
   grid-column: 1;
   grid-row: 2;
+  background-color: var(--light-main);
+  color: var(--light-text);
+}
+
+.productBreakdown.dark {
+  background-color: var(--dark-main);
+  color: var(--dark-text);
 }
 
 .breakdownTile {
-  background-color: white;
+  background-color: var(--light-main);
+  color: var(--light-text);
   border-radius: 20px;
   padding: 10px;
   margin: 10px;
+}
+
+.breakdownTile.dark {
+  background-color: var(--dark-secondary);
+  color: var(--dark-text);
 }
