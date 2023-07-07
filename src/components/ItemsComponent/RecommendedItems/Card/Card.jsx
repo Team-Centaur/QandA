@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 // import ActionBtnStar from './ActionBtn/ActionBtnStar.jsx';
 import CardCarousel from './CardCarousel/CardCarousel.jsx';
+import { ThreeDots } from 'react-loader-spinner';
 import { each } from 'underscore';
 import { FaRegStar } from 'react-icons/fa6';
 
@@ -12,11 +13,9 @@ import '../../Card.css';
 import getProductById from '../../../../helperFunctions/App/getProductById.js';
 import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
 import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
-import { transform } from '@babel/core';
 
 function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
   const [productObj, setProductObj] = useState(null);
-  const [productImg, setProductImg] = useState();
   const [styles, setStyles] = useState(null);
   const [outgoingStyles, setOutgoingStyles] = useState(null);
   const [metaReviewData, setMetaReviewData] = useState(null);
@@ -37,6 +36,7 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
       .then((data) => {
         setOutgoingStyles(data);
         setStyles(data.results);
+        // setStyles(null);
       })
       .catch((err) => {
         console.error(`There was an error getting product styles: ${err}`);
@@ -65,7 +65,27 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
 
   /// /////////// CONDITIONAL RENDERING & LOADING STATE //////////////
   if (!styles) {
-    return <div className="items-comp--card">Loading...</div>;
+    return (
+      <div
+        className="items--card"
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <ThreeDots
+          height="80"
+          width="80"
+          radius="9"
+          color={currCtx.currTheme === 'dark' ? '#fff' : '#000'}
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          wrapperClassName=""
+          visible={true}
+        />
+      </div>
+    );
   }
 
   let itemStyle = {};
@@ -172,16 +192,6 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
           <div
             className="items--card_img-img"
             style={!alternativeStyle ? defaultImgStyle : carouselImgHoverStyle}
-            // style={{
-            //   /////////////////// TODO ////////////
-            //   // Add gradient when mouseHover is true
-
-            //   backgroundImage: `url(${imageUrl})`,
-
-            //   backgroundSize: 'cover',
-            //   backgroundRepeat: 'no-repeat',
-            //   backgroundPosition: 'center',
-            // }}
           />
           <FaRegStar style={starStyle} onClick={handleActionBtnClick} />
           <CardCarousel

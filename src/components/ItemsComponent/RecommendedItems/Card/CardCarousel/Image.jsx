@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 
-const Image = ({
-  imageUrl,
-  cardImgRef,
-  setAlternativeStyle,
-  setProductObj,
-}) => {
+const Image = ({ imageUrl, setAlternativeStyle, setProductObj }) => {
   const [mouseIsOver, setMouseIsOver] = useState(false);
+  const [altImageClicked, setAltImageClicked] = useState(false);
   const handleMouseEnter = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -16,11 +12,14 @@ const Image = ({
 
   const handleMouseLeave = (e) => {
     setMouseIsOver(false);
-    setAlternativeStyle(false);
+
+    !altImageClicked && setAlternativeStyle(false);
   };
 
   const handleClick = (e) => {
     e.stopPropagation();
+    setAltImageClicked(true);
+    setAlternativeStyle(imageUrl);
   };
 
   return (
