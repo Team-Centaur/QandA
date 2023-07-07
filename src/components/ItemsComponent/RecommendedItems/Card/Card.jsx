@@ -12,11 +12,9 @@ import '../../Card.css';
 import getProductById from '../../../../helperFunctions/App/getProductById.js';
 import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
 import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
-import { transform } from '@babel/core';
 
 function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
   const [productObj, setProductObj] = useState(null);
-  const [productImg, setProductImg] = useState();
   const [styles, setStyles] = useState(null);
   const [outgoingStyles, setOutgoingStyles] = useState(null);
   const [metaReviewData, setMetaReviewData] = useState(null);
@@ -172,16 +170,6 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
           <div
             className="items--card_img-img"
             style={!alternativeStyle ? defaultImgStyle : carouselImgHoverStyle}
-            // style={{
-            //   /////////////////// TODO ////////////
-            //   // Add gradient when mouseHover is true
-
-            //   backgroundImage: `url(${imageUrl})`,
-
-            //   backgroundSize: 'cover',
-            //   backgroundRepeat: 'no-repeat',
-            //   backgroundPosition: 'center',
-            // }}
           />
           <FaRegStar style={starStyle} onClick={handleActionBtnClick} />
           <CardCarousel
