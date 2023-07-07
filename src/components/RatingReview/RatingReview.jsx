@@ -9,6 +9,8 @@ import ReviewTile from './ReviewsListModule/ReviewTile.jsx';
 
 import getReviewMetadata from '../../helperFunctions/getReviewMetadata.js';
 import getReviews from '../../helperFunctions/getReviews.js';
+import CurrContext from '../../store/curr-item-context.jsx';
+
 import './RatingReview.css';
 //src/components/RatingReview/ReviewsListModule/ReviewsListModule.css
 
@@ -23,7 +25,8 @@ const RatingReview = ({ currItem, reviewId }) => {
   const [sortOrder, setSortOrder] = useState('relevant');
   const [allReviewsLoaded, setAllReviewsLoaded] = useState(false);
   const [filter, setFilter] = useState(0); // 0 when no filter applied
-  const [filteredReviews, setFilteredReviews] = useState([]); // *NEEDS OPTIMIZATION* this array holds all reviews, to be used by getFilteredReviews function
+  const [filteredReviews, setFilteredReviews] = useState([]); // *OPTIMIZE this array holds all reviews, to be used by getFilteredReviews function
+  const currCtx = useContext(CurrContext); // for light/dark theme
 
   // INITIAL REQUEST TO API FOR REVIEWS + METADATA
   useEffect(() => {
@@ -49,7 +52,6 @@ const RatingReview = ({ currItem, reviewId }) => {
     if (!filter) {
       // call API for 2 reviews at a time and update reviews list
       getReviews(currItem.id, sortOrder, page + 1, 2).then((reviewsResponse) => {
-        console.log(reviewsResponse)
         if (reviewsResponse.results.length < 2) {
           // if API returns less than 2 reviews, all reviews have been loaded
           setAllReviewsLoaded(true);
@@ -84,7 +86,6 @@ const RatingReview = ({ currItem, reviewId }) => {
     // star and sumOfReviews stored as string in filter element's value attribute
     const filterValueAttribute = e.currentTarget.getAttribute('value');
     const stars = filterValueAttribute[0];
-    console.log(`review filter: ${stars}`)
     await setFilter(parseInt(stars));
     await setAllReviewsLoaded(false);
   }
@@ -118,7 +119,7 @@ const RatingReview = ({ currItem, reviewId }) => {
 
   return (
     // supplying Id through custom hook that utilizes useContext
-    <section className="ratingReview" id={useReviewId()}>
+    <section className={`ratingReview ${currCtx.currTheme}`} id={useReviewId()}>
       <div className='breakdownColumn'>
         <RatingBreakdown
           ratings={ratings}

@@ -12,6 +12,11 @@
     [second-end] -5vw;
 }
 
+.reviewsComponent.dark {
+  background-color: var(--dark-secondary);
+  border-color: var(--dark-secondary);
+}
+
 /* button styles in rating review section */
 .ratingReview button {
   background-color: dodgerblue;
@@ -29,11 +34,9 @@
 
 .reviewsComponent {
   border-radius: 20px;
-  padding: 5px;
-  border-width: 20px;
-  border-style: solid;
-  border-color: aliceblue;
-  background-color: aliceblue;
+  padding: 25px;
+  background-color: var(--light-secondary);
+  color: var(--light-text);
   margin: 5px;
   overflow: hidden;
 }
