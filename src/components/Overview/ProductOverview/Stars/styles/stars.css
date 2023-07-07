@@ -8,3 +8,7 @@
   align-items: center;
   font-weight: 550;
 }
+
+.path-star.dark{
+  fill:white;
+}
