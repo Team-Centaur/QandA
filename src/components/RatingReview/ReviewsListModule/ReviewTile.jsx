@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import StarRating from '../../Utilities/StarRating.jsx';
+import Stars from '../../Utilities/Stars/Stars.jsx';
+import { Star24Regular } from '@fluentui/react-icons';
 import ImageThumbnail from './ImageThumbnail.jsx';
 import ReviewHelpfulness from './ReviewHelpfulness.jsx';
 import CurrContext from '../../../store/curr-item-context.jsx';
@@ -60,7 +61,7 @@ const ReviewTile = ({ review }) => {
 
   return (
     <div className={`reviewTile ${currCtx.currTheme}`} data-testid='reviewTile'>
-      <h3>{StarRating({ rating })}</h3>
+      <h3><Stars avgRating={rating} /></h3>
       <div className="reviewDate">{formattedDate}</div>
       <div className="reviewSummary">
         <h4>{summary}</h4>

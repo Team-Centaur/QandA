@@ -37,8 +37,14 @@ const Stars = ({ avgRating }) => {
     return stars;
   };
 
+  // a quick and dirty fix to the missing star issue
+  let isStarMissing = false;
+  if (avgRating === 1 || avgRating === 2 || avgRating === 3 || avgRating === 4) {
+    isStarMissing = true;
+  }
+
   if (avgRating) {
-    return <div className="stars-container">{renderStar(avgRating)}</div>;
+    return <div className="stars-container">{renderStar(avgRating)}{isStarMissing && <Star24Regular />}</div>;
   }
   return null;
 };
