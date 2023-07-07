@@ -5,7 +5,7 @@ import Answer from './Answer.jsx';
 import AnswerQuestion from './AnswerQuestion.jsx';
 import './Question.css';
 
-const Question = ({ question }) => {
+const Question = ({ question, product }) => {
   const [answers, setAnswers] = useState([]);
   const [displayAnswers, setDisplayAnswers] = useState([]);
   const [isNoMoreAnswers, setIsNoMoreAnswers] = useState(false);
@@ -98,7 +98,7 @@ const Question = ({ question }) => {
       <button type="submit" onClick={answerQuestionButtonClickHandler}>
         Answer this question
       </button>
-      <AnswerQuestion isAnswerQuestion={isAnswerQuestion} setIsAnswerQuestion={setIsAnswerQuestion} questionId={question.question_id} answers={answers} setAnswers={setAnswers} />
+      <AnswerQuestion isAnswerQuestion={isAnswerQuestion} setIsAnswerQuestion={setIsAnswerQuestion} question={question} answers={answers} setAnswers={setAnswers} product={product} />
     </div>
   );
 };
