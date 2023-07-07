@@ -35,6 +35,7 @@ const Stars = ({ avgRating, totalReviews }) => {
           smooth={true}
           offset={200}
           duration={500}
+          className='read-reviews'
         >{`Read all ${totalReviews} reviews(click!)`}</Link>
       </div>
     );
