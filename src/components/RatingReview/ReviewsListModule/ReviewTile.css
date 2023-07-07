@@ -1,8 +1,16 @@
 .reviewTile {
-  background-color: white;
-  width: 70%;
+  position: relative;
+  background-color: var(--light-main);
+  color: var(--light-text);
+  width: 50vw;
+  max-width: 800px;
   overflow: wrap;
   border-radius: 15px;
   margin: 25px;
   padding: 25px;
+}
+
+.reviewTile.dark {
+  background-color: var(--dark-main);
+  color: var(--dark-text);
 }

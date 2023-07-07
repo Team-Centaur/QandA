@@ -1,5 +1,5 @@
 import React from 'react';
-import Stars from '../../Overview/ProductOverview/Stars/Stars.jsx';
+import Stars from '../../Utilities/Stars/Stars.jsx'
 
 const RatingSummary = ({ average, sumOfReviews }) => {
 
@@ -10,8 +10,9 @@ const RatingSummary = ({ average, sumOfReviews }) => {
     <div className='ratingSummary'>
       <h1 style={{fontSize: '45px'}}>
         {(average !== NaN) && String(average)}
+        {(average === NaN) && 'No reviews yet'}
       </h1>
-      <Stars avgRating={average} totalReviews= {sumOfReviews} />
+      <Stars avgRating={average} />
     </div>
   );
 };
