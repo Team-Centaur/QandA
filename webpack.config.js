@@ -39,4 +39,11 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    fallback: {
+      path: require.resolve('path-browserify'),
+      assert: require.resolve('assert'),
+      fs: false, // This indicates that you don't want to include a polyfill for 'fs'
+    },
+  },
 };

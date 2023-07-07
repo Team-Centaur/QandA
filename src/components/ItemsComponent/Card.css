@@ -9,10 +9,13 @@
   border-radius: 0.1875rem;
   box-shadow: rgba(60, 64, 67, 0.3) 0rem 0.0625rem 0.125rem 0rem,
     rgba(60, 64, 67, 0.15) 0rem 0.125rem 0.375rem 0.125rem;
+}
+
+.items--card.recommended {
   cursor: pointer;
 }
 
-.items--card.dark {
+cursor .items--card.dark {
   box-shadow: var(--dark-shadow);
 }
 
@@ -88,4 +91,20 @@
 
 .items--card_text-rating {
   margin-top: 0.5rem;
+}
+
+/* Inner Carousel */
+
+.items--card_carousel-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  transition-duration: 300ms;
+}
+.items--card_carousel-container ul {
+  display: flex;
+}
+
+.items--card_carousel-img {
+  flex-shrink: 0;
 }

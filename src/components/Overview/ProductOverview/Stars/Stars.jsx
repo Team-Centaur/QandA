@@ -7,7 +7,6 @@ import { useReviewId } from '../../../ReviewIdContext.jsx';
 // Imported custom Hook to use the state from Context
 // very similar to useContext(reviewId);
 const Stars = ({ avgRating, totalReviews }) => {
-
   const renderStar = (rating) => {
     const floorRating = Math.floor(rating);
     const remainingStar = rating % 1;
@@ -16,7 +15,7 @@ const Stars = ({ avgRating, totalReviews }) => {
       stars.push(
         <span className="star" key={i}>
           <Star24Filled key={i} />
-        </span>,
+        </span>
       );
     }
     stars.push(<Star starAmount={remainingStar} key={remainingStar} />);
@@ -30,9 +29,13 @@ const Stars = ({ avgRating, totalReviews }) => {
     return (
       <div className="stars-container">
         {renderStar(avgRating)}
-        <Link to={useReviewId()} smooth={true} offset={200} duration={500}> Read all {totalReviews} reviews(click!)</Link>
+        <Link
+          to={useReviewId()}
+          smooth={true}
+          offset={200}
+          duration={500}
+        >{`Read all ${totalReviews} reviews(click!)`}</Link>
       </div>
-
     );
   }
   return null;
