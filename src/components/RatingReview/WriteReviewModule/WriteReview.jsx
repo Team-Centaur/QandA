@@ -1,8 +1,8 @@
-import React, { useState, product_id } from 'react';
+import React, { useState } from 'react';
 import NewReviewForm from './NewReviewForm.jsx';
 import './WriteReview.css';
 
-const WriteReview = ({ characteristics }) => {
+const WriteReview = ({ characteristics, product_id }) => {
   const [writeReview, setWriteReview] = useState(false)
 
   const onWriteReview = () => setWriteReview(true);

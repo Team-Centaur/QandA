@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import CurrContext from '../../../store/curr-item-context.jsx';
 import './ProductBreakdown.css'
 
 const BreakdownTile = ({ characteristic, value, lowValue, highValue }) => {
 
+  const currCtx = useContext(CurrContext);
   const charBarStyles = {
     height: '8px',
     width: '90%',
@@ -23,7 +25,7 @@ const BreakdownTile = ({ characteristic, value, lowValue, highValue }) => {
   };
 
   return (
-    <div className='breakdownTile' data-testid='productBreakdownTile'>
+    <div className={`breakdownTile ${currCtx.currTheme}`} data-testid='productBreakdownTile'>
       <h4 style={{textAlign:'center'}}>{characteristic}</h4>
       <div className='charBar' style={charBarStyles}>
         <div className='charBarFill' style={charBarFillStyles}>

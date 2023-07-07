@@ -1,16 +1,18 @@
 /* Renders each Star Rating, Bar Graph Visual, and Count in RatingBreakdownFilter Tile*/
 
-import React from 'react';
+import React, { useContext } from 'react';
+import CurrContext from '../../../store/curr-item-context.jsx';
+import './RatingBreakdown.css';
 
 const StarFilter = ({ stars, numOfReviews, sumOfReviews, onFilterClick }) => {
-  const starFilterStyles = {
-    borderRadius: '10px',
-    padding: '10px',
-    backgroundColor: 'white',
-    margin: '10px',
-    width: 'auto',
-    textAlign: 'center'
-  }
+  const currCtx = useContext(CurrContext);
+  // const starFilterStyles = {
+  //   borderRadius: '10px',
+  //   padding: '10px',
+  //   margin: '10px',
+  //   width: 'auto',
+  //   textAlign: 'center'
+  // }
 
   const starBarStyles = {
     height: '8px',
@@ -30,7 +32,7 @@ const StarFilter = ({ stars, numOfReviews, sumOfReviews, onFilterClick }) => {
 
 
   return (
-    <div className='starFilter' data-testid='starFilter' value={[stars, numOfReviews]} style={starFilterStyles} role='button' onClick={onFilterClick}>
+    <div className={`starFilter ${currCtx.currTheme}`} data-testid='starFilter' value={[stars, numOfReviews]} role='button' onClick={onFilterClick}>
       <span style={{float: 'left'}}> {stars} {(stars === '1') ? 'Star' : 'Stars'} </span>
       <div className='starBar' style={starBarStyles}>
         <div className='starBarFill' style={starBarFillStyles}>
