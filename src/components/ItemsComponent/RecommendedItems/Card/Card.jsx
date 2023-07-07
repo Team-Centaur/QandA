@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 // import ActionBtnStar from './ActionBtn/ActionBtnStar.jsx';
+import CardCarousel from './CardCarousel/CardCarousel.jsx';
 import { each } from 'underscore';
 import { FaRegStar } from 'react-icons/fa6';
 
@@ -11,6 +12,7 @@ import '../../Card.css';
 import getProductById from '../../../../helperFunctions/App/getProductById.js';
 import getStylesById from '../../../../helperFunctions/App/getStylesById.js';
 import getReviewMetadata from '../../../../helperFunctions/getReviewMetadata.js';
+import { transform } from '@babel/core';
 
 function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
   const [productObj, setProductObj] = useState(null);
@@ -18,7 +20,8 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
   const [outgoingStyles, setOutgoingStyles] = useState(null);
   const [metaReviewData, setMetaReviewData] = useState(null);
   const [avgRating, setAvgRating] = useState(0);
-
+  const [mouseHover, setMouseHover] = useState(false);
+  console.log(styles);
   const currCtx = useContext(CurrContext);
 
   useEffect(() => {
@@ -91,6 +94,13 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
     setRelatedItemData(productObj);
     setOpenModal(true);
   };
+
+  const handleMouseEnter = (e) => {
+    setMouseHover(true);
+  };
+  const handleMouseExit = (e) => {
+    setMouseHover(false);
+  };
   /// /////////// STYLES //////////////
 
   const starStyle = {
@@ -137,10 +147,16 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
       )}
       {/* If there is a photo url, display photo */}
       {imageUrl && (
-        <div className="items--card_img">
+        <div
+          className="items--card_img"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseExit}
+        >
           <div
             className="items--card_img-img"
             style={{
+              /////////////////// TODO ////////////
+              // Add gradient when mouseHover is true
               backgroundImage: `url(${imageUrl})`,
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
@@ -148,6 +164,11 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
             }}
           />
           <FaRegStar style={starStyle} onClick={handleActionBtnClick} />
+          <CardCarousel
+            productStyles={styles}
+            mouseHover={mouseHover}
+            style={{ position: 'relative', bottom: '3.125rem' }}
+          />
           {/* <ActionBtnStar /> */}
         </div>
       )}

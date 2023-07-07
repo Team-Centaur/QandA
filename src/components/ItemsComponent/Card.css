@@ -92,3 +92,19 @@ cursor .items--card.dark {
 .items--card_text-rating {
   margin-top: 0.5rem;
 }
+
+/* Inner Carousel */
+
+.items--card_carousel-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  transition-duration: 300ms;
+}
+.items--card_carousel-container ul {
+  display: flex;
+}
+
+.items--card_carousel-img {
+  flex-shrink: 0;
+}
