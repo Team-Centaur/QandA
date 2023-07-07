@@ -16,8 +16,6 @@ const RecommendedItems = ({ setRelatedItemData, setOpenModal }) => {
   const [renderCards, setRenderCards] = useState(false);
   const currCtx = useContext(CurrContext);
 
-  console.log(loadedCards);
-
   ///////////////// Set up array for `loadedCards` ///////
 
   // Check if cards are ready to render
@@ -80,6 +78,7 @@ const RecommendedItems = ({ setRelatedItemData, setOpenModal }) => {
       })
       .catch((err) => {
         console.error(`There was an error: ${err}`);
+        throw err;
       });
   }, [currCtx.currItem]);
 
@@ -135,6 +134,7 @@ const RecommendedItems = ({ setRelatedItemData, setOpenModal }) => {
       <button
         className="items-comp--reco-list_btn left"
         type="button"
+        aria-label="Scroll left"
         onClick={scrollLeft}
       >
         <FaArrowLeft size="1rem" />
@@ -147,6 +147,7 @@ const RecommendedItems = ({ setRelatedItemData, setOpenModal }) => {
       <button
         className="items-comp--reco-list_btn right"
         type="button"
+        aria-label="Scroll right"
         onClick={scrollRight}
       >
         <FaArrowRight size="1rem" />

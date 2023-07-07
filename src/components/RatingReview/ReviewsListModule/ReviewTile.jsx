@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import StarRating from '../../Utilities/StarRating.jsx';
 import ImageThumbnail from './ImageThumbnail.jsx';
 import ReviewHelpfulness from './ReviewHelpfulness.jsx';
+import CurrContext from '../../../store/curr-item-context.jsx';
 import './ReviewTile.css';
 
 const apiKey = process.env.REACT_APP_API_KEY;
 
 const ReviewTile = ({ review }) => {
+  const currCtx = useContext(CurrContext);
   const {
     body,
     date,
@@ -57,7 +59,7 @@ const ReviewTile = ({ review }) => {
   };
 
   return (
-    <div className="reviewTile" data-testid='reviewTile'>
+    <div className={`reviewTile ${currCtx.currTheme}`} data-testid='reviewTile'>
       <h3>{StarRating({ rating })}</h3>
       <div className="reviewDate">{formattedDate}</div>
       <div className="reviewSummary">

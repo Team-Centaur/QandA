@@ -18,7 +18,7 @@ const CharacteristicInput = ({ chara, characteristicsInput, setCharacteristicsIn
   };
 
   return (
-    <div className={chara[0]} key={chara[0]} data-testid='characteristicInput'>
+    <div className={'formContent'} key={chara[0]} data-testid='characteristicInput'>
       <h4>{chara[0]}</h4>
       <div>{meaning}</div>
       <div className='chara'>
