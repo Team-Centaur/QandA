@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { v4 } from 'uuid';
 import Answer from './Answer.jsx';
 import AnswerQuestion from './AnswerQuestion.jsx';
 import './Question.css';
 
-const Question = ({ question }) => {
+const Question = ({ question, product }) => {
   const [answers, setAnswers] = useState([]);
   const [displayAnswers, setDisplayAnswers] = useState([]);
   const [isNoMoreAnswers, setIsNoMoreAnswers] = useState(false);
@@ -74,7 +75,7 @@ const Question = ({ question }) => {
   };
 
   return (
-    <div className="question">
+    <div className="question" data-testid="qaQuestionTest">
       <p className="question-body">Q: {question.question_body}</p>
       <div className="question-options">
         <div className="question-helpful-option">
@@ -88,7 +89,7 @@ const Question = ({ question }) => {
           </button>
         </div>
       </div>
-      {displayAnswers.map((answer) => <Answer answer={answer} key={answer.id} />)}
+      {displayAnswers.map((answer) => <Answer answer={answer} key={v4()} />)}
       <button type="submit" onClick={moreAnswersButtonClickHandler} hidden={isNoMoreAnswers}>
         See More Answers
         {` (${answers.length - displayAnswers.length})`}
@@ -97,7 +98,7 @@ const Question = ({ question }) => {
       <button type="submit" onClick={answerQuestionButtonClickHandler}>
         Answer this question
       </button>
-      <AnswerQuestion isAnswerQuestion={isAnswerQuestion} setIsAnswerQuestion={setIsAnswerQuestion} questionId={question.question_id} answers={answers} setAnswers={setAnswers} />
+      <AnswerQuestion isAnswerQuestion={isAnswerQuestion} setIsAnswerQuestion={setIsAnswerQuestion} question={question} answers={answers} setAnswers={setAnswers} product={product} />
     </div>
   );
 };

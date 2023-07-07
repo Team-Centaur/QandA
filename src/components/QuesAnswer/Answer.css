@@ -10,9 +10,17 @@
 .answer {
   border-style: solid;
   border-radius: 1rem;
-  background-color: aqua;
+  /* background-color: white; */
   width: 40rem;
   padding: .5rem;
+}
+
+.answer.light {
+  background-color: var(--light-primary);
+}
+
+.answer.dark {
+  background-color: var(--dark-secondary);
 }
 
 .answer-info {
@@ -45,6 +53,14 @@
   padding: .5rem;
 }
 
-.username {
-  color: blue;
+/* .username {
+  color: rgb(156, 184, 197);
+} */
+
+.username.light {
+  color: var(--light-primary);
+}
+
+.username.dark {
+  color: var(--dark-primary);
 }
