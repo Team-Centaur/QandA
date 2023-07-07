@@ -15,10 +15,28 @@ const currItemMock = {
   "updated_at": "2021-08-13T14:38:44.588Z"
 };
 
+beforeEach(async () => {
+  render(<QuesAnswer product={currItemMock} />);
+});
+
 describe('QuesAnswer component', () => {
-  test('loads QuesAnswer component', () => {
-    render(<QuesAnswer product={currItemMock} />);
-    const title = screen.getByText(/QUESTIONS & ANSWERS/i);
-    expect(title).toBeInTheDocument();
+  test('loads QuesAnswer component', async () => {
+    const component = await screen.findByTestId('quesAnswerComponent');
+    expect(component).toHaveClass('ques-ans-main');
+  });
+
+  test('loads Search component', async () => {
+    const component = await screen.findByTestId('qaSearchTest');
+    expect(component).toBeInTheDocument();
+  });
+
+  test('loads Question component', async () => {
+    const component = await screen.findAllByTestId('qaQuestionTest');
+    expect(component[0]).toHaveClass('question');
+  });
+
+  test('loads Ask a Question button', async () => {
+    const component = await screen.findByRole('button', {name: "Ask A Question"});
+    expect(component).toBeInTheDocument();
   });
 });

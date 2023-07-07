@@ -67,7 +67,7 @@ const QuesAnswer = ({ product }) => {
   };
 
   return (
-    <section className="ques-ans-main">
+    <section className="ques-ans-main" data-testid="quesAnswerComponent" >
       <h2>QUESTIONS & ANSWERS</h2>
       <Search setDisplayQuestions={setDisplayQuestions} questions={questions} />
       <div className="display">

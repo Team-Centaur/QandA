@@ -75,7 +75,7 @@ const Question = ({ question, product }) => {
   };
 
   return (
-    <div className="question">
+    <div className="question" data-testid="qaQuestionTest">
       <p className="question-body">Q: {question.question_body}</p>
       <div className="question-options">
         <div className="question-helpful-option">

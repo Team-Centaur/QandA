@@ -20,7 +20,7 @@ const Search = ({ setDisplayQuestions, questions }) => {
 
   return (
     <>
-      <input type='search' placeholder='Search for a question' className="questionSearchBox" onChange={searchOnChangeHandler} />
+      <input type='search' placeholder='Search for a question' className="questionSearchBox" data-testid="qaSearchTest" onChange={searchOnChangeHandler} />
     </>
   )
 };
