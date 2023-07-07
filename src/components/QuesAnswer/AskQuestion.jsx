@@ -8,6 +8,9 @@ const AskQuestion = ({ isAskQuestion, setIsAskQuestion, product, questions, setQ
   const [questionBody, setQuestionBody] = useState('');
   const [questionName, setQuestionName] = useState('');
   const [questionEmail, setQuestionEmail] = useState('');
+  const [questionNameValid, setQuestionNameValid] = useState(true);
+  const [questionEmailValid, setQuestionEmailValid] = useState(true);
+  const [questionBodyValid, setQuestionBodyValid] = useState(true);
 
   const questionBodyOnChangeHandler = (event) => {
     setQuestionBody(event.target.value);
@@ -24,6 +27,26 @@ const AskQuestion = ({ isAskQuestion, setIsAskQuestion, product, questions, setQ
   // send form data to api when submit button clicked
   const createQuestionHandler = (event) => {
     event.preventDefault();
+
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (questionName.length > 0) {
+      setQuestionNameValid(true);
+    } else {
+      setQuestionNameValid(false);
+      return;
+    }
+    if (questionEmail.match(emailRegex)) {
+      setQuestionEmailValid(true);
+    } else {
+      setQuestionEmailValid(false);
+      return;
+    }
+    if (questionBody.length > 0) {
+      setQuestionBodyValid(true);
+    } else {
+      setQuestionBodyValid(false);
+      return;
+    }
 
     const options = {
       headers: {
@@ -57,41 +80,53 @@ const AskQuestion = ({ isAskQuestion, setIsAskQuestion, product, questions, setQ
 
   const closeModal = () => {
     setIsAskQuestion(true);
+    setQuestionNameValid(true);
+    setQuestionEmailValid(true);
+    setQuestionBodyValid(true);
+    setQuestionBody('');
+    setQuestionEmail('');
+    setQuestionName('');
     document.body.style.overflow = 'auto';
   };
-
   return !isAskQuestion && ReactDom.createPortal(
     <>
       <div className="overlay"/>
       <div className="askQuestionModal">
         <button className="askQuestionClose" onClick={closeModal}>X</button>
-        <h2 className="askQuestionTitle">Ask a question</h2>
+        <h2 className="askQuestionTitle">About the {product.name}</h2>
         <form
           className="askQuestionForm"
-          value={questionBody}
         >
           <input
+            type="text"
             className="askQuestionNameInput"
             maxLength="60"
-            placeholder="Name"
+            placeholder="Example: jackson11!"
             onChange={questionNameOnChangeHandler}
             value={questionName}
           />
+          {questionNameValid ? null : <p className="form-error">Enter a username</p>}
+          <p>For privacy reasons, do not use your full name or email address</p>
           <input
+            type="text"
             className="askQuestionEmailInput"
             maxLength="60"
-            placeholder="Email"
+            placeholder="Example: jackson@email.com"
             onChange={questionEmailOnChangeHandler}
             value={questionEmail}
           />
+          {questionEmailValid ? null : <p className="form-error">Enter a valid email</p>}
+          <p>For authentication reasons, you will not be emailed</p>
           <textarea
             type="text"
             rows="5"
             cols="50"
             maxLength="1000"
-            placeholder="question"
+            placeholder="Enter question here"
             onChange={questionBodyOnChangeHandler}
+            value={questionBody}
           />
+          {questionBodyValid ? null : <p className="form-error">Enter a question</p>}
           <button
             type="submit"
             className="submitAskQuestionButton"
