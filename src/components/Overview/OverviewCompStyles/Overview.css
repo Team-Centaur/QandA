@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  background-color: rgb(233, 230, 230);
 }
 .product-container.dark{
   background-color: var(--dark-secondary);
@@ -20,6 +21,7 @@
   border-width: 1px;
   height:200px;
   padding: 20px;
+  background-color: rgb(233, 230, 230);
 }
 .description-container.dark {
   background-color: var(--dark-secondary);

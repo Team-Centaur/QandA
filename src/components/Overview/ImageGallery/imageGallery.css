@@ -7,7 +7,7 @@
   /* align-items: flex-start;
   gap: 1rem; */
   padding:50px;
-  background: rgb(227, 226, 226);
+  background: rgb(233, 230, 230);
 }
 .image-gallery-container.dark, .expanded-view.dark {
   background-color: var(--dark-secondary);
