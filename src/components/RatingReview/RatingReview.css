@@ -39,7 +39,7 @@
 }
 
 .reviewsListColumn {
-  width: 50vw;
+  width: 60vw;
   max-width: 900px;
   max-height: 90vh;
   grid-column: 2;
