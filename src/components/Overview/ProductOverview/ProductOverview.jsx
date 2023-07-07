@@ -68,7 +68,6 @@ const ProductOverview = ({ dataObj,currentStyle, setCurrentStyle }) => {
     }
   }
   if (dataObj) {
-    console.log(dataObj);
     return (
       <>
         <div className="product-overview-container">
