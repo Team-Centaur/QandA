@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 // import ActionBtnStar from './ActionBtn/ActionBtnStar.jsx';
 import CardCarousel from './CardCarousel/CardCarousel.jsx';
+import { ThreeDots } from 'react-loader-spinner';
 import { each } from 'underscore';
 import { FaRegStar } from 'react-icons/fa6';
 
@@ -35,6 +36,7 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
       .then((data) => {
         setOutgoingStyles(data);
         setStyles(data.results);
+        // setStyles(null);
       })
       .catch((err) => {
         console.error(`There was an error getting product styles: ${err}`);
@@ -63,7 +65,27 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
 
   /// /////////// CONDITIONAL RENDERING & LOADING STATE //////////////
   if (!styles) {
-    return <div className="items-comp--card">Loading...</div>;
+    return (
+      <div
+        className="items--card"
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <ThreeDots
+          height="80"
+          width="80"
+          radius="9"
+          color={currCtx.currTheme === 'dark' ? '#fff' : '#000'}
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          wrapperClassName=""
+          visible={true}
+        />
+      </div>
+    );
   }
 
   let itemStyle = {};
