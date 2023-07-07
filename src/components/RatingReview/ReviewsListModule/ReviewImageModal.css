@@ -1,25 +1,64 @@
-.reviewImageModal {
-  position: 'fixed';
-  top: '50%';
-  left: '50%';
-  transform: 'translate(-50%, -50%)';
-  background-color: 'white';
-  padding: '10px';
-  z-index: 2001;
-};
+/*
+// Styling borrowed from QuesAnswer
 
-.reviewModalOverlay {
-  position: 'fixed';
+.overlay {
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: 'rgba(0, 0, 0, 0.9)';
+  background-color: rgb(0, 0, 0, .8);
+  z-index: 1000;
+}
+
+.imageModal {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFF;
+  padding: 3rem;
+  z-index: 1000;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.imageClose {
+  align-self: flex-end;
+}
+
+.imageModal img {
+  object-fit: contain;
+  overflow: hidden;
+}
+
+*/
+
+
+/*
+// OG Styling that didn't work
+.reviewImageModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  max-height: 80vh;
+  min-height: 80vw;
+  padding: 10px;
+  z-index: 2001;
+  overflow-y: hidden;
 };
 
-.reviewImageModal-img {
-  width: 100%;
-  max-width: 80vw;
-  height: auto;
-  max-height: 80vh;
-}
+.reviewModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2001;
+};
+*/

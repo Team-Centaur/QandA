@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import characteristicMeanings from '../characteristicMeanings.js';
 import './WriteReview.css';
 
-const CharacteristicInput = ({chara}) => {
+const CharacteristicInput = ({ chara, characteristicsInput, setCharacteristicsInput }) => {
   // create state for current button selected
   // create object defining selection meaning (by characteristic)
   // render meaning by title
@@ -14,10 +14,11 @@ const CharacteristicInput = ({chara}) => {
     setSelection(value);
     let selectionMeaning = characteristicMeanings[chara[0]][value - 1];
     setMeaning(selectionMeaning);
+    setCharacteristicsInput(Object.defineProperty(characteristicsInput, chara[1].id, {value, configurable: true}));
   };
 
   return (
-    <div className={chara[0]} key={chara[0]}>
+    <div className={chara[0]} key={chara[0]} data-testid='characteristicInput'>
       <h4>{chara[0]}</h4>
       <div>{meaning}</div>
       <div className='chara'>

@@ -4,7 +4,7 @@ import SortOrderButton from './SortOrderButton.jsx';
 import './ReviewsListModule.css';
 
 const ReviewsList = ({ reviews, page, loadMoreReviews, allReviewsLoaded, changeSortOrder }) => (
-  <div className='reviewsComponent'>
+  <div className='reviewsComponent' data-testid='reviewsList'>
     <h1> REVIEWS LIST </h1>
     <SortOrderButton changeSortOrder={changeSortOrder} />
     <div className='reviewsListModule reviewsList'>

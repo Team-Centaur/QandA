@@ -12,41 +12,49 @@ import './imageGallery.css'
         return url;
       })
 
-const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles, currentStyle, setCurrentStyle}) => {
+const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentStyle}) => {
   const [thumbNailImages, setThumbNailImages] = useState(null);
+  const [mainImages, setMainImages] = useState(null);
   const [currMainImage, setCurrMainImage] = useState(null);
   const [isSelected, setIsSelected] = useState(null);
   const thumbNailContainer = useRef(null);
   const thumbNailImagesRef = useRef([]);
+  const [stylesIdArray, setStylesIdArray] = useState(null);
   const [currIndex, setCurrIndex] = useState(0);
 
  ///////********USE EFFECT*****/////////
+
   useEffect(()=> {
     if(currStyles) {
-      const images = currStyles.results.map(({photos}) => {
-        const obj = photos[0]; // as the object of images
-        const{url} = obj;
-        return url;
+      // find the index of current style
+      const idArray = currStyles.results.map((style) => {
+        return style.style_id
       })
-      setThumbNailImages(images);
+      setStylesIdArray(idArray);
+      console.log('Current Style',currentStyle);
+      const index = idArray.indexOf(currentStyle.style_id);
+      const {photos} = currStyles.results[index]
+      const urls = photos.map((photo) => {
+        return photo.url;
+      })
+      const thumbnailUrls = photos.map((photo) => {
+        return photo.thumbnail_url;
+      })
+      setThumbNailImages(thumbnailUrls);
+      setMainImages(urls);
+      setCurrMainImage(urls[0]);
+      setIsSelected(urls[0]);
+      setCurrIndex(0);
     }
-  }, [currStyles])
+  }, [currStyles, currentStyle])
 
-  useEffect(() => {
-    setCurrMainImage(currentStyle.photos[0].url);
-    setIsSelected(currentStyle.photos[0].url);
-    if(thumbNailImages) {
-      console.log('here');
-      const index = thumbNailImages.indexOf(currentStyle.photos[0].url);
-      console.log(index);
-      setCurrIndex(index);
-    }
-  }, [currentStyle])
+
+
   //////////****FUNCTION HANDLERS***/////////
   const onThumbnailImageHandler = (image) =>{
-    setCurrMainImage(image);
+    const selectedIndex = thumbNailImages.indexOf(image)
+    setCurrMainImage(mainImages[selectedIndex]);
     setIsSelected(image);
-    const selectedIndex = thumbNailImages.indexOf(image);
     setCurrIndex(selectedIndex)
   }
 
@@ -69,63 +77,63 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles
   }
   const onLeftArrowHandler = () => {
     if(currIndex >0) {
-      console.log(currIndex);
       const index = currIndex-1;
-      const currImage = thumbNailImages[index];
+      const currThumbnailImage = thumbNailImages[index];
+      const currentMainImage = mainImages[index];
       const currRef = thumbNailImagesRef.current[index];
-      const distanceFromParent = currRef.offsetTop; // GIVES THE DISTANCE FROM TOP OF PARENT CONTAINER
-      const containerPreviousPosition = thumbNailContainer.current.scrollTop;
-      console.log('containerPreviousPosition', containerPreviousPosition);
-      let scrollPosition = containerPreviousPosition - 40.090909004211426;
-      console.log('scrollPosition', scrollPosition);
-      if(scrollPosition < 0) {
-        scrollPosition = 0;
+      const container = thumbNailContainer.current;
+      if(container && container.scrollTo) {
+        const distanceFromParent = currRef.offsetTop; // GIVES THE DISTANCE FROM TOP OF PARENT CONTAINER
+        const containerPreviousPosition = thumbNailContainer.current.scrollTop;
+        let scrollPosition = containerPreviousPosition - 40.090909004211426;
+        if(scrollPosition < 0) {
+          scrollPosition = 0;
+        }
+        thumbNailContainer.current.scrollTo({
+          top:scrollPosition,
+          behavior:'smooth'
+        })
       }
-      thumbNailContainer.current.scrollTo({
-        top:scrollPosition,
-        behavior:'smooth'
-      })
-      setCurrMainImage(currImage);
-      setIsSelected(currImage);
+      setCurrMainImage(currentMainImage);
+      setIsSelected(currThumbnailImage);
       setCurrIndex(index);
     }
   }
   const  onRightArrowHandler = () => {
     if(currIndex < thumbNailImages.length-1) {
-      console.log(currIndex);
+
       const index = currIndex+1;
-      const currImage = thumbNailImages[index];
+      const currThumbnailImage = thumbNailImages[index];
+      const currentMainImage = mainImages[index];
       const currRef = thumbNailImagesRef.current[index];
-      const containerPreviousPosition = thumbNailContainer.current.scrollTop;
-      let scrollPosition = containerPreviousPosition + 40.090909004211426;
-      const scrollHeight = thumbNailContainer.current.scrollHeight - (thumbNailContainer.current.clientHeight - 20);
-      console.log('CLIENT HEIGHT', thumbNailContainer.current.clientHeight);
-      console.log('Actual SCROLL HEIGHT', thumbNailContainer.current.scrollHeight );
-      console.log('scroll height', scrollHeight);
-      console.log('PRE', scrollPosition);
-      // scrollHeight gives height of items in div together, clientHeight only gives heigh of visible including padding.
-      scrollPosition = (scrollPosition> scrollHeight) ? scrollHeight: scrollPosition;
-      console.log('scroll position', scrollPosition)
-      thumbNailContainer.current.scrollTo({
-        top:scrollPosition,
-        behavior:'smooth'
-      })
-      setCurrMainImage(currImage);
-      setIsSelected(currImage);
+      const container = thumbNailContainer.current;
+      if(container && container.scrollTo) {
+        const containerPreviousPosition = thumbNailContainer.current.scrollTop;
+        let scrollPosition = containerPreviousPosition + 40.090909004211426;
+        const scrollHeight = thumbNailContainer.current.scrollHeight - (thumbNailContainer.current.clientHeight - 20);
+        // scrollHeight gives height of items in div together, clientHeight only gives heigh of visible including padding.
+        scrollPosition = (scrollPosition> scrollHeight) ? scrollHeight: scrollPosition;
+        thumbNailContainer.current.scrollTo({
+          top:scrollPosition,
+          behavior:'smooth'
+        })
+      }
+      setCurrMainImage(currentMainImage);
+      setIsSelected(currThumbnailImage);
       setCurrIndex(index);
     }
 
   }
+
  ////////*****RENDERING*****/////////
   if(thumbNailImages && currMainImage) {
-    console.log(expandedView);
     return (
       <>
-        <div className={expandedView? "expanded-view" :"image-gallery-container"} >
+        <div data-testid= "image-gallery-container" className={expandedView? "expanded-view" :"image-gallery-container"} >
           <div className ={expandedView? "expanded-arrows-plus-container": "arrows-plus-thumbnails"}>
-            {thumbNailImages.length >=7 && <AiOutlineArrowUp onClick = {onUpClickHandler} /> }
+            {thumbNailImages.length >=7 && <AiOutlineArrowUp data-testid = 'up-arrow' onClick = {onUpClickHandler} /> }
 
-            <ul className="thumbnail-images-container" ref = {thumbNailContainer}>
+            <ul data-testid = 'thumbnail-container' className="thumbnail-images-container" ref = {thumbNailContainer}>
               {thumbNailImages.map((image, index) => {
                 return(
                   <ThumbNailImage
@@ -138,14 +146,14 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currItem, currStyles
                   )
               })}
             </ul>
-            {thumbNailImages.length >=7 &&<AiOutlineArrowDown onClick = {onDownClickHandler}/>}
+            {thumbNailImages.length >=7 &&<AiOutlineArrowDown data-testid ="down-arrow" onClick = {onDownClickHandler}/>}
           </div>
           <div className="main-image-container" >
-            <AiOutlineArrowLeft className ="left-arrow"  onClick ={onLeftArrowHandler}  />
-            <img src ={currMainImage} className={expandedView? "expanded-main-image":"main-image"} />
-            <AiOutlineArrowRight className= "right-arrow" onClick = {onRightArrowHandler}/>
+            <AiOutlineArrowLeft data-testid ="left-arrow" className ="left-arrow"  onClick ={onLeftArrowHandler}  />
+            <img data-testid = "main-image" src ={currMainImage} className={expandedView? "expanded-main-image":"main-image"} loading ="lazy" />
+            <AiOutlineArrowRight data-testid ="right-arrow" className= "right-arrow" onClick = {onRightArrowHandler}/>
           </div>
-          <BsFullscreen onClick={onExpandedViewHandler} className = "fullscreen-icon"/>
+          <BsFullscreen data-testid = "fullscreen-icon" onClick={onExpandedViewHandler} className = "fullscreen-icon"/>
         </div>
       </>
     )

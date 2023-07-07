@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RecommendInput = () => (
+const RecommendInput = ({ setRecommendInput }) => (
   <>
     <h4>Do you recommend this product?</h4>
     <input
@@ -9,7 +9,7 @@ const RecommendInput = () => (
       value="yes"
       name="recommended"
       defaultChecked={true}
-      // onChange={(e) => console.log(e.target.value)}
+      onChange={(e) => setRecommendInput(e.target.value)}
       required
     />
     <label htmlFor="recYes"> Yes </label>

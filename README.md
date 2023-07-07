@@ -51,11 +51,11 @@ This application is built using the following technologies:
 
 ## Authors
 
-
 [Loren Johnson](https://github.com/L-ren)
 
-
 Girijesh Thodupunuri,
+
+[Tim Engle](https://github.com/TimEngleSF)
 
 
 ## License
