@@ -55,7 +55,7 @@ const Answer = ({ answer }) => {
     <div className="answer">
       <p className="answer-body">A: {answer.body}</p>
       {answer.photos.map((photo) => (
-          <img className="image-thumbnail" src={photo.url} key={photo.id} onClick={() => imageOnClickHandler(photo)} />
+          <img className="image-thumbnail" src={photo.url} key={photo.id} loading="lazy" onClick={() => imageOnClickHandler(photo)} />
       ))}
       {isImageModal && <ImageModal isImageModal={isImageModal} setImageModal={setIsImageModal} photo={currentPhoto} />}
       <div className="answer-info">
