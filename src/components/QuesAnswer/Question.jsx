@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { v4 } from 'uuid';
 import Answer from './Answer.jsx';
 import AnswerQuestion from './AnswerQuestion.jsx';
 import './Question.css';
+import CurrContext from '../../store/curr-item-context.jsx';
 
 const Question = ({ question, product }) => {
   const [answers, setAnswers] = useState([]);
@@ -13,6 +14,8 @@ const Question = ({ question, product }) => {
   const [isQuestionHelpfulClicked, setIsQuestionHelpfulClicked] = useState(false);
   const [isQuestionReportedClicked, setIsQuestionReportedClicked] = useState(false);
   const [questionHelpfulness, setQuestionHelpfulness] = useState(question.question_helpfulness);
+
+  const curContext = useContext(CurrContext);
 
   const options = {
     headers: {
@@ -75,7 +78,7 @@ const Question = ({ question, product }) => {
   };
 
   return (
-    <div className="question" data-testid="qaQuestionTest">
+    <div className={`question ${curContext.currTheme}`} data-testid="qaQuestionTest">
       <p className="question-body">Q: {question.question_body}</p>
       <div className="question-options">
         <div className="question-helpful-option">
