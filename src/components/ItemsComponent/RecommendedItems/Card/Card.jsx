@@ -110,7 +110,10 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
 
   /// /////////// JSX //////////////
   return (
-    <li className={`items--card ${currCtx.currTheme}`} onClick={clickHandler}>
+    <li
+      className={`items--card recommended ${currCtx.currTheme}`}
+      onClick={clickHandler}
+    >
       {/* If there is no photo url, display gray background with text */}
       {!imageUrl && (
         <div className="items--card_img">
