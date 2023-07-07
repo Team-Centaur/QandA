@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import dayjs from 'dayjs';
 import axios from 'axios';
 import ImageModal from './ImageModal.jsx';
 import './Answer.css';
+import CurrContext from '../../store/curr-item-context.jsx';
 
 const Answer = ({ answer }) => {
   const [answerHelpfulness, setAnswerHelpfulness] = useState(answer.helpfulness);
@@ -11,6 +12,8 @@ const Answer = ({ answer }) => {
   const [isImageModal, setIsImageModal] = useState(false);
   const [currentPhoto, setCurrentPhoto] = useState(null);
   const date = dayjs(answer.date).format('MMMM DD, YYYY')
+
+  const curContext = useContext(CurrContext);
 
   const options = {
     headers: {
@@ -52,7 +55,7 @@ const Answer = ({ answer }) => {
   };
 
   return (
-    <div className="answer">
+    <div className={`answer ${curContext.currTheme}`}>
       <p className="answer-body">A: {answer.body}</p>
       {answer.photos.map((photo) => (
           <img className="image-thumbnail" src={photo.url} key={photo.id} loading="lazy" onClick={() => imageOnClickHandler(photo)} />
