@@ -96,12 +96,14 @@ const OutfitItems = () => {
 
   ////////////// RENDER ELEMENTS //////////////
   const renderAddItemButton = () => (
-    <button
-      className={`items-comp--outfit-add_btn ${currCtx.currTheme}`}
-      onClick={handleAddItem}
-    >
-      Add Item +
-    </button>
+    <li>
+      <button
+        className={`items-comp--outfit-add_btn ${currCtx.currTheme}`}
+        onClick={handleAddItem}
+      >
+        Add Item +
+      </button>
+    </li>
   );
 
   const renderCards = () =>

@@ -6,12 +6,14 @@ import './Answer.css';
 import CurrContext from '../../store/curr-item-context.jsx';
 
 const Answer = ({ answer }) => {
-  const [answerHelpfulness, setAnswerHelpfulness] = useState(answer.helpfulness);
+  const [answerHelpfulness, setAnswerHelpfulness] = useState(
+    answer.helpfulness
+  );
   const [isAnswerHelpfulClicked, setIsAnswerHelpfulClicked] = useState(false);
   const [isAnswerReportClicked, setIsAnswerReportClicked] = useState(false);
   const [isImageModal, setIsImageModal] = useState(false);
   const [currentPhoto, setCurrentPhoto] = useState(null);
-  const date = dayjs(answer.date).format('MMMM DD, YYYY')
+  const date = dayjs(answer.date).format('MMMM DD, YYYY');
 
   const curContext = useContext(CurrContext);
 
@@ -25,11 +27,16 @@ const Answer = ({ answer }) => {
   const helpfulOnClickHandler = () => {
     setIsAnswerHelpfulClicked(true);
     if (!isAnswerHelpfulClicked) {
-      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${answer.answer_id}/helpful`, {}, options)
-        .then(response => {
-          setAnswerHelpfulness(answerHelpfulness+1)
+      axios
+        .put(
+          `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${answer.answer_id}/helpful`,
+          {},
+          options
+        )
+        .then((response) => {
+          setAnswerHelpfulness(answerHelpfulness + 1);
         })
-        .catch(err => {
+        .catch((err) => {
           setIsAnswerHelpfulClicked(false);
           console.log(err);
         });
@@ -39,9 +46,14 @@ const Answer = ({ answer }) => {
   const reportOnClickHandler = () => {
     setIsAnswerReportClicked(true);
     if (!isAnswerReportClicked) {
-      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${answer.answer_id}/report`, {}, options)
-        .then(response => console.log(response))
-        .catch(err => {
+      axios
+        .put(
+          `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${answer.answer_id}/report`,
+          {},
+          options
+        )
+        .then((response) => console.log(response))
+        .catch((err) => {
           setIsAnswerReportClicked(false);
           console.log(err);
         });
@@ -58,9 +70,23 @@ const Answer = ({ answer }) => {
     <div className={`answer ${curContext.currTheme}`}>
       <p className="answer-body">A: {answer.body}</p>
       {answer.photos.map((photo) => (
-          <img className="image-thumbnail" src={photo.url} key={photo.id} loading="lazy" onClick={() => imageOnClickHandler(photo)} />
+        <img
+          className="image-thumbnail"
+          src={photo.url}
+          key={photo.id}
+          loading="lazy"
+          width="4rem"
+          height="4rem"
+          onClick={() => imageOnClickHandler(photo)}
+        />
       ))}
-      {isImageModal && <ImageModal isImageModal={isImageModal} setImageModal={setIsImageModal} photo={currentPhoto} />}
+      {isImageModal && (
+        <ImageModal
+          isImageModal={isImageModal}
+          setImageModal={setIsImageModal}
+          photo={currentPhoto}
+        />
+      )}
       <div className="answer-info">
         <p className="username">{answer.answerer_name}</p>
         <p className="date">{date}</p>
@@ -68,7 +94,9 @@ const Answer = ({ answer }) => {
       <div className="answer-options">
         <div className="answer-helpful-option">
           <p>Helpful?</p>
-          <button type="submit" onClick={helpfulOnClickHandler}>Yes ({answerHelpfulness})</button>
+          <button type="submit" onClick={helpfulOnClickHandler}>
+            Yes ({answerHelpfulness})
+          </button>
         </div>
         <div className="answer-report-option">
           <p>Report?</p>
