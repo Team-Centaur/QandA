@@ -27,6 +27,7 @@ const ImageGallery = ({
   const [stylesIdArray, setStylesIdArray] = useState(null);
   const [currIndex, setCurrIndex] = useState(0);
   const currCtx = useContext(CurrContext);
+
   ///////********USE EFFECT*****/////////
 
   useEffect(() => {
@@ -171,12 +172,9 @@ const ImageGallery = ({
                 );
               })}
             </ul>
-            {thumbNailImages.length >= 7 && (
-              <AiOutlineArrowDown
-                data-testid="down-arrow"
-                onClick={onDownClickHandler}
-              />
-            )}
+
+            {thumbNailImages.length >=7 &&<AiOutlineArrowDown data-testid ="down-arrow" onClick = {onDownClickHandler}/>}
+    
           </div>
           <div className="main-image-container">
             <AiOutlineArrowLeft
