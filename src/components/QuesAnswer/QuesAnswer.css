@@ -7,7 +7,7 @@
 
 .display {
   overflow: scroll;
-  height: 90vh;
+  max-height: 90vh;
 }
 
 .display::-webkit-scrollbar {
