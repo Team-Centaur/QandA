@@ -11,12 +11,6 @@ import { BsFullscreen } from 'react-icons/bs';
 import CurrContext from '../../../store/curr-item-context.jsx';
 import './imageGallery.css';
 
-const dummyImages = dummyData.results.map(({ photos }) => {
-  const obj = photos[0]; // as the object of images
-  const { url } = obj;
-  return url;
-});
-
 const ImageGallery = ({
   expandedView,
   onExpandedViewHandler,
