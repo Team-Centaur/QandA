@@ -32,7 +32,6 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
         return style.style_id
       })
       setStylesIdArray(idArray);
-      console.log('Current Style',currentStyle);
       const index = idArray.indexOf(currentStyle.style_id);
       const {photos} = currStyles.results[index]
       const urls = photos.map((photo) => {
@@ -128,7 +127,6 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
 
  ////////*****RENDERING*****/////////
   if(thumbNailImages && currMainImage) {
-    console.log()
     return (
       <>
         <div data-testid= "image-gallery-container" className={expandedView? `expanded-view ${currCtx.currTheme}` :`image-gallery-container ${currCtx.currTheme} `} >
