@@ -23,7 +23,19 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
   const [stylesIdArray, setStylesIdArray] = useState(null);
   const [currIndex, setCurrIndex] = useState(0);
   const currCtx = useContext(CurrContext);
+  const [isMainImageLoaded, setIsMainImageLoaded] = useState(false);
  ///////********USE EFFECT*****/////////
+
+ useEffect(() => {
+  if (currMainImage) {
+    const mainImage = new Image();
+    mainImage.src = currMainImage;
+
+    mainImage.addEventListener('load', () => {
+      setIsMainImageLoaded(true);
+    });
+  }
+}, [currMainImage]);
 
   useEffect(()=> {
     if(currStyles) {
@@ -150,7 +162,13 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
           </div>
           <div className="main-image-container" >
             <AiOutlineArrowLeft data-testid ="left-arrow" className ="left-arrow"  onClick ={onLeftArrowHandler}  />
-            <img data-testid = "main-image" src ={currMainImage} className={expandedView? "expanded-main-image":"main-image"} loading ="lazy" />
+            {currMainImage && isMainImageLoaded && (
+              <img
+                data-testid="main-image"
+                src={currMainImage}
+                className={expandedView ? "expanded-main-image" : "main-image"}
+              />
+            )}
             <AiOutlineArrowRight data-testid ="right-arrow" className= "right-arrow" onClick = {onRightArrowHandler}/>
           </div>
           <BsFullscreen data-testid = "fullscreen-icon" onClick={onExpandedViewHandler} className = "fullscreen-icon"/>
@@ -164,3 +182,7 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
 }
 export default ImageGallery;
 
+
+
+
+{/* <img data-testid = "main-image" src ={currMainImage} className={expandedView? "expanded-main-image":"main-image"} loading ="lazy" /> */}
