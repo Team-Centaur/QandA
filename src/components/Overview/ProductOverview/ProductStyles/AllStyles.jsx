@@ -16,6 +16,7 @@ const AllStyles = ({ styles, setCurrentStyle, setOnSale }) => {
     style.sale_price ? setOnSale(true) : setOnSale(false);
   };
   if (styles) {
+
     return (
       <div className="all-styles-container">
         {styles.map((style) => {
@@ -25,7 +26,7 @@ const AllStyles = ({ styles, setCurrentStyle, setOnSale }) => {
               style={style}
               onStyleHandler={onStyleHandler}
               isSelected={isSelected}
-
+              styleName = {style.name}
             />
           );
         })}

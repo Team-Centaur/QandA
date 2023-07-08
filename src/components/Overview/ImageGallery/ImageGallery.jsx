@@ -29,6 +29,7 @@ const ImageGallery = ({
   const [isSelected, setIsSelected] = useState(null);
   const thumbNailContainer = useRef(null);
   const thumbNailImagesRef = useRef([]);
+  const [styleName, setStyleName] = useState(null);
   const [stylesIdArray, setStylesIdArray] = useState(null);
   const [currIndex, setCurrIndex] = useState(0);
   const currCtx = useContext(CurrContext);
@@ -50,6 +51,7 @@ const ImageGallery = ({
         return photo.thumbnail_url;
       });
       setThumbNailImages(thumbnailUrls);
+      setStyleName(name);
       setMainImages(urls);
       setCurrMainImage(urls[0]);
       setIsSelected(thumbnailUrls[0]);
