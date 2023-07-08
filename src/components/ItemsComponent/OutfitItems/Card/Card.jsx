@@ -73,7 +73,7 @@ function Card({ productData, fullProds, setFullProds }) {
           <FaRegCircleXmark
             color="black"
             className="items--card_img-icon"
-            role="close"
+            role="Close"
           />
 
           {/* <ActionBtnStar /> */}
