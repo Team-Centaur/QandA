@@ -36,7 +36,7 @@ const Stars = ({ avgRating, totalReviews }) => {
           offset={200}
           duration={500}
           className='read-reviews'
-        >{`Read all ${totalReviews} reviews(click!)`}</Link>
+        >{`Read all ${totalReviews} reviews`}</Link>
       </div>
     );
   }
