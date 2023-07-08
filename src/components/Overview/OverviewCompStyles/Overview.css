@@ -6,8 +6,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-
-  background-color: rgb(233, 230, 230);
+  background: var(--light-bg-gradient);
+  border-radius: var(--radius-outer);
 }
 .product-container.dark{
   background-color: var(--dark-secondary);
@@ -17,11 +17,12 @@
   max-width:1280px;
   margin: 0 auto;
   margin-top:1.875rem;
-  align-items: center;
-  border-style: solid;
-  border-width: .0625rem;
-  padding: 16px, 32px;
-  background-color: rgb(233, 230, 230);
+  padding-top:1rem;
+  padding-left:2rem;
+  padding-right:2rem;
+  padding-bottom: 1rem;
+  border-radius: var(--radius-outer);
+  background:var(--light-bg-gradient);
 }
 .description-container.dark {
   background-color: var(--dark-secondary);
