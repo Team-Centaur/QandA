@@ -51,3 +51,13 @@
   align-self: flex-end;
   margin-top: 1rem;
 }
+
+.answerQuestionForm ul {
+  display: flex;
+}
+
+.answerQuestionForm ul li img {
+  width: 4rem;
+  height: 4rem;
+  margin: 0 .1rem;
+}
