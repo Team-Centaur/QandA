@@ -37,7 +37,6 @@ function App() {
         getReviewMetadata(data.id).then((reviewData) => {
           setCurrReviewMeta(reviewData);
           setCurrAvgRating(getAvgRating(reviewData.ratings));
-          console.log();
         });
         return data;
       })
@@ -78,7 +77,6 @@ function App() {
   if (!currItem) {
     return loadingElement;
   }
-
   return (
     // Now all current Data can be pulled from this context,
     // First import CurrContext into the file from the store folder in ./src
