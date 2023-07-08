@@ -1,6 +1,6 @@
 import React, {useEffect, useState, forwardRef} from 'react';
 
-const ThumbNailImage =forwardRef(function ThumbNailImage({image, onThumbnailImageHandler, isSelected}, ref) {
+const ThumbNailImage =forwardRef(function ThumbNailImage({image, onThumbnailImageHandler, isSelected, styleName}, ref) {
   if(image) {
     return (
       <li data-testid="thumbnail-list" ref= {ref} onClick={(e) =>onThumbnailImageHandler(image) } className={isSelected ===image? "selected": "individual-thumbnail-image-container"}>
@@ -9,6 +9,7 @@ const ThumbNailImage =forwardRef(function ThumbNailImage({image, onThumbnailImag
         className="individual-thumbnail-image"
          src = {image}
          loading = "lazy"
+        alt =  {styleName}
         />
       </li>
     )
