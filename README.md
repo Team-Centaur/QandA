@@ -1,7 +1,7 @@
 # Project Title: FEC Uranus
 
 ## Description
-
+Our application is a dynamic, user-friendly e-commerce product page designed with the modern consumer in mind. It offers a comprehensive view of product details, related items, and user-generated content such as questions, answers, and reviews. Built with a focus on usability and interactivity, this application serves as a powerful tool for business professionals seeking to optimize their online retail presence. Explore our app to discover a seamless blend of commerce and community.
 
 ## Getting Started
 
@@ -60,14 +60,16 @@ This application is built using the following technologies:
 - [React](https://reactjs.org/): A JavaScript library for building user interfaces.
 - [Axios](https://axios-http.com/): Promise-based HTTP client for the browser and node.js.
 - [Fluent UI](https://developer.microsoft.com/en-us/fluentui): A collection of UX frameworks for creating beautiful, cross-platform apps that share code, design, and interaction behavior.
-- [Prop-Types](https://www.npmjs.com/package/prop-types): Runtime type checking for React props and similar objects.
 - [DayJS](https://day.js.org/): A minimalist JavaScript library for modern browsers with a largely Moment.js-compatible API.
+- [React Spinners](https://www.npmjs.com/package/react-spinners): A collection of loading spinners with React.js based on Halogen.
+- [React Icons](https://www.npmjs.com/package/react-icons): A collection of popular React icons.
+
 
 ## Authors
 
 [Loren Johnson](https://github.com/L-ren)
 
-Girijesh Thodupunuri,
+Girijesh Thodupunuri
 
 [Tim Engle](https://github.com/TimEngleSF)
 
