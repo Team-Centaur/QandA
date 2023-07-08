@@ -182,13 +182,11 @@ const ImageGallery = ({
           </div>
           <div className="main-image-container" >
             <AiOutlineArrowLeft data-testid ="left-arrow" className ="left-arrow"  onClick ={onLeftArrowHandler}  />
-            {currMainImage && isMainImageLoaded && (
               <img
                 data-testid="main-image"
                 src={currMainImage}
                 className={expandedView ? "expanded-main-image" : "main-image"}
               />
-            )}
             <AiOutlineArrowRight data-testid ="right-arrow" className= "right-arrow" onClick = {onRightArrowHandler}/>
           </div>
           <BsFullscreen
