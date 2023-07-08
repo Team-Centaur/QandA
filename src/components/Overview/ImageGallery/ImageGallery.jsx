@@ -27,12 +27,11 @@ const ImageGallery = ({
   const [stylesIdArray, setStylesIdArray] = useState(null);
   const [currIndex, setCurrIndex] = useState(0);
   const currCtx = useContext(CurrContext);
+
   ///////********USE EFFECT*****/////////
 
-
-
-  useEffect(()=> {
-    if(currStyles) {
+  useEffect(() => {
+    if (currStyles) {
       // find the index of current style
       const idArray = currStyles.results.map((style) => {
         return style.style_id;
