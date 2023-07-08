@@ -20,6 +20,7 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
   const [isSelected, setIsSelected] = useState(null);
   const thumbNailContainer = useRef(null);
   const thumbNailImagesRef = useRef([]);
+  const [styleName, setStyleName] = useState(null);
   const [stylesIdArray, setStylesIdArray] = useState(null);
   const [currIndex, setCurrIndex] = useState(0);
   const currCtx = useContext(CurrContext);
@@ -45,7 +46,7 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
       })
       setStylesIdArray(idArray);
       const index = idArray.indexOf(currentStyle.style_id);
-      const {photos} = currStyles.results[index]
+      const {photos, name} = currStyles.results[index]
       const urls = photos.map((photo) => {
         return photo.url;
       })
@@ -53,6 +54,7 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
         return photo.thumbnail_url;
       })
       setThumbNailImages(thumbnailUrls);
+      setStyleName(name);
       setMainImages(urls);
       setCurrMainImage(urls[0]);
       setIsSelected(thumbnailUrls[0]);
@@ -154,6 +156,7 @@ const ImageGallery = ({expandedView, onExpandedViewHandler, currStyles, currentS
                     isSelected={isSelected}
                     key = {`${image}-${index}`}
                     ref = {(el) => (thumbNailImagesRef.current[index] = el)}
+                    styleName= {styleName}
                   />
                   )
               })}
