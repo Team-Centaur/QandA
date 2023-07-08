@@ -126,7 +126,7 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
   /// /////////// STYLES //////////////
 
   const starStyle = {
-    color: '#f8f8f8',
+    color: 'var(--light-secondary)',
     fontSize: '1.5rem',
     zIndex: '2000',
     position: 'absolute',
@@ -148,7 +148,7 @@ function Card({ productID, setRelatedItemData, setOpenModal, styleType }) {
   };
 
   const carouselImgHoverStyle = {
-    backgroundImage: `linear-gradient(180deg, rgba(255,255,255,0) 35%, rgba(66,66,66,1) 100%),
+    backgroundImage: `linear-gradient(180deg, rgba(255,255,255,0) 35%,hsla(208, 100%, 97%, 1) 100%),
     url(${alternativeStyle})`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
