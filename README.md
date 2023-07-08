@@ -34,12 +34,26 @@ Then, navigate to your cloned repository by running:
 Inside the repository, install the necessary npm packages by running:
 ```npm install```
 
+Include a `.env` file with the included variables
+```
+REACT_APP_API_KEY = <your_api_key_>
+PORT = 3000
+```
+
 ### Running the application
 
-After installing the dependencies, you can now run your application by running:
+After installing the dependencies, you can now run the application in development mode using:
 ```npm run start```
 
-The application will then be accessible at `http://localhost:8080/`.
+The application will then be accessible at `http://localhost:3000/`.
+
+When ready for production the app can be built using:
+```npm run build```
+
+You can host the app using the included express.js server using:
+```npm run server-prod```
+
+The app will be hosted on port `3000`
 
 This application is built using the following technologies:
 
