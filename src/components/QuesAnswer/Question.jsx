@@ -101,7 +101,7 @@ const Question = ({ question, product }) => {
       <button type="submit" onClick={answerQuestionButtonClickHandler}>
         Answer this question
       </button>
-      <AnswerQuestion isAnswerQuestion={isAnswerQuestion} setIsAnswerQuestion={setIsAnswerQuestion} question={question} answers={answers} setAnswers={setAnswers} product={product} />
+      <AnswerQuestion isAnswerQuestion={isAnswerQuestion} setIsAnswerQuestion={setIsAnswerQuestion} question={question} answers={answers} setAnswers={setAnswers} product={product} setDisplayAnswers={setDisplayAnswers} />
     </div>
   );
 };

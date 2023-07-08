@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import axios from 'axios';
 import './AnswerQuestion.css';
 
-const AnswerQuestion = ({ isAnswerQuestion, setIsAnswerQuestion, question, answers, setAnswers, product }) => {
+const AnswerQuestion = ({ isAnswerQuestion, setIsAnswerQuestion, question, answers, setAnswers, product, setDisplayAnswers }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [answerBody, setAnswerBody] = useState('');
@@ -70,6 +70,7 @@ const AnswerQuestion = ({ isAnswerQuestion, setIsAnswerQuestion, question, answe
         axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question.question_id}/answers?page=${1}&count=${1000}`, options)
           .then(response => {
             setAnswers(response.data.results);
+            setDisplayAnswers(response.data.results.slice(0, 2));
             answerQuestionCloseHandler();
           })
       })
