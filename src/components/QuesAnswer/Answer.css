@@ -1,6 +1,6 @@
 .image-thumbnail {
-  max-width: 4rem;
-  max-height: 4rem;
+  width: 4rem;
+  height: 4rem;
 }
 
 .answer-body {
