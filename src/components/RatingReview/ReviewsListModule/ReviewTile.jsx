@@ -61,10 +61,10 @@ const ReviewTile = ({ review }) => {
 
   return (
     <div className={`reviewTile ${currCtx.currTheme}`} data-testid='reviewTile'>
-      <h3><Stars avgRating={rating} /></h3>
+      <span><Stars avgRating={rating} /></span>
       <div className="reviewDate">{formattedDate}</div>
       <div className="reviewSummary">
-        <h4>{summary}</h4>
+        <strong>{summary}</strong>
       </div>
       <div className="reviewBody">{reviewDisplay}</div>
       {showButton && (
@@ -85,7 +85,7 @@ const ReviewTile = ({ review }) => {
           ))}
       </div>
       <div className="reviewerName">
-        <h4>{reviewer_name}</h4>
+        <strong>{reviewer_name}</strong>
         {isVerified && <span> Verified Purchaser</span>}
       </div>
       {recommend && (
@@ -93,7 +93,7 @@ const ReviewTile = ({ review }) => {
       )}
       {response && (
         <div className="sellerResponse">
-          <h4>Response from Seller</h4>
+          <strong>Response from Seller</strong>
           {response}
         </div>
       )}

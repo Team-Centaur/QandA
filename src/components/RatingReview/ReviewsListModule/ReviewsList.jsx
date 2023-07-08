@@ -8,7 +8,7 @@ const ReviewsList = ({ reviews, page, loadMoreReviews, allReviewsLoaded, changeS
   const currCtx = useContext(CurrContext);
   return (
     <div className={`reviewsComponent ${currCtx.currTheme}`} data-testid='reviewsList'>
-      <h1> REVIEWS LIST </h1>
+      <h2> REVIEWS </h2>
       <SortOrderButton changeSortOrder={changeSortOrder} />
       <div className='reviewsListModule reviewsList'>
         {reviews.map((review) => <ReviewTile review={review} key={review.review_id} />)}

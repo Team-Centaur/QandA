@@ -16,7 +16,10 @@ const ImageThumbnail = ({ photo }) => {
 
   return (
     <>
-      <div style={thumbnailStyle} onClick={() => setOpenModal(true)}/>
+      <div style={thumbnailStyle} onClick={() => setOpenModal(true)}>
+        {/* added a transparent img element so that thumbnails are still recognised by screen readers */}
+        <img src={photo.url} alt='review image thumbnail' style={{opacity: '0', height: '100%'}}></img>
+      </div>
       {openModal && <ReviewImageModal onClose={() => setOpenModal(false)} photo={photo.url} />}
     </>
   );
