@@ -11,7 +11,7 @@ const ProductBreakdown = ({ characteristics }) => {
 
    return (
     <div className={`productBreakdown reviewsComponent ${currCtx.currTheme}`}data-testid='productBreakdown'>
-      <h1>Product Breakdown</h1>
+      <h2>Product Breakdown</h2>
       {charas.map((chara) => {
         let lowValue = characteristicMeanings[chara[0]][0];
         let highValue = characteristicMeanings[chara[0]][4];

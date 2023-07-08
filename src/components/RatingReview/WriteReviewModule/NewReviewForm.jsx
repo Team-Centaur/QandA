@@ -54,6 +54,7 @@ const NewReviewForm = ({ onClose, characteristics, product_id }) => {
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
+      onClose();
       const response = await axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`,
       {
         params: {
@@ -73,7 +74,7 @@ const NewReviewForm = ({ onClose, characteristics, product_id }) => {
 
       })
       console.log(response.data);
-      onClose();
+
     } catch (err) {
       console.log(err);
     }
