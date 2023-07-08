@@ -82,6 +82,7 @@ const AnswerQuestion = ({ isAnswerQuestion, setIsAnswerQuestion, question, answe
 
   const answerQuestionCloseHandler = () => {
     setIsAnswerQuestion(true);
+    setAnswerImages({});
     document.body.style.overflow = 'auto';
   };
 
@@ -122,6 +123,9 @@ const AnswerQuestion = ({ isAnswerQuestion, setIsAnswerQuestion, question, answe
           {answerBodyValid ? null : <p className="form-error">Enter an answer</p>}
           {Array.from({length: addImagesCount}, (v, i) => i).map(num => <input placeholder="Enter an image url" type="text" onChange={(event) => addImageOnChangeHandler(event, num)} />)}
           <button type="submit" onClick={addFileButtonOnClickHandler}>Add File</button>
+          <ul>
+            {Object.values(answerImages).map(image => <li><img src={image} width="4rem" height="4rem" /></li>)}
+          </ul>
           <button className="answerQuestionSubmit" type="submit" onClick={createAnswerHandler}>
             Submit
           </button>
