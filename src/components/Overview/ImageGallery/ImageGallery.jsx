@@ -192,8 +192,8 @@ const ImageGallery = ({
               data-testid="main-image"
               src={currMainImage}
               className={expandedView ? 'expanded-main-image' : 'main-image'}
+              loading="lazy"
             />
-
             <AiOutlineArrowRight
               data-testid="right-arrow"
               className="right-arrow"
@@ -213,3 +213,7 @@ const ImageGallery = ({
   }
 };
 export default ImageGallery;
+
+{
+  /* <img data-testid = "main-image" src ={currMainImage} className={expandedView? "expanded-main-image":"main-image"} loading ="lazy" /> */
+}
