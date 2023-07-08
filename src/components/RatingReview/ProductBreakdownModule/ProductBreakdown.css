@@ -1,5 +1,6 @@
 .productBreakdown {
   height: auto;
+  min-height: 350px;
   grid-column: 1;
   grid-row: 2;
   background-color: var(--light-main);
@@ -14,7 +15,7 @@
 .breakdownTile {
   background-color: var(--light-main);
   color: var(--light-text);
-  border-radius: 20px;
+  border-radius: var(--radius-outer);
   padding: 10px;
   margin: 10px;
 }

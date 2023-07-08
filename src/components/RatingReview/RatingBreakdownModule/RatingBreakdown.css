@@ -6,7 +6,7 @@
 }
 .starFilter {
   background-color: var(--light-main);
-  border-radius: 10px;
+  border-radius: var(--radius-outer);
   padding: 10px;
   margin: 10px;
   width: auto;

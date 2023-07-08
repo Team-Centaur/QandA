@@ -54,25 +54,24 @@ const NewReviewForm = ({ onClose, characteristics, product_id }) => {
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
+      console.log(characteristicsInput)
       onClose();
       const response = await axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`,
-      {
-        params: {
+        {params: {
           product_id,
-          rating: starRating,
+          rating: parseInt(starRating),
           summary: summaryInput,
           body: bodyInput,
           recommend: recommendInput,
           name: nickname,
           email: email,
-          photos: photos,
+          // photos: [],
           characteristics: characteristicsInput
-        },
-        headers: {
+        }},
+        {headers: {
           Authorization: apiKey
-        }
-
-      })
+        }}
+      )
       console.log(response.data);
 
     } catch (err) {

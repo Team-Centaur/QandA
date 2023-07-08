@@ -28,7 +28,7 @@
 
 
 .reviewsComponent {
-  border-radius: 20px;
+  border-radius: var(--radius-outer);
   padding: 25px;
   background-color: var(--light-secondary);
   color: var(--light-text);
