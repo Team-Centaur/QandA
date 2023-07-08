@@ -83,7 +83,8 @@
   width: 12rem;
   height: 22rem;
   flex-shrink: 0;
-  background: #e3e3e3;
+  background: var(--light-secondary);
+  color: var(--light-secondary-text);
   border-radius: 0.1875rem;
   border: none;
   box-shadow: rgba(60, 64, 67, 0.3) 0rem 0.0625rem 0.125rem 0rem,
@@ -98,7 +99,8 @@
 }
 
 .items-comp--outfit-add_btn:hover {
-  background-color: #b3b3b3;
+  /* background-color: #b3b3b3; */
+  background-color: var(--light-secondary-hover);
 }
 
 .items-comp--outfit-add_btn.dark:hover {
@@ -106,7 +108,8 @@
 }
 
 .items-comp--outfit-add_btn:active {
-  background-color: #a1a1a1;
+  /* background-color: #a1a1a1; */
+  background-color: var(--light-secondary-hover);
   box-shadow: rgba(60, 64, 67, 0.3) 0rem 0.03125rem 0.0625rem 0rem,
     rgba(60, 64, 67, 0.15) 0rem 0.0625rem 0.1875rem 0.0625rem;
   transform: translateY(2px);

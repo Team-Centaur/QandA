@@ -4,3 +4,6 @@ node_modules
 .gitignore
 coverage
 dist
+__tests__
+__mocks__
+*.test.js
