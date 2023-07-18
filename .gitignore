@@ -1,9 +1,2 @@
 node_modules
-.env
-.eslintrc.js
-.gitignore
-coverage
-dist
-__tests__
-__mocks__
-*.test.js
+*.csv
