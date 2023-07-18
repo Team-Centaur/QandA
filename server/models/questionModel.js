@@ -24,8 +24,8 @@ function convertCsv(csvFilePath, callback) {
     const convertedRows = rowsWithoutHeader.map(row => {
       const values = row.split(',');
 
-      const unixTimestamp = parseFloat(values[3]) * 1000;
-      const dateObject = isNaN(unixTimestamp) ? null : new Date(unixTimestamp);
+      const unixTimestamp = parseFloat(values[3]);
+      const dateObject = isNaN(unixTimestamp) ? null : new Date(unixTimestamp * 1000);
       const formattedDate = dateObject ? dateObject.toISOString() : '';
       values[3] = formattedDate;
 
@@ -63,7 +63,3 @@ function copyDataToDatabase(convertedData) {
   });
 }
 
-// Call the conversion function from convertCsv.js
-convertCsv('/Users/mac/Desktop/fec-uranus/Data/Question.csv', (convertedData) => {
-  copyDataToDatabase(convertedData);
-});
