@@ -37,7 +37,7 @@ Inside the repository, install the necessary npm packages by running:
 Include a `.env` file with the included variables
 ```
 REACT_APP_API_KEY = <your_api_key_>
-PORT = 3000
+PORT = 4000
 ```
 
 ### Running the application

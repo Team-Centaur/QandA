@@ -4,8 +4,11 @@ const compression = require('compression');
 const path = require('path');
 const morgan = require('morgan');
 
+const questionController = require('./controllers/questionController'); // Add this line to import the controller
+
 const app = express();
-const PORT = process.env.PORT || 3000;
+app.use(express.json())
+const PORT = process.env.PORT || 4000;
 
 function shouldCompress(req, res) {
   if (req.headers['x-no-compression']) {
@@ -17,8 +20,19 @@ function shouldCompress(req, res) {
   return compression.filter(req, res);
 }
 
+app.get('/tacos', (req, res) => {
+  res.send('you got tacos')
+})
+
+
+app.get('/api/questions', questionController.getAllQuestions);
+app.post('/api/questions', questionController.createQuestion);
+app.put('/api/questions/:questionId', questionController.updateQuestion);
+
 app.use(morgan('dev'));
 app.use(compression({ filter: shouldCompress }));
 app.use(express.static(path.join(__dirname, '../dist')));
 
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
